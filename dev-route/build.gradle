@@ -36,6 +36,11 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
 	implementation 'io.jsonwebtoken:jjwt-gson:0.11.2'
 
+	implementation 'org.seleniumhq.selenium:selenium-java:4.22.0'
+	implementation 'org.jsoup:jsoup:1.18.1'
+	implementation 'io.github.bonigarcia:webdrivermanager:5.9.1'
+	testImplementation("io.github.bonigarcia:webdrivermanager:5.9.1")
+
 	testImplementation 'io.rest-assured:rest-assured:5.3.1'
 }
 

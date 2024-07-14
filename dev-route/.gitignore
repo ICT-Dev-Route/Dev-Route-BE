@@ -38,6 +38,3 @@ out/
 
 ##  .idea ##
 ../.idea/
-
-## secret.properties
-application-secret.properties
