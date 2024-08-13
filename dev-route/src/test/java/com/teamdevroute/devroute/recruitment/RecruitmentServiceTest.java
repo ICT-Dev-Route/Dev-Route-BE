@@ -1,6 +1,7 @@
 package com.teamdevroute.devroute.recruitment;
 
 import com.teamdevroute.devroute.recruitment.domain.Recruitment;
+import com.teamdevroute.devroute.recruitment.dto.RecruitmentFindResponse;
 import com.teamdevroute.devroute.recruitment.service.RecruitmentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class RecruitmentServiceTest {
 
     @Test
     void search_develop_recruit() {
-        List<Recruitment> res = recruitmentService.findByType("backend");
+        List<RecruitmentFindResponse> res = recruitmentService.findByType("backend");
         assertThat(res.size()).isEqualTo(1);
     }
 }
