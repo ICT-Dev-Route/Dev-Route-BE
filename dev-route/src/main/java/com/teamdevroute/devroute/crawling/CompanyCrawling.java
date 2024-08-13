@@ -58,6 +58,11 @@ public class CompanyCrawling {
 
         webDriverUtil.getChromeDriver(URL);
         WebDriver driver = webDriverUtil.getDriver();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         // 정보를 담을 JSON
         JSONObject info = new JSONObject();
@@ -101,13 +106,17 @@ public class CompanyCrawling {
             for(WebElement element : driver.findElements(By.className("notranslate"))){
                 String data = element.getText();
                 enterpriseSalaries.add(data);
+                log.info("CompanyCrawling enterpriseSalaries: " + data);
             }
             for(WebElement element : driver.findElements(By.className("gfvalue"))) {
                 String data = element.getText();
                 enterpriseGrades.add(data);
+                log.info("CompanyCrawling enterpriseGrades: " + data);
             }
             for(WebElement element: driver.findElements(By.className("llogo"))){
+                String data=element.findElement(By.tagName("img")).getAttribute("src");
                 enterpriseLogo.add(element.findElement(By.tagName("img")).getAttribute("src"));
+                log.info("CompanyCrawling enterpriseLogo: " + data);
             }
 
             // 연봉 리스트의 0, 1은 더미 데이터라 삭제

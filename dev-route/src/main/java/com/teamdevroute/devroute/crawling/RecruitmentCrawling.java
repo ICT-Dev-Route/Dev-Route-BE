@@ -23,7 +23,7 @@ import java.util.List;
 public class RecruitmentCrawling {
 
     private final static int CRAWLING_RECRUIT_NUM_MAX = 10;
-    private final static String JUMPIT_URL = "https://www.jumpit.co.kr/positions?jobCategory=1&sort=rsp_rate";
+    private final static String JUMPIT_URL = "https://www.jumpit.co.kr/search?sort=relation&";
 
     private WebDriverUtil webDriverUtil;
     private RecruitmentCrawlingService recruitmentCrawlingService;
@@ -33,31 +33,25 @@ public class RecruitmentCrawling {
     }
 
     public List<CrawledRecruitmentDto> crawlingJUMPIT(List<String> enterpriseNames) {
-        webDriverUtil.getChromeDriver(JUMPIT_URL);
-        WebDriver driver = webDriverUtil.getDriver();
-
-        // 정보를 담을 JSON
-        JSONObject info = new JSONObject();
-
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        // 현재 페이지의 소스코드 가져오기
-        Document doc = Jsoup.parse(driver.getPageSource());
-
-        driver.manage().window().maximize();
 
         List<CrawledRecruitmentDto> crawledRecruitmentDtoList = new ArrayList<>(10);
-
         try {
 
             for (int i = 0; i < enterpriseNames.size(); i++) {
-                int idx;
-                WebElement input = driver.findElement(By.tagName("input"));
-                input.sendKeys(enterpriseNames.get(i));
+                webDriverUtil.getChromeDriver(JUMPIT_URL+ enterpriseNames.get(i));
+                WebDriver driver = webDriverUtil.getDriver();
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
-                driver.findElement(By.className("search_button")).click();
+
+                driver.manage().window().maximize();
+
 
                 Thread.sleep(100);
+                int idx = 0;
 
                 for (int j = 1; j <= CRAWLING_RECRUIT_NUM_MAX; j++) {
                     String css = "body > main > div > section.sc-c12e57e5-3.gjgpzi > section > div:nth-child(" + j + ") > a > div.sc-15ba67b8-0.kkQQfR > div > div";
@@ -69,7 +63,7 @@ public class RecruitmentCrawling {
                     }
 
                     String companyName = element.getText();
-                    log.info("회사 이름: " + companyName);
+                    log.info("RecruitmentCrawling CompanyName: " + companyName);
                     crawledRecruitmentDtoList.add(
                             CrawledRecruitmentDto.builder().companyName(companyName).build()
                     );
@@ -82,7 +76,7 @@ public class RecruitmentCrawling {
                     }
 
                     String title = element.getText();
-                    log.info("제목: " + title);
+                    log.info("RecruitmentCrawling Title: " + title);
                     crawledRecruitmentDtoList.get(idx++).setTitle(title);
                 }
 
@@ -99,7 +93,7 @@ public class RecruitmentCrawling {
 
                     ilList.forEach(e -> techList.add(e.getText()));
 
-                    log.info(techList.toString());
+                    log.info("RecruitmentCrawling TechList: "+techList.toString());
                     crawledRecruitmentDtoList.get(idx++).setTechList(techList);
                 }
 
@@ -112,7 +106,7 @@ public class RecruitmentCrawling {
                     WebElement ul = driver.findElement(By.cssSelector(css));
 
                     List<WebElement> ilList = ul.findElements(By.tagName("li"));
-                    log.info("il 크기: "+ ilList.size());
+                    log.info("RecruitmentCrawling Listsize: "+ ilList.size());
                     String area = ilList.get(0).getText();
                     String career = ilList.get(1).getText();
                     crawledRecruitmentDtoList.get(idx).setArea(area);
@@ -129,4 +123,3 @@ public class RecruitmentCrawling {
         return crawledRecruitmentDtoList;
     }
 }
-

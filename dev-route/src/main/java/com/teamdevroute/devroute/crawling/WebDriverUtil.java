@@ -23,11 +23,29 @@ public class WebDriverUtil {
     private WebDriver driver;
 
     public void getChromeDriver(String url) {
+        WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
+        setChromeOption(chromeOptions);
+
+        driver = new ChromeDriver(chromeOptions);
+
+        // 10초까지 기다려준다. 10초 안에 웹 화면이 표시되면 바로 다음 작업이 진행됨
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        Set<Cookie> cookies = driver.manage().getCookies();
+        for (Cookie cookie : cookies) {
+            driver.manage().addCookie(cookie);
+        }
+        driver.get(url);
+//        time.sleep(5)
+    }
+
+    private void setChromeOption(ChromeOptions chromeOptions) {
         chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--lang=ko");
         chromeOptions.addArguments("--no-sandbox");
         chromeOptions.addArguments("--disable-dev-shm-usage");
+        chromeOptions.addArguments("--disable-extensions");
+        chromeOptions.addArguments("--disable-gpu");  // gpu 비활성화
         //Cloudfare의 보안을 우회하는 코드
         //User-Agent는 웹 서버가 클라이언트의 브라우저 및 운영 체제 정보를 알 수 있게 해주는 문자열
         chromeOptions.addArguments("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
@@ -37,18 +55,6 @@ public class WebDriverUtil {
         chromeOptions.setExperimentalOption("useAutomationExtension", false);
         //Chrome이 자동화된 환경에서 실행되고 있다는 경고 메시지를 비활성화. enable-automation 스위치를 제외하여 브라우저에서 자동화가 감지되는 것을 막음
         chromeOptions.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-        chromeOptions.addArguments("--disable-gpu");  // gpu 비활성화
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver(chromeOptions);
-
-        // 10초까지 기다려준다. 10초 안에 웹 화면이 표시되면 바로 다음 작업이 진행됨
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
-        driver.get(url);
-        Set<Cookie> cookies = driver.manage().getCookies();
-        for (Cookie cookie : cookies) {
-            driver.manage().addCookie(cookie);
-        }
     }
 
     public void closeChromeDriver() {

@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class VideoController {
     private final VideoService videoService;
+    private final TechnologyStackService technologyStackService;
 
     //굳이 service단 까지 안가고 controller에서 처리함.
     private final TechnologyStackRepository technologyStackRepository;
 
-    public VideoController(VideoService videoService, TechnologyStackRepository technologyStackRepository) {
+    public VideoController(VideoService videoService, TechnologyStackService technologyStackService, TechnologyStackRepository technologyStackRepository) {
         this.videoService = videoService;
+        this.technologyStackService = technologyStackService;
         this.technologyStackRepository = technologyStackRepository;
     }
     @ResponseBody
@@ -28,7 +30,7 @@ public class VideoController {
     public String  fetchAndSaveYoutubeVideo() throws IOException {
         videoService.fetchAndSaveVideo();
         if(technologyStackRepository.count()==0)
-            initializeTechnologyStack();
+            technologyStackService.initializeTechnologyStack();
         return "Successfull FetchAndSave Videos!!";
     }
     @ResponseBody
@@ -48,13 +50,6 @@ public class VideoController {
     }
 
 
-    private void initializeTechnologyStack() {
-        for (TechnologyStackName value : TechnologyStackName.values()) {
-            technologyStackRepository.save(TechnologyStack.builder().
-                    name(String.valueOf(value))
-                    .count(0L).
-                    build());
-        }
-    }
+
 
 }

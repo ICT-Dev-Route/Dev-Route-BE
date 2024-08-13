@@ -1,6 +1,8 @@
 package com.teamdevroute.devroute.video;
 
+import com.teamdevroute.devroute.video.Repository.TechnologyStackRepository;
 import com.teamdevroute.devroute.video.Repository.VideoRepository;
+import com.teamdevroute.devroute.video.domain.TechnologyStack;
 import com.teamdevroute.devroute.video.domain.Videos;
 import com.teamdevroute.devroute.video.dto.LectureResponseDTO;
 import com.teamdevroute.devroute.video.dto.infrean.InfreanVideoDTO;
@@ -15,6 +17,7 @@ import com.teamdevroute.devroute.video.fetcher.YoutubeVideoFetcher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,28 +30,32 @@ import static com.teamdevroute.devroute.video.enums.PlatformName.*;
 
 @Service
 @Slf4j
+@Transactional
 public class VideoService {
 
     private final VideoRepository videoRepository;
     private final YoutubeVideoFetcher youtubeVideoFetcher;
     private final UdemyVideoFetcher udemyVideoFetcher;
     private final InfreanVideoFetcher infreanVideoFetcher;
+    private final TechnologyStackRepository technologyStackRepository;
 
 
     public VideoService(VideoRepository videoRepository, YoutubeVideoFetcher youtubeVideoFetcher,
-                        UdemyVideoFetcher udemyVideoFetcher, InfreanVideoFetcher infreanVideoFetcher) {
+                        UdemyVideoFetcher udemyVideoFetcher, InfreanVideoFetcher infreanVideoFetcher, TechnologyStackRepository technologyStackRepository) {
         this.videoRepository = videoRepository;
         this.youtubeVideoFetcher = youtubeVideoFetcher;
         this.udemyVideoFetcher = udemyVideoFetcher;
         this.infreanVideoFetcher = infreanVideoFetcher;
+        this.technologyStackRepository = technologyStackRepository;
     }
 
     //매주 토요일에 실행
-    @Scheduled(cron = "* * * * * 6",zone = "Asia/Seoul")
+    @Scheduled(cron = "* * * * * 6", zone = "Asia/Seoul")
     public void fetchAndSaveVideo() throws IOException {
-//        fetchAndSaveYoutubeVideos();
-//        fetchAndSaveUdemyVideos();
+        fetchAndSaveYoutubeVideos();
+        fetchAndSaveUdemyVideos();
         fetchAndSaveInfreanVideos();
+
     }
 
     public void fetchAndSaveYoutubeVideos() {
@@ -100,10 +107,10 @@ public class VideoService {
             String videoUrl = UDEMY_API_URL_FRONT_VIDEOID + course.getUrl();
             String title = course.getTitle();
             String thumbnailUrl = course.getImage_125_H();
-            Long price = course.getPrice().replaceAll("[^\\d]", "")==""? 0L
-            : Long.valueOf(course.getPrice().replaceAll("[^\\d]", ""));
+            Long price = course.getPrice().replaceAll("[^\\d]", "") == "" ? 0L
+                    : Long.valueOf(course.getPrice().replaceAll("[^\\d]", ""));
             log.info("UdemyFetching result: " + "thumnail: " + thumbnailUrl + " url: " + videoUrl +
-                    " title: " + title+" price: "+price);
+                    " title: " + title + " price: " + price);
             if (course.getUrl() != null && title != null && thumbnailUrl != null && price != null) {
                 videoRepository.save(new UdemyVideoDTO(videoUrl, title, thumbnailUrl, price).toEntity(
                         String.valueOf(Udemy), String.valueOf(techStack), 0L, ++rank));
@@ -122,11 +129,12 @@ public class VideoService {
                     String.valueOf(techStack), 0L, ++rank));
         }
     }
+
     public List<LectureResponseDTO> findLectureListByPlatformNameAndTechStack(
-            String platformName,String techStack){
+            String platformName, String techStack) {
         List<Videos> videos = videoRepository.findByPlatformNameAndTeckStack(platformName, techStack);
         return videos.stream()
-                .map(video -> new LectureResponseDTO(video.getUrl(), video.getTitle(), video.getThumnail_url(),video.getPrice(), video.getPlatformName()))
+                .map(video -> new LectureResponseDTO(video.getUrl(), video.getTitle(), video.getThumnail_url(), video.getPrice(), video.getPlatformName()))
                 .collect(Collectors.toList());
     }
 
@@ -135,3 +143,4 @@ public class VideoService {
                 .orElseThrow(VideoNotFounException::new);
     }
 }
+
