@@ -114,9 +114,14 @@ public class UserController {
 
     @GetMapping("/login/test")
     public ResponseEntity<String> loginTest(@AuthenticationPrincipal CustomUserDetails userDetails) throws IOException {
-
         LoginUserInfo user = userDetails.getUser();
         System.out.println("user = " + user.toString());
         return new ResponseEntity<>("유저가 로그인되었습니다.", HttpStatus.OK);
+    }
+
+    @GetMapping("/mypage")
+    public ResponseEntity readMyPage(@AuthenticationPrincipal CustomUserDetails userDetails){
+        LoginUserInfo user = userDetails.getUser();
+        return ResponseEntity.ok(userService.readMyPage(user.getId()));
     }
 }
