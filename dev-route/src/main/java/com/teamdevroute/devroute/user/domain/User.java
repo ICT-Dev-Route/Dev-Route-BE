@@ -57,7 +57,7 @@ public class User extends BaseTimeEntity {
     @Size(min = 1, max = 10, message = "목표는 1 ~ 10자 이여야 합니다.")
     private String goal_info;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Bookmark bookmark;
 
     @Builder
