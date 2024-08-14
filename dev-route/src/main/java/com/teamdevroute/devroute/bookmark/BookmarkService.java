@@ -1,18 +1,17 @@
 package com.teamdevroute.devroute.bookmark;
 
 import com.teamdevroute.devroute.company.service.CompanyService;
-import com.teamdevroute.devroute.recruitment.service.RecruitmentService;
+import com.teamdevroute.devroute.global.exception.UserNotFoundException;
 import com.teamdevroute.devroute.roadmap.RoadmapService;
+import com.teamdevroute.devroute.user.UserRepository;
 import com.teamdevroute.devroute.user.UserService;
 import com.teamdevroute.devroute.user.domain.User;
 import com.teamdevroute.devroute.video.TechnologyStackService;
 import com.teamdevroute.devroute.video.VideoService;
-import com.teamdevroute.devroute.video.domain.TechnologyStack;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 
 @Slf4j
@@ -27,7 +26,7 @@ public class BookmarkService {
     private final CompanyService companyService;
     private final RoadmapService roadmapService;
     private final VideoService videoService;
-    private final TechnologyStackService technologyStackService;
+    private final UserRepository userRepository;
 
     public void updateBookmark(BookmarkUpdateRequest request) {
         User user = userService.findByUserId(request.getUserId());
@@ -66,5 +65,27 @@ public class BookmarkService {
         log.info("findBookmarkByType() : {}", user.getEmail());
 
         return user.getBookmark();
+    }
+
+    public void deleteBookmark(Long id, BookmarkDeleteRequest request) {
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        log.info("deleteBookmark() : {}", user.getEmail());
+
+        Bookmark bookmark = user.getBookmark();
+        String type = request.getType();
+
+        switch (type) {
+            case "company":
+                bookmark.removeCompany(request.getId());
+                break;
+            case "video":
+                bookmark.removeVideo(request.getId());
+                break;
+            case "roadmap":
+                bookmark.removeRoadmap(request.getId());
+                break;
+        }
+
+        bookmarkRepository.save(bookmark);
     }
 }
