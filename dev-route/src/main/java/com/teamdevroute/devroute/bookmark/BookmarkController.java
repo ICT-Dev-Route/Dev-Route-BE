@@ -2,6 +2,7 @@ package com.teamdevroute.devroute.bookmark;
 
 import com.teamdevroute.devroute.global.auth.LoginUserInfo;
 import com.teamdevroute.devroute.user.domain.CustomUserDetails;
+import com.teamdevroute.devroute.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,18 +21,20 @@ public class BookmarkController {
 
     @PostMapping("/bookmark/add")
     public ResponseEntity addBookmark(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestBody BookmarkUpdateRequest request
     ) {
-        bookmarkService.updateBookmark(request);
+        LoginUserInfo user = userDetails.getUser();
+        bookmarkService.updateBookmark(request, user.getId());
         return ResponseEntity.ok("북마크가 추가되었습니다.");
     }
 
     @PostMapping("/bookmark/get")
     public ResponseEntity getBookmark(
-            @RequestBody BookmarkFindRequest request
+            @AuthenticationPrincipal CustomUserDetails userDetails
             ) {
-
-        Bookmark bookmark = bookmarkService.findBookmarkByType(request.getUserId());
+        LoginUserInfo user = userDetails.getUser();
+        Bookmark bookmark = bookmarkService.findBookmarkByType(user.getId());
         if(bookmark == null) {
             return ResponseEntity.noContent().build();
         }
