@@ -35,8 +35,10 @@ public class VideoController {
     }
     @ResponseBody
     @GetMapping("/lecture")
-    public List<LectureResponseDTO> getRecommendLectureList(@RequestParam("platform_name") String platform_name
-    ,@RequestParam("tech_name")String tech_name){
+    public List<LectureResponseDTO> getRecommendLectureList(
+            @RequestParam("platform_name") String platform_name,
+            @RequestParam("tech_name")String tech_name
+    ){
         addCountTechnologyStackByStackName(tech_name);
         return videoService.findLectureListByPlatformNameAndTechStack(platform_name, tech_name);
     }

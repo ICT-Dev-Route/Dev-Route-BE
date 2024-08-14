@@ -134,7 +134,7 @@ public class VideoService {
             String platformName, String techStack) {
         List<Videos> videos = videoRepository.findByPlatformNameAndTeckStack(platformName, techStack);
         return videos.stream()
-                .map(video -> new LectureResponseDTO(video.getUrl(), video.getTitle(), video.getThumnail_url(), video.getPrice(), video.getPlatformName()))
+                .map(video -> new LectureResponseDTO(video.getId(), video.getUrl(), video.getTitle(), video.getThumnail_url(), video.getPrice(), video.getPlatformName()))
                 .collect(Collectors.toList());
     }
 
