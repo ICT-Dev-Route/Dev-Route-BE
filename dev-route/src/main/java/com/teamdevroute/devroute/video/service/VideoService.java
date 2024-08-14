@@ -141,6 +141,9 @@ public class VideoService {
         if(videos.isEmpty()){
             throw new RuntimeException("해당 플랫폼 및 기술 스택을 가진 영상이 존재하지 않습니다.");
         }
+        videos.forEach(video->
+                videoRepository.save(video.setAddedCount()))
+        ;
 
         return videos.stream()
                 .map(video -> new LectureResponseDTO(video.getId(), video.getUrl(), video.getTitle(), video.getThumnail_url(), video.getPrice(), video.getPlatformName()))
@@ -150,6 +153,22 @@ public class VideoService {
     public Videos findById(Long id) {
         return videoRepository.findById(id)
                 .orElseThrow(VideoNotFounException::new);
+    }
+    public List<LectureResponseDTO> findTop3Videos(){
+        List<Videos> videos=videoRepository.findTop3ByOrderByCountDesc().orElseThrow(
+                () -> new RuntimeException("현재 video가 3개 미만입니다")
+        );
+        if(videos.isEmpty()){
+            throw new RuntimeException("현재 video가 3개 미만입니다");
+        }
+        return videos.stream().map(video -> LectureResponseDTO.builder()
+                .url(video.getUrl())
+                .title(video.getTitle())
+                .platform_name(video.getPlatformName())
+                .price(video.getPrice())
+                .thumnail_url(video.getThumnail_url())
+                .id(video.getId())
+                .build()).collect(Collectors.toList());
     }
     public void initializeTechnologyStack() {
         for (TechnologyStackName value : TechnologyStackName.values()) {

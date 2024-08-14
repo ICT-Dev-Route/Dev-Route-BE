@@ -246,7 +246,7 @@ public class DataLoader implements CommandLineRunner {
                 0L, "노드의 종말이 시작됐다.",
                 "https://Youtube.com/hghghg@22",
                 "dummy thumnail_url",
-                0L, "nodejs", "Youtube"
+                20L, "nodejs", "Youtube"
         );
         createVideo(
                 0L, "나는 노드제이에스 마스터",
@@ -276,7 +276,7 @@ public class DataLoader implements CommandLineRunner {
                 17000L, "미친 nodejs",
                 "https://Udemy.com/fdsfdsfsdfsfsdf",
                 "dummy thumnail_url",
-                0L, "nodejs", "Udemy"
+                15L, "nodejs", "Udemy"
         );
         createVideo(
                 12200L, "NodeJS Server",
@@ -351,13 +351,13 @@ public class DataLoader implements CommandLineRunner {
                 0L, "뷰 제이에스란 무엇인가",
                 "https://Youtube.com/54353",
                 "dummy thumnail_url",
-                0L, "Vuejs", "Youtube"
+                13L, "Vuejs", "Youtube"
         );
         createVideo(
                 0L, "나는야 Vuejs 마스터",
                 "https://Youtube.com/5ㄹㄴㄷㄹㄴㄷ53",
                 "dummy thumnail_url",
-                0L, "Vuejs", "Youtube"
+                11L, "Vuejs", "Youtube"
         );
         createVideo(
                 0L, "Vuejs vs React",
@@ -370,19 +370,19 @@ public class DataLoader implements CommandLineRunner {
                 23000L, "Vuejs 3시간 마스터",
                 "https://inflearn.com/534523",
                 "dummy thumnail_url",
-                0L, "Vuejs", "inflearn"
+                2L, "Vuejs", "inflearn"
         );
         createVideo(
                 33000L, "Vuejs 이것만 알자",
                 "https://inflearn.com/523",
                 "dummy thumnail_url",
-                0L, "Vuejs", "inflearn"
+                10L, "Vuejs", "inflearn"
         );
         createVideo(
                 53000L, "이것만 알면 Vuejs 마스터",
                 "https://inflearn.com/534523",
                 "dummy thumnail_url",
-                0L, "Vuejs", "inflearn"
+                7L, "Vuejs", "inflearn"
         );
 
         createVideo(
@@ -434,13 +434,13 @@ public class DataLoader implements CommandLineRunner {
                 5550L, "Angular 기본 문법 마스터",
                 "https://inflrean.com/6543534",
                 "dummy thumnail_url",
-                0L, "Angular", "inflearn"
+                3L, "Angular", "inflearn"
         );
         createVideo(
                 100000L, "Angular 4시간 마스터",
                 "https://inflrean.com/675321",
                 "dummy thumnail_url",
-                0L, "Angular", "inflearn"
+                4L, "Angular", "inflearn"
         );
 
         createVideo(

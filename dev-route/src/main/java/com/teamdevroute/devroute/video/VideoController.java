@@ -43,6 +43,13 @@ public class VideoController {
         addCountTechnologyStackByStackName(tech_name);
         return  ResponseEntity.ok(videoService.findLectureListByPlatformNameAndTechStack(platform_name, tech_name));
     }
+    @ResponseBody
+    @GetMapping("/main/lectures")
+    public ResponseEntity<List<LectureResponseDTO>> getRecommendLectureListAtMain(
+    ){
+        videoService.findTop3Videos();
+        return ResponseEntity.ok(videoService.findTop3Videos());
+    }
 
     private void addCountTechnologyStackByStackName(String tech_name) {
         TechnologyStack technologyStack = technologyStackRepository.findByName(tech_name)

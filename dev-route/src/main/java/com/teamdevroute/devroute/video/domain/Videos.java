@@ -50,5 +50,9 @@ public class Videos {
         this.teckStack = teck_stack;
 
     }
+    public Videos setAddedCount() {
+        this.count = this.count + 1;
+        return this;
+    }
 
 }
