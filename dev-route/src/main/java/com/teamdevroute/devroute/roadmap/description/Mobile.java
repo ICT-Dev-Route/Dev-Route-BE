@@ -1,11 +1,13 @@
 package com.teamdevroute.devroute.roadmap.description;
 
+import java.util.Arrays;
+import java.util.List;
+
 public final class Mobile {
 
 
     public static String[] stepsAndroidNames = {
             "Java&Kotlin",
-
             "Android Studio",
             "Drag and Drop Design",
             "Code Completion",
@@ -17,7 +19,6 @@ public final class Mobile {
     };
     public static String[] stepsAndroidBriefNames = {
             "안드로이드 개발 언어.",
-
             "안드로이드 앱 개발 도구.",
             "시각적 인터페이스 디자인.",
             "자동 코드 완성 기능.",
@@ -40,13 +41,24 @@ public final class Mobile {
             "안드로이드 앱의 4대 구성요소는 Activity, Service, Content Provider, Broadcast Receiver입니다.",
             "앱의 시작, 동작, 종료 등 생명주기 관리 방법을 이해합니다."
     };
+    public static List<String>[] stepsAndroidRelatedStacks = new List[]{
+            Arrays.asList("Java&Kotlin", "Android Studio"),
+            Arrays.asList("Android Studio", "Drag and Drop Design"),
+            Arrays.asList("Drag and Drop Design", "Code Completion"),
+            Arrays.asList("Code Completion", "Virtual Device Testing"),
+            Arrays.asList("Virtual Device Testing", "Android Basics"),
+            Arrays.asList("Android Basics", "XML for UI Design"),
+            Arrays.asList("XML for UI Design", "Android Components"),
+            Arrays.asList("Android Components", "App Lifecycle"),
+            Arrays.asList("App Lifecycle")
+    };
     public static String[] stepsIosNames = {
-            "Swift",
-            "Xcode",
-            "Storyboards in Xcode",
-            "iOS Basics",
-            "SwiftUI",
-            "App Lifecycle"
+                "Swift",
+                "Xcode",
+                "Storyboards in Xcode",
+                "iOS Basics",
+                "SwiftUI",
+                "App Lifecycle"
     };
     public static String[] stepsIosBriefNames={
             "iOS 앱 개발 언어.",
@@ -66,5 +78,14 @@ public final class Mobile {
             "iOS 어플의 구성 요소는 Cocoa Touch, Media, Core Services, Core OS입니다.",
             "SwiftUI를 이용해 UI 디자인을 배우며, 레이아웃과 UI 요소를 효율적으로 배치하는 방법을 익힐 수 있어요.",
             "앱의 시작, 동작, 종료 등 생명주기 관리 방법을 이해합니다."
+    };
+
+    public static List<String>[] stepsIosRelatedStacks = new List[]{
+            Arrays.asList("Swift", "Xcode"),
+            Arrays.asList("Xcode", "Storyboards in Xcode"),
+            Arrays.asList("Storyboards in Xcode", "iOS Basics"),
+            Arrays.asList("iOS Basics", "SwiftUI"),
+            Arrays.asList("SwiftUI", "App Lifecycle"),
+            Arrays.asList("App Lifecycle")
     };
 }

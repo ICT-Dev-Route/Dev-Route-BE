@@ -12,6 +12,7 @@ import com.teamdevroute.devroute.video.dto.youtube.YouTubeApiResponse.Item.Thumb
 import com.teamdevroute.devroute.video.dto.youtube.YouTubeApiResponse.Item.Thumbnails.Thumbnail;
 import com.teamdevroute.devroute.video.fetcher.UdemyVideoFetcher;
 import com.teamdevroute.devroute.video.fetcher.YoutubeVideoFetcher;
+import com.teamdevroute.devroute.video.service.VideoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

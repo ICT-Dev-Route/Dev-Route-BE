@@ -1,11 +1,7 @@
 package com.teamdevroute.devroute.roadmap;
 
-import com.teamdevroute.devroute.roadmap.description.Backend;
 import com.teamdevroute.devroute.roadmap.dto.DetailedRoadmapResponseDTO;
-import com.teamdevroute.devroute.roadmap.dto.RoadmapResponseDTO;
-import com.teamdevroute.devroute.roadmap.repository.RoadmapStepInfoRepository;
-import com.teamdevroute.devroute.roadmap.repository.RoadmapStepRepository;
-import org.junit.Before;
+import com.teamdevroute.devroute.roadmap.dto.RoadmapDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +29,7 @@ public class RoadmapServiceTest {
     @DisplayName("백엔드 개발 분야에 해당하는 로드맵 단계는 10개이다")
     @Test
     public void getRoadmapListByDevelopmentField(){
-        List<RoadmapResponseDTO> byDevelpmentField = roadmapService.findByDevelpmentField(String.valueOf(BACKEND));
+        List<RoadmapDTO> byDevelpmentField = roadmapService.findByDevelpmentField(String.valueOf(BACKEND));
         Assertions.assertEquals(byDevelpmentField.size(),10);
     }
     @DisplayName("프론트엔드 개발 분야에 Html 단계가 존재한다.")

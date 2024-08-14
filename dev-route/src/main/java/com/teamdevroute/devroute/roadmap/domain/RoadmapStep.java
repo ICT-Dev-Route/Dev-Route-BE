@@ -18,14 +18,13 @@ public class RoadmapStep {
     @Column(name="devlopment_field")
     private String developmentField;
     private String name;
-    private String brief_info;
+
     @Builder
-    public RoadmapStep(String developmentField,String name,String
-                       brief_info)
+    public RoadmapStep(String developmentField,String name)
     {
     this.developmentField=developmentField;
         this.name = name;
-        this.brief_info = brief_info;
+
     }
 
     public RoadmapStep() {

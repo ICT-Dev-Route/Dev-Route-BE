@@ -1,7 +1,10 @@
 package com.teamdevroute.devroute.roadmap;
 
 import com.teamdevroute.devroute.roadmap.dto.DetailedRoadmapResponseDTO;
-import com.teamdevroute.devroute.roadmap.dto.RoadmapResponseDTO;
+import com.teamdevroute.devroute.roadmap.dto.RoadmapDTO;
+import com.teamdevroute.devroute.roadmap.dto.RoadmapResponeDTO;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +21,12 @@ public class RoadmapController {
     }
     @ResponseBody
     @GetMapping("/roadmap/{develpmentField}")
-    public List<RoadmapResponseDTO> getRoadMap(@PathVariable("develpmentField") String develpmentField){
-        return roadmapService.findByDevelpmentField(develpmentField);
+    public ResponseEntity<RoadmapResponeDTO> getRoadMap(@PathVariable("develpmentField") String develpmentField){
+        return ResponseEntity.ok(RoadmapResponeDTO.builder().roadmapDTOS(roadmapService.findByDevelpmentField(develpmentField))
+                .name(develpmentField)
+                .build());
     }
+
     @ResponseBody
     @GetMapping("/roadmap/{develpmentField}/{stepsName}")
     public DetailedRoadmapResponseDTO getDetailedRoadMap(@PathVariable("develpmentField") String develpmentField

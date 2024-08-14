@@ -1,5 +1,8 @@
 package com.teamdevroute.devroute.roadmap.description;
 
+import java.util.Arrays;
+import java.util.List;
+
 public final class Backend {
    public static String[] stepsBackendNames = {
             "Java",
@@ -36,6 +39,18 @@ public final class Backend {
             "Java로 웹 애플리케이션을 쉽게 개발할 수 있게 돕는 프레임워크입니다.",
             "Python으로 빠르게 웹 애플리케이션을 구축할 수 있는 프레임워크입니다.",
             "Node.js 환경에서 웹 애플리케이션을 구축하기 위한 경량 프레임워크입니다."
+    };
+    public static List<String>[] stepsBackendRelatedStacks=new List[]{
+            Arrays.asList("Java", "Python"),
+            Arrays.asList("Python", "JavaScript, Node.js"),
+            Arrays.asList("JavaScript, Node.js", "HTTP"),
+            Arrays.asList("HTTP", "REST API"),
+            Arrays.asList("REST API", "RDB - MySQL"),
+            Arrays.asList("RDB - MySQL", "NoSQL - MongoDB"),
+            Arrays.asList("NoSQL - MongoDB", "Spring Boot(Java framework)"),
+            Arrays.asList("Spring Boot(Java framework)", "Django(Python framework)"),
+            Arrays.asList("Django(Python framework)", "Express.js(Node.js framework)"),
+            Arrays.asList("Express.js(Node.js framework)")
     };
 
 }

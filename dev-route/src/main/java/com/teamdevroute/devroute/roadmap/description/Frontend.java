@@ -1,11 +1,14 @@
 package com.teamdevroute.devroute.roadmap.description;
 
+import java.util.Arrays;
+import java.util.List;
+
 public final class Frontend {
    public static String[] stepsFrontendNames = {
             "HTML",
             "CSS",
             "JavaScript",
-            "Git / GitHub",
+            "Git GitHub",
             "Npm",
             "React, Next.js, Vue.js"
     };
@@ -26,4 +29,12 @@ public final class Frontend {
             "JavaScript 패키지 관리 도구로, 다양한 라이브러리와 패키지를 관리합니다.",
             "프론트엔드 개발을 위한 인기 있는 JavaScript 라이브러리 및 프레임워크입니다."
     };
+ public static List<String>[] stepsfrontendRelatedStacks = new List[]{
+         Arrays.asList("HTML", "CSS"),
+         Arrays.asList("CSS", "JavaScript"),
+         Arrays.asList("JavaScript", "Git / GitHub"),
+         Arrays.asList("Git / GitHub", "Npm"),
+         Arrays.asList("Npm", "React, Next.js, Vue.js"),
+         Arrays.asList("React, Next.js, Vue.js")
+ };
 }

@@ -35,26 +35,24 @@ public class RoadmapStepInfo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="company_id")
     private Company company;
+    private String brief_info;
     private String description;
     @Column(name = "technology_stacks", columnDefinition = "json")
     @JdbcTypeCode(SqlTypes.JSON)
     private List<String> technology_stack;
-    @Column( columnDefinition = "json")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private List<String> companies;
-    private int used_ratio;
+
 
     public RoadmapStepInfo() {
     }
     @Builder
     public RoadmapStepInfo(RoadmapStep roadmapStep,Company company,String description,List<String> technology_stack
-    ,List<String> companies,int used_ratio) {
+    ,String brief_info) {
         this.roadmapStep = roadmapStep;
         this.company = company;
         this.description = description;
         this.technology_stack = technology_stack;
-        this.companies = companies;
-        this.used_ratio = used_ratio;
+        this.brief_info = brief_info;
+
 
     }
 }
