@@ -15,14 +15,16 @@ public class CompanyDetailResponse {
     private String info;
     private Double grade;
     private String averageSalary;
+    private String logoUrl;
     private List<CompanyDetailRecruitResponse> recruitments;
 
     @Builder
-    public CompanyDetailResponse(String name, String info, Double grade, String averageSalary, List<CompanyDetailRecruitResponse> recruitments) {
+    public CompanyDetailResponse(String name, String info, Double grade, String averageSalary, String logoUrl, List<CompanyDetailRecruitResponse> recruitments) {
         this.name = name;
         this.info = info;
         this.grade = grade;
         this.averageSalary = averageSalary;
+        this.logoUrl = logoUrl;
         this.recruitments = recruitments;
     }
 
@@ -35,6 +37,7 @@ public class CompanyDetailResponse {
                 .info(company.getInfo())
                 .grade(company.getGrade())
                 .averageSalary(company.getAverageSalary())
+                .logoUrl(company.getLogoUrl())
                 .recruitments(recruitments)
                 .build();
     }

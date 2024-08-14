@@ -16,10 +16,10 @@ public class RecruitmentFindResponse {
     private String companyName;
     private DevelopField developField;
     private List<String> techStack;
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 
     @Builder
-    public RecruitmentFindResponse(String companyName, DevelopField developField, List<String> techStack, LocalDateTime dueDate) {
+    public RecruitmentFindResponse(String companyName, DevelopField developField, List<String> techStack, LocalDate dueDate) {
         this.companyName = companyName;
         this.developField = developField;
         this.techStack = techStack;
