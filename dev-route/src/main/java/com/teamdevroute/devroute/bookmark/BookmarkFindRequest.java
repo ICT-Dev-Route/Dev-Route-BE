@@ -7,5 +7,5 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookmarkFindRequest {
-    private String type;
+    private Long userId;
 }

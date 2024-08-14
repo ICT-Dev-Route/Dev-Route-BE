@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +18,7 @@ public class BookmarkController {
 
     private final BookmarkService bookmarkService;
 
-    @PostMapping("/bookmark")
+    @PostMapping("/bookmark/add")
     public ResponseEntity addBookmark(
             @RequestBody BookmarkUpdateRequest request
     ) {
@@ -24,13 +26,13 @@ public class BookmarkController {
         return ResponseEntity.ok("북마크가 추가되었습니다.");
     }
 
-    @GetMapping("/bookmark")
+    @PostMapping("/bookmark/get")
     public ResponseEntity getBookmark(
-            @RequestParam(name = "userId") String id
-    ) {
+            @RequestBody BookmarkFindRequest request
+            ) {
 
-        Bookmark bookmark = bookmarkService.findBookmarkByType(Long.parseLong(id));
-        if (bookmark == null) {
+        Bookmark bookmark = bookmarkService.findBookmarkByType(request.getUserId());
+        if(bookmark == null) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(bookmark);
