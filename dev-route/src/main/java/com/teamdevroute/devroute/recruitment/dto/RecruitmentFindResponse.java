@@ -1,4 +1,4 @@
-package com.teamdevroute.devroute.company.dto;
+package com.teamdevroute.devroute.recruitment.dto;
 
 import com.teamdevroute.devroute.recruitment.domain.Recruitment;
 import com.teamdevroute.devroute.user.enums.DevelopField;
@@ -12,25 +12,25 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CompanyDetailRecruitResponse {
+public class RecruitmentFindResponse {
     private String companyName;
     private DevelopField developField;
-    private List<String> techStacks;
+    private List<String> techStack;
     private LocalDate dueDate;
 
     @Builder
-    public CompanyDetailRecruitResponse(String companyName, DevelopField developField, List<String> techStacks, LocalDate dueDate) {
+    public RecruitmentFindResponse(String companyName, DevelopField developField, List<String> techStack, LocalDate dueDate) {
         this.companyName = companyName;
         this.developField = developField;
-        this.techStacks = techStacks;
+        this.techStack = techStack;
         this.dueDate = dueDate;
     }
 
-    public static CompanyDetailRecruitResponse from(Recruitment recruitment) {
-        return CompanyDetailRecruitResponse.builder()
+    public static RecruitmentFindResponse from(Recruitment recruitment) {
+        return RecruitmentFindResponse.builder()
                 .companyName(recruitment.getCompany().getName())
                 .developField(recruitment.getDevelopField())
-                .techStacks(recruitment.getTechStacks())
+                .techStack(recruitment.getTechStacks())
                 .dueDate(recruitment.getDueDate())
                 .build();
     }

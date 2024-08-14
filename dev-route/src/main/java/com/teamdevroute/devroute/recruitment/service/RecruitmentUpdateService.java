@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class RecruitmentUpdateService {
         String companyName = jobNode.path("company").path("detail").path("name").asText();
         String experienceLevel = jobNode.path("position").path("experience-level").path("name").asText();
         long expirationTimestamp = jobNode.path("expiration-timestamp").asLong();
-        LocalDateTime expirationDate = LocalDateTime.ofInstant(Instant.ofEpochSecond(expirationTimestamp), ZoneOffset.UTC);
+        LocalDate expirationDate = LocalDate.ofInstant(Instant.ofEpochSecond(expirationTimestamp), ZoneOffset.UTC);
         String techStacks = jobNode.path("position").path("job-code").path("name").asText();
 
         Company company = companyRepository.findByName(companyName).orElseGet(() -> {

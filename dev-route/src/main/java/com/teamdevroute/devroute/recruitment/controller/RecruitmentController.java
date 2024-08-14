@@ -1,6 +1,7 @@
 package com.teamdevroute.devroute.recruitment.controller;
 
 import com.teamdevroute.devroute.recruitment.domain.Recruitment;
+import com.teamdevroute.devroute.recruitment.dto.RecruitmentFindResponse;
 import com.teamdevroute.devroute.recruitment.service.RecruitmentService;
 import com.teamdevroute.devroute.recruitment.service.RecruitmentUpdateService;
 import com.teamdevroute.devroute.user.enums.DevelopField;
@@ -27,11 +28,11 @@ public class RecruitmentController {
     public ResponseEntity searchRecruitmentByField(
             @RequestParam String type
     ) {
-        List<Recruitment> response = recruitmentService.findByType(type);
+        List<RecruitmentFindResponse> response = recruitmentService.findByType(type);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/api/tech_stack/{type}")
+    @GetMapping("/tech_stack/{type}")
     public ResponseEntity filterTechStackRate(@PathVariable("type") DevelopField type) {
         return ResponseEntity.ok(recruitmentService.filterTechStackRate(type));
     }

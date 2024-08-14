@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class CompanyResponse {
+    private Long id;
     private String logoUrl;
     private String name;
     private Long recruitmentCount;
@@ -13,7 +14,8 @@ public class CompanyResponse {
     private String salary;
 
     @Builder
-    public CompanyResponse(String logoUrl, String name, Long recruitmentCount, Double grade, String salary) {
+    public CompanyResponse(Long id, String logoUrl, String name, Long recruitmentCount, Double grade, String salary) {
+        this.id = id;
         this.logoUrl = logoUrl;
         this.name = name;
         this.recruitmentCount = recruitmentCount;
@@ -23,6 +25,7 @@ public class CompanyResponse {
 
     public static CompanyResponse of(Company company) {
         return CompanyResponse.builder()
+                .id(company.getId())
                 .logoUrl(company.getLogoUrl())
                 .name(company.getName())
                 .recruitmentCount(company.getRecruitCount())

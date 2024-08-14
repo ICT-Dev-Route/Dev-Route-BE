@@ -1,5 +1,7 @@
 package com.teamdevroute.devroute.user;
 
+import com.teamdevroute.devroute.bookmark.Bookmark;
+import com.teamdevroute.devroute.bookmark.BookmarkService;
 import com.teamdevroute.devroute.global.auth.Oauth2Util;
 import com.teamdevroute.devroute.global.auth.LoginUserInfo;
 import com.teamdevroute.devroute.global.auth.jwt.JwtUtils;
@@ -9,6 +11,7 @@ import com.teamdevroute.devroute.user.domain.User;
 import com.teamdevroute.devroute.user.dto.UserAuthResponse;
 import com.teamdevroute.devroute.user.dto.UserCreateRequest;
 import com.teamdevroute.devroute.user.dto.UserCreateResponse;
+import com.teamdevroute.devroute.user.dto.UserMyPageResponse;
 import com.teamdevroute.devroute.user.enums.DevelopField;
 import com.teamdevroute.devroute.user.enums.LoginType;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,7 @@ import static com.teamdevroute.devroute.user.enums.LoginType.*;
 @Transactional
 @Slf4j
 public class UserService {
+    private final BookmarkService bookmarkService;
     private final UserRepository userRepository;
     private final JwtUtils jwtUtils;
     private final PasswordEncoder encoder;
@@ -38,6 +42,7 @@ public class UserService {
             throw new DuplicateUserException();
         }
         User user = userRepository.save(request.toEntity(LoginType.NORMAL.name(), encoder.encode(request.password())));
+        bookmarkService.createBookmark(user);
         return UserCreateResponse.of(user);
     }
 
@@ -120,6 +125,7 @@ public class UserService {
                     .build();
 
             user = userRepository.save(createdUser);
+            bookmarkService.createBookmark(user);
         }
         else{
             user = findUser.get();
@@ -141,6 +147,11 @@ public class UserService {
 
     public User findByUserId(Long id) {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    }
+
+    public UserMyPageResponse readMyPage(Long id) {
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        return UserMyPageResponse.of(user);
     }
 }
 

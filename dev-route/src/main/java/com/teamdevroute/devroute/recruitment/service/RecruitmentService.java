@@ -4,6 +4,7 @@ import com.teamdevroute.devroute.company.domain.Company;
 import com.teamdevroute.devroute.company.repository.CompanyRepository;
 import com.teamdevroute.devroute.global.exception.CompanyNotFoundException;
 import com.teamdevroute.devroute.recruitment.domain.Recruitment;
+import com.teamdevroute.devroute.recruitment.dto.RecruitmentFindResponse;
 import com.teamdevroute.devroute.recruitment.dto.TechStackFrequencyDto;
 import com.teamdevroute.devroute.recruitment.repository.RecruitmentRepository;
 import com.teamdevroute.devroute.recruitment.utils.TechnologyStackCategory;
@@ -24,13 +25,14 @@ public class RecruitmentService {
     private final TechnologyStackCategory technologyStackCategory;
     private final CompanyRepository companyRepository;
 
-    public List<Recruitment> findByType(String type) {
+    public List<RecruitmentFindResponse> findByType(String type) {
         DevelopField developField = DevelopField.toEnum(type);
         log.info("RecruitmentService - findByType(): type=" + developField);
         if(developField.equals(DevelopField.NONE)){
             throw new IllegalArgumentException("개발직군에 이상이 있습니다. 확인해주세요.");
         }
-        return recruitmentRepository.findByDevelopField(developField);
+        List<Recruitment> result = recruitmentRepository.findByDevelopField(developField);
+        return result.stream().map(RecruitmentFindResponse::from).toList();
     }
 
     public List<TechStackFrequencyDto> filterTechStackRate(DevelopField type) {

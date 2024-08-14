@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
-public class BookmarkUpdateRequest {
+public class BookmarkDeleteRequest {
+
     private Long id;
     private String type;
-    public BookmarkUpdateRequest() {
-    }
 }
