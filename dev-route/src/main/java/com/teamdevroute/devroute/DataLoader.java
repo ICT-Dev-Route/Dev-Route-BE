@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -85,27 +86,27 @@ public class DataLoader implements CommandLineRunner {
 
         createRecruitment(
                 company1, Arrays.asList("JAVA", "SPRING"),
-                "4년차", LocalDateTime.now(),
+                "4년차", LocalDate.now(),
                 Source.JUMPIT, "https://kakao.com/backend",
                 DevelopField.AI
         );
         createRecruitment(
                 company1, Arrays.asList("HTML", "REACT"),
-                "2년차", LocalDateTime.now(),
+                "2년차", LocalDate.now(),
                 Source.JUMPIT, "https://kakao.com/frontend",
                 DevelopField.DATA_SCIENCE
         );
 
         createRecruitment(
                 company2, Arrays.asList("PHP", "GIT"),
-                "경력무관", LocalDateTime.now(),
+                "경력무관", LocalDate.now(),
                 Source.SARAMIN, "https://naver.com",
                 DevelopField.BACKEND
         );
 
         createRecruitment(
                 company4, Arrays.asList("AWS", "Docker"),
-                "10년", LocalDateTime.now(),
+                "10년", LocalDate.now(),
                 Source.SARAMIN, "https://samsung.com",
                 DevelopField.MOBILE
         );
@@ -309,7 +310,7 @@ public class DataLoader implements CommandLineRunner {
             Company company,
             List<String> techStacks,
             String annual,
-            LocalDateTime dueDate,
+            LocalDate dueDate,
             Source source,
             String url,
             DevelopField developField

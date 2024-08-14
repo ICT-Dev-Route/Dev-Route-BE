@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Recruitment {
 
     private String annual;
 
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 
     private String url;
 
@@ -43,7 +44,7 @@ public class Recruitment {
     private Source source;
 
     @Builder
-    public Recruitment(Long id, List<String> techStacks, String annual, LocalDateTime dueDate, String url, DevelopField developField, Company company, Source source) {
+    public Recruitment(Long id, List<String> techStacks, String annual, LocalDate dueDate, String url, DevelopField developField, Company company, Source source) {
         this.id = id;
         this.techStacks = techStacks;
         this.annual = annual;
