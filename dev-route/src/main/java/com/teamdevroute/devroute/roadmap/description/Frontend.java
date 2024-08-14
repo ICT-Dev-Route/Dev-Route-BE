@@ -8,7 +8,7 @@ public final class Frontend {
             "HTML",
             "CSS",
             "JavaScript",
-            "Git / GitHub",
+            "Git GitHub",
             "Npm",
             "React, Next.js, Vue.js"
     };

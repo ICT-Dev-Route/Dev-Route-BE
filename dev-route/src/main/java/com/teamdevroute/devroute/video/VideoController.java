@@ -8,6 +8,7 @@ import com.teamdevroute.devroute.video.domain.TechnologyStack;
 import com.teamdevroute.devroute.video.dto.LectureResponseDTO;
 import com.teamdevroute.devroute.video.service.TechnologyStackService;
 import com.teamdevroute.devroute.video.service.VideoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,12 +36,12 @@ public class VideoController {
     }
     @ResponseBody
     @GetMapping("/lecture")
-    public List<LectureResponseDTO> getRecommendLectureList(
+    public ResponseEntity<List<LectureResponseDTO>> getRecommendLectureList(
             @RequestParam("platform_name") String platform_name,
             @RequestParam("tech_name")String tech_name
     ){
         addCountTechnologyStackByStackName(tech_name);
-        return videoService.findLectureListByPlatformNameAndTechStack(platform_name, tech_name);
+        return  ResponseEntity.ok(videoService.findLectureListByPlatformNameAndTechStack(platform_name, tech_name));
     }
 
     private void addCountTechnologyStackByStackName(String tech_name) {

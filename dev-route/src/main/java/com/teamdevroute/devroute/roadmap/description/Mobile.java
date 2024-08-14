@@ -53,12 +53,12 @@ public final class Mobile {
             Arrays.asList("App Lifecycle")
     };
     public static String[] stepsIosNames = {
-            "Swift",
-            "Xcode",
-            "Storyboards in Xcode",
-            "iOS Basics",
-            "SwiftUI",
-            "App Lifecycle"
+                "Swift",
+                "Xcode",
+                "Storyboards in Xcode",
+                "iOS Basics",
+                "SwiftUI",
+                "App Lifecycle"
     };
     public static String[] stepsIosBriefNames={
             "iOS 앱 개발 언어.",

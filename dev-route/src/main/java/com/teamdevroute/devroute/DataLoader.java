@@ -5,12 +5,13 @@ import com.teamdevroute.devroute.company.repository.CompanyRepository;
 import com.teamdevroute.devroute.recruitment.domain.Recruitment;
 import com.teamdevroute.devroute.recruitment.enums.Source;
 import com.teamdevroute.devroute.recruitment.repository.RecruitmentRepository;
+import com.teamdevroute.devroute.roadmap.RoadmapService;
 import com.teamdevroute.devroute.user.UserRepository;
 import com.teamdevroute.devroute.user.domain.User;
 import com.teamdevroute.devroute.user.enums.DevelopField;
 import com.teamdevroute.devroute.video.Repository.TechnologyStackRepository;
 import com.teamdevroute.devroute.video.Repository.VideoRepository;
-import com.teamdevroute.devroute.video.TechnologyStackService;
+import com.teamdevroute.devroute.video.service.TechnologyStackService;
 import com.teamdevroute.devroute.video.domain.TechnologyStack;
 import com.teamdevroute.devroute.video.domain.Videos;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,8 @@ public class DataLoader implements CommandLineRunner {
     private VideoRepository videoRepository;
     @Autowired
     private TechnologyStackRepository technologyStackRepository;
+    @Autowired
+    private RoadmapService roadmapService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -111,306 +114,354 @@ public class DataLoader implements CommandLineRunner {
                 DevelopField.MOBILE
         );
 
-        createTech("html");
-        createTech("css");
+        createTech("htmlcss");
         createTech("python");
         createTech("java");
         createTech("javascript");
         createTech("spring");
         createTech("nodejs");
         createTech("react");
-        createTech("vuejs");
-        createTech("angular");
-
+        createTech("Vuejs");
+        createTech("Angular");
 
         createVideo(
                 0L, "쉽게 배우는 HTML & CSS",
                 "https://inflearn.co.kr/123332",
-                0L, "html", "youtube"
+                "dummy thumnail_url",
+                0L, "htmlcss", "Youtube"
         );
         createVideo(
                 10000L, "HTML은 무엇인가?",
                 "https://inflearn.co.kr/123332",
-                0L, "html", "inflearn"
+                "dummy thumnail_url",
+                0L, "htmlcss", "Inflearn"
         );
-        createVideo(
-                0L, "css 30분만에 배우기",
-                "https://youtube.com/dwaEW231D!4d",
-                0L, "css", "youtube"
-        );
+
         createVideo(
                 20000L, "데이터분석을 위한 python",
-                "https://udemy.co.kr/2133",
-                0L, "python", "inflearn"
+                "https://Udemy.co.kr/2133",
+                "dummy thumnail_url",
+                0L, "python", "Inflearn"
         );
         createVideo(
                 0L, "인공지능을 위한 python",
-                "https://youtube.com/dda22",
-                0L, "python", "youtube"
+                "https://Youtube.com/dda22",
+                "dummy thumnail_url",
+                0L, "python", "Youtube"
         );
         createVideo(
                 0L, "python은 개꿀언어입니다.",
-                "https://youtube.com/23232133",
-                0L, "python", "youtube"
+                "https://Youtube.com/23232133",
+                "dummy thumnail_url",
+                0L, "python", "Youtube"
         );
         createVideo(
                 0L, "java는 왜 쓰레기 언어인가?",
-                "https://youtube.co.kr/HrDAs23!dfA",
-                0L, "java", "youtube"
+                "https://Youtube.co.kr/HrDAs23!dfA","dummy thumnail_url",
+
+                0L, "java", "Youtube"
         );
         createVideo(
                 0L, "1시간만에 자바 마스터",
-                "https://youtube.co.kr/ddaad!dfA",
-                0L, "java", "youtube"
+                "https://Youtube.co.kr/ddaad!dfA",
+                "dummy thumnail_url",
+                0L, "java", "Youtube"
         );
         createVideo(
                 0L, "자바 리펙토링",
-                "https://youtube.co.kr/fdfe432A",
-                0L, "java", "youtube"
+                "https://Youtube.co.kr/fdfe432A",
+                "dummy thumnail_url",
+                0L, "java", "Youtube"
         );
         createVideo(
                 0L, "java와 javascript",
-                "https://youtube.com/321321",
-                0L, "javascript", "youtube"
+                "https://Youtube.com/321321",
+                "dummy thumnail_url",
+                0L, "javascript", "Youtube"
         );
         createVideo(
                 0L, "js 속성 강의",
-                "https://udemy.com/adasda",
-                0L, "javascript", "udemy"
+                "https://Udemy.com/adasda",
+                "dummy thumnail_url",
+                0L, "javascript", "Udemy"
         );
         createVideo(
                 0L, "javascript 2024 개정판",
                 "https://inflearn.com/3213213",
-                0L, "javascript", "inflearn"
+                "dummy thumnail_url",
+                0L, "javascript", "Inflearn"
         );
 
         createVideo(
                 30000L, "토비의 spring framework",
                 "https://inflearn.com/ddsad@dd",
-                0L, "spring", "inflearn"
+                "dummy thumnail_url",
+                0L, "spring", "Inflearn"
         );
         createVideo(
                 54000L, "Spring 핵심 기술",
                 "https://inflearn.com/ddggfgfgf",
-                0L, "spring", "inflearn"
+                "dummy thumnail_url",
+                0L, "spring", "Inflearn"
         );
         createVideo(
                 0L, "무료 스프링 강의",
-                "https://youtube.com/dadwd22",
-                0L, "spring", "youtube"
+                "https://Youtube.com/dadwd22",
+                "dummy thumnail_url",
+                0L, "spring", "Inflearn"
         );
         createVideo(
                 0L, "스프링 30분만에 이해하기",
-                "https://youtube.com/@@ㅇㅇ2",
-                0L, "spring", "youtube"
+                "https://Youtube.com/@@ㅇㅇ2",
+                "dummy thumnail_url",
+                0L, "spring", "Inflearn"
         );
         createVideo(
                 0L, "이것도 모르면 스프링 쓰지 마세요",
-                "https://youtube.com/dfghhgjh",
-                0L, "spring", "youtube"
+                "https://Youtube.com/dfghhgjh",
+                "dummy thumnail_url",
+                0L, "spring", "Youtube"
         );
 
         createVideo(
                 32000L, "What is Spring?",
-                "https://udemy.com/gfdghgh@",
-                0L, "spring", "udemy"
+                "https://Udemy.com/gfdghgh@",
+                "dummy thumnail_url",
+                0L, "spring", "Udemy"
         );
         createVideo(
                 27000L, "Spring Boot Master",
-                "https://udemy.com/dadw@",
-                0L, "spring", "udemy"
+                "https://Udemy.com/dadw@",
+                "dummy thumnail_url",
+                0L, "spring", "Udemy"
         );
 
         createVideo(
                 0L, "Node.Js 와 Spring",
-                "https://youtube.com/dadw@22",
-                0L, "nodejs", "youtube"
+                "https://Youtube.com/dadw@22",
+                "dummy thumnail_url",
+                0L, "nodejs", "Youtube"
         );
         createVideo(
                 0L, "노드의 종말이 시작됐다.",
-                "https://youtube.com/hghghg@22",
-                0L, "nodejs", "youtube"
+                "https://Youtube.com/hghghg@22",
+                "dummy thumnail_url",
+                0L, "nodejs", "Youtube"
         );
         createVideo(
                 0L, "나는 노드제이에스 마스터",
-                "https://youtube.com/gnfg2",
-                0L, "nodejs", "youtube"
+                "https://Youtube.com/gnfg2",
+                "dummy thumnail_url",
+                0L, "nodejs", "Youtube"
         );
         createVideo(
                 0L, "nodeJS로 서버 구축하기",
                 "https://inflearn.com/gnffdsfds",
-                0L, "nodejs", "inflearn"
+                "dummy thumnail_url",
+                0L, "nodejs", "Inflearn"
         );
         createVideo(
                 33000L, "nodeJS 2024 최신판",
                 "https://inflearn.com/gnfds",
-                0L, "nodejs", "inflearn"
+                "dummy thumnail_url",
+                0L, "nodejs", "Inflearn"
         );
         createVideo(
                 25600L, "nodeJS 성능 최적화",
                 "https://inflearn.com/gnffdds",
-                0L, "nodejs", "inflearn"
+                "dummy thumnail_url",
+                0L, "nodejs", "Inflearn"
         );
         createVideo(
                 17000L, "미친 nodejs",
-                "https://udemy.com/fdsfdsfsdfsfsdf",
-                0L, "nodejs", "udemy"
+                "https://Udemy.com/fdsfdsfsdfsfsdf",
+                "dummy thumnail_url",
+                0L, "nodejs", "Udemy"
         );
         createVideo(
                 12200L, "NodeJS Server",
-                "https://udemy.com/fdsfdsfsdf",
-                0L, "nodejs", "udemy"
+                "https://Udemy.com/fdsfdsfsdf",
+                "dummy thumnail_url",
+                0L, "nodejs", "Udemy"
         );
         createVideo(
                 27000L, "NodeJS SQL",
-                "https://udemy.com/fdsfdsdfsfsdf",
-                0L, "nodejs", "udemy"
+                "https://Udemy.com/fdsfdsdfsfsdf",
+                "dummy thumnail_url",
+                0L, "nodejs", "Udemy"
         );
 
         createVideo(
                 0L, "React 배우기",
-                "https://youtube.com/hgfhgfdg",
-                0L, "react", "youtube"
+                "https://Youtube.com/hgfhgfdg",
+                "dummy thumnail_url",
+                0L, "react", "Youtube"
         );
         createVideo(
                 0L, "React공화국",
-                "https://youtube.com/fhgfdg",
-                0L, "react", "youtube"
+                "https://Youtube.com/fhgfdg",
+                "dummy thumnail_url",
+                0L, "react", "Youtube"
         );
         createVideo(
                 0L, "리액트의 미래",
-                "https://youtube.com/ggfdg",
-                0L, "react", "youtube"
+                "https://Youtube.com/ggfdg",
+                "dummy thumnail_url",
+                0L, "react", "Youtube"
         );
         createVideo(
                 32320L, "리액트 6시간 마스터",
                 "https://inflearn.com/4521421",
-                0L, "react", "inflearn"
+                "dummy thumnail_url",
+                0L, "react", "Inflearn"
         );
         createVideo(
                 26660L, "리액트 기본만 하자",
                 "https://inflearn.com/41421",
-                0L, "react", "inflearn"
+                "dummy thumnail_url",
+                0L, "react", "Inflearn"
         );
         createVideo(
                 0L, "리액트 입문 강의",
                 "https://inflearn.com/1421",
-                0L, "react", "inflearn"
+                "dummy thumnail_url",
+                0L, "react", "Inflearn"
         );
 
         createVideo(
                 23000L, "How To Use React",
-                "https://udemy.com/1421",
-                0L, "react", "udemy"
+                "https://Udemy.com/1421",
+                "dummy thumnail_url",
+                0L, "react", "Udemy"
         );
         createVideo(
                 3000L, "React World",
-                "https://udemy.com/122221",
-                0L, "react", "udemy"
+                "https://Udemy.com/122221",
+                "dummy thumnail_url",
+                0L, "react", "Udemy"
         );
         createVideo(
                 53000L, "I like react",
-                "https://udemy.com/3123211",
-                0L, "react", "udemy"
+                "https://Udemy.com/3123211",
+                "dummy thumnail_url",
+                0L, "react", "Udemy"
         );
 
         createVideo(
                 0L, "뷰 제이에스란 무엇인가",
-                "https://youtube.com/54353",
-                0L, "vuejs", "youtube"
+                "https://Youtube.com/54353",
+                "dummy thumnail_url",
+                0L, "Vuejs", "Youtube"
         );
         createVideo(
-                0L, "나는야 vueJS 마스터",
-                "https://youtube.com/5ㄹㄴㄷㄹㄴㄷ53",
-                0L, "vuejs", "youtube"
+                0L, "나는야 Vuejs 마스터",
+                "https://Youtube.com/5ㄹㄴㄷㄹㄴㄷ53",
+                "dummy thumnail_url",
+                0L, "Vuejs", "Youtube"
         );
         createVideo(
-                0L, "vueJS vs React",
-                "https://youtube.com/421414",
-                0L, "vuejs", "youtube"
+                0L, "Vuejs vs React",
+                "https://Youtube.com/421414",
+                "dummy thumnail_url",
+                0L, "Vuejs", "Youtube"
         );
 
         createVideo(
-                23000L, "vueJS 3시간 마스터",
+                23000L, "Vuejs 3시간 마스터",
                 "https://inflearn.com/534523",
-                0L, "vuejs", "inflearn"
+                "dummy thumnail_url",
+                0L, "Vuejs", "inflearn"
         );
         createVideo(
-                33000L, "vueJS 이것만 알자",
+                33000L, "Vuejs 이것만 알자",
                 "https://inflearn.com/523",
-                0L, "vuejs", "inflearn"
+                "dummy thumnail_url",
+                0L, "Vuejs", "inflearn"
         );
         createVideo(
-                53000L, "이것만 알면 vueJS 마스터",
+                53000L, "이것만 알면 Vuejs 마스터",
                 "https://inflearn.com/534523",
-                0L, "vuejs", "inflearn"
+                "dummy thumnail_url",
+                0L, "Vuejs", "inflearn"
         );
 
         createVideo(
-                3000L, "How to use vueJS",
-                "https://udemy.com/534523",
-                0L, "vuejs", "udemy"
+                3000L, "How to use Vuejs",
+                "https://Udemy.com/534523",
+                "dummy thumnail_url",
+
+                0L, "Vuejs", "Udemy"
         );
         createVideo(
-                56000L, "vvvvvvueJS",
-                "https://udemy.com/h8h8",
-                0L, "vuejs", "udemy"
+                56000L, "vvvvvVuejs",
+                "https://Udemy.com/h8h8",
+                "dummy thumnail_url",
+                0L, "Vuejs", "Udemy"
         );
         createVideo(
-                77000L, "vueJS Lecture",
-                "https://udemy.com/gfdgdf3",
-                0L, "vuejs", "udemy"
+                77000L, "Vuejs Lecture",
+                "https://Udemy.com/gfdgdf3",
+                "dummy thumnail_url",
+                0L, "Vuejs", "Udemy"
         );
 
         createVideo(
                 0L, "이건 또 무슨 기술인가",
-                "https://youtube.com/321321",
-                0L, "angular", "youtube"
+                "https://Youtube.com/321321",
+                "dummy thumnail_url",
+                0L, "Angular", "Youtube"
         );
         createVideo(
                 0L, "앵귤라 앵귤라",
-                "https://youtube.com/43443321",
-                0L, "angular", "youtube"
+                "https://Youtube.com/43443321",
+                "dummy thumnail_url",
+                0L, "Angular", "Youtube"
         );
         createVideo(
                 0L, "뭐라고 지어야하나",
-                "https://youtube.com/675321",
-                0L, "angular", "youtube"
+                "https://Youtube.com/675321",
+                "dummy thumnail_url",
+                0L, "Angular", "Youtube"
         );
 
         createVideo(
-                33330L, "angular 4시간 마스터",
+                33330L, "Angular 4시간 마스터",
                 "https://inflrean.com/675321",
-                0L, "angular", "inflearn"
+                "dummy thumnail_url",
+                0L, "Angular", "inflearn"
         );
         createVideo(
-                5550L, "angular 기본 문법 마스터",
+                5550L, "Angular 기본 문법 마스터",
                 "https://inflrean.com/6543534",
-                0L, "angular", "inflearn"
+                "dummy thumnail_url",
+                0L, "Angular", "inflearn"
         );
         createVideo(
-                100000L, "angular 4시간 마스터",
+                100000L, "Angular 4시간 마스터",
                 "https://inflrean.com/675321",
-                0L, "angular", "inflearn"
+                "dummy thumnail_url",
+                0L, "Angular", "inflearn"
         );
 
         createVideo(
-                100000L, "angular 4 hour master",
-                "https://udemy.com/675321",
-                0L, "angular", "udemy"
+                100000L, "Angular 4 hour master",
+                "https://Udemy.com/675321",
+                "dummy thumnail_url",
+                0L, "Angular", "Udemy"
         );
         createVideo(
-                1000L, "angular is very fun",
-                "https://udemy.com/1213123121",
-                0L, "angular", "udemy"
+                1000L, "Angular is very fun",
+                "https://Udemy.com/1213123121",
+                "dummy thumnail_url",
+                0L, "Angular", "Udemy"
         );
         createVideo(
-                10000L, "angular Lecture",
-                "https://udemy.com/123121",
-                0L, "angular", "udemy"
+                10000L, "Angular Lecture",
+                "https://Udemy.com/123121",
+                "dummy thumnail_url",
+                0L, "Angular", "Udemy"
         );
-
-
+        createAllRoadmaps();
 
 
     }
@@ -458,6 +509,7 @@ public class DataLoader implements CommandLineRunner {
         Long price,
         String title,
         String url,
+        String thumnail_url,
         Long count,
         String techStack,
         String platform_name
@@ -468,6 +520,7 @@ public class DataLoader implements CommandLineRunner {
                 .title(title)
                 .url(url)
                 .count(count)
+                .thumnail_url(thumnail_url)
                 .teck_stack(techStack)
                 .platform_name(platform_name)
                 .build();
@@ -482,5 +535,8 @@ public class DataLoader implements CommandLineRunner {
                 .count(0L)
                 .build();
         technologyStackRepository.save(technologyStack);
+    }
+    private void createAllRoadmaps(){
+        roadmapService.updateAllRoadmaps();
     }
 }

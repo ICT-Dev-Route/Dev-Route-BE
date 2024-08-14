@@ -9,10 +9,10 @@ public final class Ai {
             "미적분학",
             "파이썬 기본 문법",
             "파이썬 라이브러리",
-            "파이썬 & 판다스",
+            "파이썬 판다스",
             "넘파이",
             "SQL",
-            "DL & ML"
+            "DL ML"
     };
     public static  String[] stepsAiBriefNames ={
             "벡터와 행렬 다루는 수학",
@@ -42,6 +42,7 @@ public final class Ai {
             Arrays.asList("파이썬 & 판다스", "넘파이"),
             Arrays.asList("넘파이", "SQL"),
             Arrays.asList("DL & ML", "SQL"),
+            Arrays.asList("DL & ML"),
             Arrays.asList("DL & ML")
     };
 }

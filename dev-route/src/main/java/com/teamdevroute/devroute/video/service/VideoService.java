@@ -128,14 +128,20 @@ public class VideoService {
     private void saveInfreanVideo(ArrayList<InfreanVideoDTO> infreanVideoDTOS, TechnologyStackName techStack) {
         Long rank = 0L;
         for (InfreanVideoDTO infreanVideoDTO : infreanVideoDTOS) {
-            videoRepository.save(infreanVideoDTO.toEntity(String.valueOf(Infrean),
+            videoRepository.save(infreanVideoDTO.toEntity(String.valueOf(Inflearn),
                     String.valueOf(techStack), 0L, ++rank));
         }
     }
 
     public List<LectureResponseDTO> findLectureListByPlatformNameAndTechStack(
             String platformName, String techStack) {
-        List<Videos> videos = videoRepository.findByPlatformNameAndTeckStack(platformName, techStack);
+        List<Videos> videos = videoRepository.findByPlatformNameAndTeckStack(platformName, techStack).orElseThrow(
+                ()->new RuntimeException("해당 플랫폼 및 기술 스택을 가진 영상이 존재하지 않습니다.")
+        );
+        if(videos.isEmpty()){
+            throw new RuntimeException("해당 플랫폼 및 기술 스택을 가진 영상이 존재하지 않습니다.");
+        }
+
         return videos.stream()
                 .map(video -> new LectureResponseDTO(video.getId(), video.getUrl(), video.getTitle(), video.getThumnail_url(), video.getPrice(), video.getPlatformName()))
                 .collect(Collectors.toList());
