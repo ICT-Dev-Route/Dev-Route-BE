@@ -1,5 +1,6 @@
 package com.teamdevroute.devroute.user;
 
+import com.teamdevroute.devroute.bookmark.Bookmark;
 import com.teamdevroute.devroute.global.auth.Oauth2Util;
 import com.teamdevroute.devroute.global.auth.LoginUserInfo;
 import com.teamdevroute.devroute.global.auth.jwt.JwtUtils;
@@ -9,6 +10,7 @@ import com.teamdevroute.devroute.user.domain.User;
 import com.teamdevroute.devroute.user.dto.UserAuthResponse;
 import com.teamdevroute.devroute.user.dto.UserCreateRequest;
 import com.teamdevroute.devroute.user.dto.UserCreateResponse;
+import com.teamdevroute.devroute.user.dto.UserMyPageResponse;
 import com.teamdevroute.devroute.user.enums.DevelopField;
 import com.teamdevroute.devroute.user.enums.LoginType;
 import lombok.RequiredArgsConstructor;
@@ -141,6 +143,11 @@ public class UserService {
 
     public User findByUserId(Long id) {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    }
+
+    public UserMyPageResponse readMyPage(Long id) {
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        return UserMyPageResponse.of(user);
     }
 }
 
