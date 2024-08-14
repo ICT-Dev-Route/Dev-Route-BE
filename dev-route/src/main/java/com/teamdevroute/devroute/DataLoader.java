@@ -278,9 +278,136 @@ public class DataLoader implements CommandLineRunner {
                 0L, "react", "youtube"
         );
         createVideo(
-                27000L, "React 배우기",
-                "https://inflearn.com/hgfhgfdg",
+                0L, "리액트의 미래",
+                "https://youtube.com/ggfdg",
+                0L, "react", "youtube"
+        );
+        createVideo(
+                32320L, "리액트 6시간 마스터",
+                "https://inflearn.com/4521421",
                 0L, "react", "inflearn"
+        );
+        createVideo(
+                26660L, "리액트 기본만 하자",
+                "https://inflearn.com/41421",
+                0L, "react", "inflearn"
+        );
+        createVideo(
+                0L, "리액트 입문 강의",
+                "https://inflearn.com/1421",
+                0L, "react", "inflearn"
+        );
+
+        createVideo(
+                23000L, "How To Use React",
+                "https://udemy.com/1421",
+                0L, "react", "udemy"
+        );
+        createVideo(
+                3000L, "React World",
+                "https://udemy.com/122221",
+                0L, "react", "udemy"
+        );
+        createVideo(
+                53000L, "I like react",
+                "https://udemy.com/3123211",
+                0L, "react", "udemy"
+        );
+
+        createVideo(
+                0L, "뷰 제이에스란 무엇인가",
+                "https://youtube.com/54353",
+                0L, "vuejs", "youtube"
+        );
+        createVideo(
+                0L, "나는야 vueJS 마스터",
+                "https://youtube.com/5ㄹㄴㄷㄹㄴㄷ53",
+                0L, "vuejs", "youtube"
+        );
+        createVideo(
+                0L, "vueJS vs React",
+                "https://youtube.com/421414",
+                0L, "vuejs", "youtube"
+        );
+
+        createVideo(
+                23000L, "vueJS 3시간 마스터",
+                "https://inflearn.com/534523",
+                0L, "vuejs", "inflearn"
+        );
+        createVideo(
+                33000L, "vueJS 이것만 알자",
+                "https://inflearn.com/523",
+                0L, "vuejs", "inflearn"
+        );
+        createVideo(
+                53000L, "이것만 알면 vueJS 마스터",
+                "https://inflearn.com/534523",
+                0L, "vuejs", "inflearn"
+        );
+
+        createVideo(
+                3000L, "How to use vueJS",
+                "https://udemy.com/534523",
+                0L, "vuejs", "udemy"
+        );
+        createVideo(
+                56000L, "vvvvvvueJS",
+                "https://udemy.com/h8h8",
+                0L, "vuejs", "udemy"
+        );
+        createVideo(
+                77000L, "vueJS Lecture",
+                "https://udemy.com/gfdgdf3",
+                0L, "vuejs", "udemy"
+        );
+
+        createVideo(
+                0L, "이건 또 무슨 기술인가",
+                "https://youtube.com/321321",
+                0L, "angular", "youtube"
+        );
+        createVideo(
+                0L, "앵귤라 앵귤라",
+                "https://youtube.com/43443321",
+                0L, "angular", "youtube"
+        );
+        createVideo(
+                0L, "뭐라고 지어야하나",
+                "https://youtube.com/675321",
+                0L, "angular", "youtube"
+        );
+
+        createVideo(
+                33330L, "angular 4시간 마스터",
+                "https://inflrean.com/675321",
+                0L, "angular", "inflearn"
+        );
+        createVideo(
+                5550L, "angular 기본 문법 마스터",
+                "https://inflrean.com/6543534",
+                0L, "angular", "inflearn"
+        );
+        createVideo(
+                100000L, "angular 4시간 마스터",
+                "https://inflrean.com/675321",
+                0L, "angular", "inflearn"
+        );
+
+        createVideo(
+                100000L, "angular 4 hour master",
+                "https://udemy.com/675321",
+                0L, "angular", "udemy"
+        );
+        createVideo(
+                1000L, "angular is very fun",
+                "https://udemy.com/1213123121",
+                0L, "angular", "udemy"
+        );
+        createVideo(
+                10000L, "angular Lecture",
+                "https://udemy.com/123121",
+                0L, "angular", "udemy"
         );
 
 
