@@ -38,17 +38,15 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(
-            @RequestBody UserLoginRequest loginRequest,
-            HttpSession session,
-            HttpServletResponse response
+            @RequestBody UserLoginRequest loginRequest
     ) throws IOException {
         String token = userService.login(loginRequest);
-
         log.info("토큰: " + token);
-        session.setAttribute("token" ,"Bearer " + token);
-        response.sendRedirect(DOMAIN_URL + "/mainpage");
 
-        return new ResponseEntity<>("유저가 로그인되었습니다.", HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + token);
+
+        return new ResponseEntity<>(headers, HttpStatus.OK);
     }
 
     @GetMapping("/auth/kakao")
