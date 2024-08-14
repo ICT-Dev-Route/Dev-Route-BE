@@ -2,6 +2,7 @@ package com.teamdevroute.devroute.global.auth.filter;
 
 import com.teamdevroute.devroute.global.auth.jwt.JwtUtils;
 import com.teamdevroute.devroute.global.exception.InvalidAccessException;
+import com.teamdevroute.devroute.user.domain.CustomUserDetails;
 import com.teamdevroute.devroute.user.service.CustomUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -40,7 +41,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             if(jwtUtils.validateToken(token)) {
                 Long id = jwtUtils.getUserId(token);
 
-                UserDetails userDetails = customUserDetailsService.loadUserByUsername(id.toString());
+                CustomUserDetails userDetails = customUserDetailsService.loadUserByUsername(id.toString());
 
                 if(userDetails != null) {
                     log.info("doFilterInternal() - userDetalis 존재");
