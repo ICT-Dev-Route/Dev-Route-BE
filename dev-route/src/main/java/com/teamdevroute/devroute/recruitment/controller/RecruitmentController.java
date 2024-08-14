@@ -32,7 +32,7 @@ public class RecruitmentController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/api/tech_stack/{type}")
+    @GetMapping("/tech_stack/{type}")
     public ResponseEntity filterTechStackRate(@PathVariable("type") DevelopField type) {
         return ResponseEntity.ok(recruitmentService.filterTechStackRate(type));
     }
