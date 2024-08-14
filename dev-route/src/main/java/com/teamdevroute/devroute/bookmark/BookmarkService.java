@@ -24,8 +24,8 @@ public class BookmarkService {
     private final VideoService videoService;
     private final UserRepository userRepository;
 
-    public void updateBookmark(BookmarkUpdateRequest request) {
-        User user = userRepository.findById(request.getUserId()).orElseThrow(UserNotFoundException::new);
+    public void updateBookmark(BookmarkUpdateRequest request, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         Bookmark bookmark = user.getBookmark();
         String type = request.getType();
 
