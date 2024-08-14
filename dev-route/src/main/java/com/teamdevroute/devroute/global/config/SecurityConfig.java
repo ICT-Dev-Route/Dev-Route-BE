@@ -36,7 +36,7 @@ public class SecurityConfig {
     private final CustomAuthenticationSuccessHandler authenticationSuccessHandler;
 
     private static final String[] AUTH_WHITELIST = {
-        "/login","/fetch-and-save","/lecture", "/signup/**",
+        "/login","/fetch-and-save","/lecture/**", "/signup/**",
         "/token","/roadmap/**","/main/**", "/recruit/**", "/fetch-jobs", "/api/**"
     };
 
