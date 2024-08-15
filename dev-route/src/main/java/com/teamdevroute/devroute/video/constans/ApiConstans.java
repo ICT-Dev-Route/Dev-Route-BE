@@ -14,9 +14,11 @@ public final class ApiConstans {
     public static String UDEMY_API_URL_FRONT_VIDEOID="https://www.udemy.com";
 
     public static String INFREAN_CRAWRLING_URL_SEARCH="https://www.inflearn.com/courses/it-programming/web-dev?skill=";
+    public static String INFREAN_CRAWRLING_URL_SEARCH_MOBILE = "https://www.inflearn.com/courses/it-programming/mobile-app?skill=";
+    public static String INFREAN_CRAWRLING_URL_SEARCH_MOBILE_AI = "https://www.inflearn.com/courses/";
     public static String QUERY_FRONT_VALUE="&q=";
     public static String QUERY_FRONT_KEY = "&key=";
-    public static String QUERY_MAX_RESULT = "&maxResults=10";
+    public static String QUERY_MAX_RESULT = "&maxResults=12";
     public static String QUERY_UDEMY_SET_FEILD = "&fields[course]=title,url,price,image_125_H";
 
     private  ApiConstans(){
