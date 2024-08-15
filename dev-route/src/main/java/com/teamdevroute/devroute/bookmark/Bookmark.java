@@ -2,16 +2,14 @@ package com.teamdevroute.devroute.bookmark;
 
 import com.teamdevroute.devroute.bookmark.domain.BookmarkCompany;
 import com.teamdevroute.devroute.bookmark.domain.BookmarkRoadmap;
-import com.teamdevroute.devroute.bookmark.domain.BookmarkTech;
 import com.teamdevroute.devroute.bookmark.domain.BookmarkVideo;
+import com.teamdevroute.devroute.bookmark.exception.DuplicateBookmarkContentException;
 import com.teamdevroute.devroute.bookmark.json.CompanyListConverter;
 import com.teamdevroute.devroute.bookmark.json.RoadmapListConverter;
-import com.teamdevroute.devroute.bookmark.json.TechStackListConverter;
 import com.teamdevroute.devroute.bookmark.json.VideoListConverter;
 import com.teamdevroute.devroute.company.domain.Company;
 import com.teamdevroute.devroute.global.BaseTimeEntity;
 import com.teamdevroute.devroute.roadmap.domain.RoadmapStep;
-import com.teamdevroute.devroute.video.domain.TechnologyStack;
 import com.teamdevroute.devroute.video.domain.Videos;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -52,15 +50,40 @@ public class Bookmark extends BaseTimeEntity {
     }
 
     public void addCompany(Company company) {
-        companies.add(BookmarkCompany.from(company));
+        BookmarkCompany bookmarkCompany = BookmarkCompany.from(company);
+        boolean exists = companies.stream()
+                .anyMatch(existingCompany -> existingCompany.getId().equals(bookmarkCompany.getId()));
+        if (!exists) {
+            companies.add(bookmarkCompany);
+        } else {
+            throw new DuplicateBookmarkContentException.DuplicateCompanyException();
+        }
     }
 
     public void addVideo(Videos video) {
-        videos.add(BookmarkVideo.from(video));
+        BookmarkVideo bookmarkVideo = BookmarkVideo.from(video);
+
+        boolean exists = videos.stream()
+                .anyMatch(existingVideo -> existingVideo.getId().equals(bookmarkVideo.getId()));
+
+        if (!exists) {
+            videos.add(bookmarkVideo);
+        } else {
+            throw new DuplicateBookmarkContentException.DuplicateVideoException();
+        }
     }
 
     public void addRoadmap(RoadmapStep roadmapStep) {
-        roadmaps.add(BookmarkRoadmap.from(roadmapStep));
+        BookmarkRoadmap bookmarkRoadmap = BookmarkRoadmap.from(roadmapStep);
+
+        boolean exists = roadmaps.stream()
+                .anyMatch(existingRoadmap -> existingRoadmap.getId().equals(bookmarkRoadmap.getId()));
+
+        if (!exists) {
+            roadmaps.add(bookmarkRoadmap);
+        } else {
+            throw new DuplicateBookmarkContentException.DuplicateRoadmapException();
+        }
     }
 
     public void removeCompany(Long companyId) {
