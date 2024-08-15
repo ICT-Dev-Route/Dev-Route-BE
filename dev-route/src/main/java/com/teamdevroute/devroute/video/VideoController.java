@@ -53,7 +53,7 @@ public class VideoController {
     }
     @ResponseBody
     @GetMapping("/lecture/techstack")
-    public ResponseEntity<TechStackDTO> getRecommendLectureList
+    public ResponseEntity<TechStackDTO> getTechStackInlecture
             (){
         TechStackDTO techStackDTO = new TechStackDTO();
         return  ResponseEntity.ok(techStackDTO);
