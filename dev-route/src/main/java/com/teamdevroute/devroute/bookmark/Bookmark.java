@@ -31,12 +31,15 @@ public class Bookmark extends BaseTimeEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     @Convert(converter = CompanyListConverter.class)
     private List<BookmarkCompany> companies;
 
+    @Column(columnDefinition = "TEXT")
     @Convert(converter = VideoListConverter.class)
     private List<BookmarkVideo> videos;
 
+    @Column(columnDefinition = "TEXT")
     @Convert(converter = RoadmapListConverter.class)
     private List<BookmarkRoadmap> roadmaps;
 

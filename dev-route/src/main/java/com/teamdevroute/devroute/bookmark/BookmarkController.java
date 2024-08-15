@@ -29,7 +29,7 @@ public class BookmarkController {
         return ResponseEntity.ok("북마크가 추가되었습니다.");
     }
 
-    @PostMapping("/bookmark/get")
+    @GetMapping("/bookmark/get")
     public ResponseEntity getBookmark(
             @AuthenticationPrincipal CustomUserDetails userDetails
             ) {
