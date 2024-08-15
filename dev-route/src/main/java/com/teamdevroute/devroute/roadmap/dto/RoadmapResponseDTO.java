@@ -4,11 +4,10 @@ import lombok.Builder;
 
 import java.util.List;
 
-public record RoadmapResponeDTO(String name, boolean toggled,List<RoadmapDTO> children) {
+public record RoadmapResponseDTO(String name, List<RoadmapDTO> RoadmapDTOs) {
     @Builder
-    public RoadmapResponeDTO(String name,boolean toggled,List<RoadmapDTO> children){
+    public RoadmapResponseDTO(String name, List<RoadmapDTO> RoadmapDTOs){
         this.name = name;
-        this.toggled=toggled;
-        this.children = children;
+        this.RoadmapDTOs = RoadmapDTOs;
     }
 }

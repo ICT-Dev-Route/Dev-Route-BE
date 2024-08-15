@@ -36,7 +36,7 @@ public class Recruitment {
     @Enumerated(EnumType.STRING)
     private DevelopField developField;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")
     private Company company;
 
