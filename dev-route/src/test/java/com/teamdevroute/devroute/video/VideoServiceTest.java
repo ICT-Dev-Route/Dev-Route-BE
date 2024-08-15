@@ -47,7 +47,7 @@ public class VideoServiceTest {
 
     }
 
-    @DisplayName("가짜 유튜브 비디오 객체를 생성하여,Fetch하고 Save하는 과정이 9번 진행되나 테스트한다.")
+    @DisplayName("가짜 유튜브 비디오 객체를 생성하여,Fetch하고 Save하는 과정이 13번 진행되나 테스트한다.")
     @Test
     public void testFetchAndSaveYoutubeVideos() {
         // Given
@@ -57,7 +57,7 @@ public class VideoServiceTest {
         // Then
         videoService.fetchAndSaveYoutubeVideos();
         //Tehcnology stack name이 총 9개임으로 9번 호출 되는 것이 맞음.
-        verify(videoRepository, times(9)).save(any());
+        verify(videoRepository, times(13)).save(any());
     }
 
     @DisplayName("가짜 유튜브 비디오 객체를 생성하는데, videoid가 null인경우,Save가 되지 않는지 테스트한다.")
@@ -81,7 +81,7 @@ public class VideoServiceTest {
         // Then
         videoService.fetchAndSaveUdemyVideos();
         //Tehcnology stack name이 총 9개임으로 9번 호출 되는 것이 맞음.
-        verify(videoRepository, times(9)).save(any());
+        verify(videoRepository, times(13)).save(any());
     }
 
     @DisplayName("가짜 유데미 비디오 객체를 생성하는데, videoid가 null인경우,Save가 되지 않는지 테스트한다.")
