@@ -1,6 +1,7 @@
 package com.teamdevroute.devroute.crawling;
 
-import static com.teamdevroute.devroute.video.constans.ApiConstans.INFREAN_CRAWRLING_URL_SEARCH;
+import static com.teamdevroute.devroute.video.constans.ApiConstans.*;
+import static com.teamdevroute.devroute.video.enums.TechnologyStackName.*;
 
 import com.teamdevroute.devroute.video.dto.infrean.InfreanVideoDTO;
 import com.teamdevroute.devroute.video.enums.TechnologyStackName;
@@ -31,7 +32,7 @@ public class InfreanVideoCrawling {
             List<WebElement> lectures = getLectures(driver);
             // 각 강의 요소를 순회하며 데이터 추출
             for (WebElement lecture : lectures) {
-                if (result.size() >= 10) {
+                if (result.size() >= 12) {
                     break;
                 }
                 try {
@@ -109,6 +110,16 @@ public class InfreanVideoCrawling {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         WebDriver driver = new ChromeDriver(options);
+        System.out.println("teck stack"+teck_stack);
+        if (teck_stack.equals(String.valueOf(android)) || teck_stack.equals(String.valueOf(ios))) {
+            driver.get(INFREAN_CRAWRLING_URL_SEARCH_MOBILE + teck_stack + "&types=ONLINE");
+            return driver;
+        } else if (teck_stack.equals("data-science") ||
+                teck_stack.equals("artificial-intelligence")) {
+            driver.get(INFREAN_CRAWRLING_URL_SEARCH_MOBILE_AI + teck_stack + "?types=ONLINE");
+            return driver;
+
+        }
         driver.get(INFREAN_CRAWRLING_URL_SEARCH+teck_stack+"&types=ONLINE");
         return driver;
     }
