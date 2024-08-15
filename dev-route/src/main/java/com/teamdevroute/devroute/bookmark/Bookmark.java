@@ -2,16 +2,14 @@ package com.teamdevroute.devroute.bookmark;
 
 import com.teamdevroute.devroute.bookmark.domain.BookmarkCompany;
 import com.teamdevroute.devroute.bookmark.domain.BookmarkRoadmap;
-import com.teamdevroute.devroute.bookmark.domain.BookmarkTech;
 import com.teamdevroute.devroute.bookmark.domain.BookmarkVideo;
+import com.teamdevroute.devroute.bookmark.exception.DuplicateBookmarkContentException;
 import com.teamdevroute.devroute.bookmark.json.CompanyListConverter;
 import com.teamdevroute.devroute.bookmark.json.RoadmapListConverter;
-import com.teamdevroute.devroute.bookmark.json.TechStackListConverter;
 import com.teamdevroute.devroute.bookmark.json.VideoListConverter;
 import com.teamdevroute.devroute.company.domain.Company;
 import com.teamdevroute.devroute.global.BaseTimeEntity;
 import com.teamdevroute.devroute.roadmap.domain.RoadmapStep;
-import com.teamdevroute.devroute.video.domain.TechnologyStack;
 import com.teamdevroute.devroute.video.domain.Videos;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -57,6 +55,8 @@ public class Bookmark extends BaseTimeEntity {
                 .anyMatch(existingCompany -> existingCompany.getId().equals(bookmarkCompany.getId()));
         if (!exists) {
             companies.add(bookmarkCompany);
+        } else {
+            throw new DuplicateBookmarkContentException.DuplicateCompanyException();
         }
     }
 
@@ -68,6 +68,8 @@ public class Bookmark extends BaseTimeEntity {
 
         if (!exists) {
             videos.add(bookmarkVideo);
+        } else {
+            throw new DuplicateBookmarkContentException.DuplicateVideoException();
         }
     }
 
@@ -79,6 +81,8 @@ public class Bookmark extends BaseTimeEntity {
 
         if (!exists) {
             roadmaps.add(bookmarkRoadmap);
+        } else {
+            throw new DuplicateBookmarkContentException.DuplicateRoadmapException();
         }
     }
 
