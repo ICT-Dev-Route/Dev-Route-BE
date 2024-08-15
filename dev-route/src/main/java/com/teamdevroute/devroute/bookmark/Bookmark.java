@@ -52,15 +52,34 @@ public class Bookmark extends BaseTimeEntity {
     }
 
     public void addCompany(Company company) {
-        companies.add(BookmarkCompany.from(company));
+        BookmarkCompany bookmarkCompany = BookmarkCompany.from(company);
+        boolean exists = companies.stream()
+                .anyMatch(existingCompany -> existingCompany.getId().equals(bookmarkCompany.getId()));
+        if (!exists) {
+            companies.add(bookmarkCompany);
+        }
     }
 
     public void addVideo(Videos video) {
-        videos.add(BookmarkVideo.from(video));
+        BookmarkVideo bookmarkVideo = BookmarkVideo.from(video);
+
+        boolean exists = videos.stream()
+                .anyMatch(existingVideo -> existingVideo.getId().equals(bookmarkVideo.getId()));
+
+        if (!exists) {
+            videos.add(bookmarkVideo);
+        }
     }
 
     public void addRoadmap(RoadmapStep roadmapStep) {
-        roadmaps.add(BookmarkRoadmap.from(roadmapStep));
+        BookmarkRoadmap bookmarkRoadmap = BookmarkRoadmap.from(roadmapStep);
+
+        boolean exists = roadmaps.stream()
+                .anyMatch(existingRoadmap -> existingRoadmap.getId().equals(bookmarkRoadmap.getId()));
+
+        if (!exists) {
+            roadmaps.add(bookmarkRoadmap);
+        }
     }
 
     public void removeCompany(Long companyId) {
