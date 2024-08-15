@@ -6,6 +6,7 @@ import java.util.List;
 import com.teamdevroute.devroute.video.Repository.TechnologyStackRepository;
 import com.teamdevroute.devroute.video.domain.TechnologyStack;
 import com.teamdevroute.devroute.video.dto.LectureResponseDTO;
+import com.teamdevroute.devroute.video.dto.TechStackDTO;
 import com.teamdevroute.devroute.video.service.TechnologyStackService;
 import com.teamdevroute.devroute.video.service.VideoService;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +50,13 @@ public class VideoController {
     ){
         videoService.findTop3Videos();
         return ResponseEntity.ok(videoService.findTop3Videos());
+    }
+    @ResponseBody
+    @GetMapping("/lecture/techstack")
+    public ResponseEntity<TechStackDTO> getRecommendLectureList
+            (){
+        TechStackDTO techStackDTO = new TechStackDTO();
+        return  ResponseEntity.ok(techStackDTO);
     }
 
     private void addCountTechnologyStackByStackName(String tech_name) {
