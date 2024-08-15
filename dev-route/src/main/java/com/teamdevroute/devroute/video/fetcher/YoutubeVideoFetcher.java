@@ -24,6 +24,6 @@ public class YoutubeVideoFetcher {
     }
 
     private String getYoutubeApiUrl(String value) {
-        return YOUTUBE_API_URL_SEARCH + QUERY_FRONT_VALUE + value + QUERY_FRONT_KEY + youtubeApiKey + QUERY_MAX_RESULT;
+        return YOUTUBE_API_URL_SEARCH + QUERY_FRONT_VALUE + value+"개발" + QUERY_FRONT_KEY + youtubeApiKey + QUERY_MAX_RESULT;
     }
 }

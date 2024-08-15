@@ -3,12 +3,14 @@ package com.teamdevroute.devroute.company.controller;
 import com.teamdevroute.devroute.company.dto.CompanyDetailResponse;
 import com.teamdevroute.devroute.company.dto.CompanyResponse;
 import com.teamdevroute.devroute.company.service.CompanyService;
+import com.teamdevroute.devroute.crawling.CompanyRecruitmentCrawling;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ import java.util.List;
 public class CompanyController {
 
     private CompanyService companyService;
+    private CompanyRecruitmentCrawling recruitmentCrawling;
 
     @GetMapping("/recruit/enterprise")
     public ResponseEntity getAllCompanies() {
@@ -29,5 +32,12 @@ public class CompanyController {
     public ResponseEntity getCompanyDetail(@PathVariable("companyId") long companyId) {
         CompanyDetailResponse response = companyService.findCompanyDetail(companyId);
         return ResponseEntity.ok(response);
+    }
+
+    @ResponseBody
+    @GetMapping("/recruit/crwal")
+    public String crwalRecruitmentTest(){
+recruitmentCrawling.companyAndRecruitmentCrawling();
+        return "successfull crawl";
     }
 }

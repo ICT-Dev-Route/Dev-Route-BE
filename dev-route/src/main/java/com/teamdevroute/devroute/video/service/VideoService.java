@@ -81,7 +81,8 @@ public class VideoService {
 
     public void fetchAndSaveInfreanVideos() throws IOException {
         for (TechnologyStackName value : TechnologyStackName.values()) {
-            ArrayList<InfreanVideoDTO> infreanVideoDTOS = infreanVideoFetcher.fetchInfreanVideos(String.valueOf(value));
+            ArrayList<InfreanVideoDTO> infreanVideoDTOS = infreanVideoFetcher.fetchInfreanVideos(value.toLowerCaseHyphen());
+            System.out.println("SSS: "+value.toLowerCaseHyphen());
             saveInfreanVideo(infreanVideoDTOS, value);
         }
     }
@@ -119,7 +120,7 @@ public class VideoService {
                         String.valueOf(Udemy), String.valueOf(techStack), 0L, ++rank));
                 currentCourseNumber += 1;
             }
-            if (currentCourseNumber >= 10) {
+            if (currentCourseNumber >= 12) {
                 break;
             }
         }

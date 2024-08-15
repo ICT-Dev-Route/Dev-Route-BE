@@ -10,6 +10,8 @@ public class TechStackDTO {
 
     private List<String> frontend;
     private List<String> backend;
+    private List<String> mobile;
+    private List<String> ai_data;
 
     // Getters and Setters
 
@@ -18,6 +20,8 @@ public class TechStackDTO {
         frontend = Arrays.asList("htmlcss", "javascript", "react", "Vuejs",
                 "Angular");
         backend = Arrays.asList("python", "java", "spring", "nodejs");
+        mobile = Arrays.asList("android", "ios");
+        ai_data = Arrays.asList("ai", "data");
     }
 
 
