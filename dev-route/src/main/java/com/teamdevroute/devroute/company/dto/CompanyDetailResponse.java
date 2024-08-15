@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class CompanyDetailResponse {
+    private Long id;
     private String name;
     private String info;
     private Double grade;
@@ -19,7 +20,8 @@ public class CompanyDetailResponse {
     private List<CompanyDetailRecruitResponse> recruitments;
 
     @Builder
-    public CompanyDetailResponse(String name, String info, Double grade, String averageSalary, String logoUrl, List<CompanyDetailRecruitResponse> recruitments) {
+    public CompanyDetailResponse(Long id, String name, String info, Double grade, String averageSalary, String logoUrl, List<CompanyDetailRecruitResponse> recruitments) {
+        this.id = id;
         this.name = name;
         this.info = info;
         this.grade = grade;
@@ -33,6 +35,7 @@ public class CompanyDetailResponse {
             List<CompanyDetailRecruitResponse> recruitments
     ) {
         return CompanyDetailResponse.builder()
+                .id(company.getId())
                 .name(company.getName())
                 .info(company.getInfo())
                 .grade(company.getGrade())
