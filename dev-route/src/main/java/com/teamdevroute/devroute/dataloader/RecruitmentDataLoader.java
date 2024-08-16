@@ -24,32 +24,34 @@ public class RecruitmentDataLoader {
     public void loadRecruitmentData() {
         List<Company> companies = companyDataLoader.getCompanyList();
 
-        createRecruitment(
-                companies.get(0), Arrays.asList("JAVA", "SPRING"),
-                "4년차", LocalDate.now(),
-                Source.JUMPIT, "https://kakao.com/backend",
-                DevelopField.AI
-        );
-        createRecruitment(
-                companies.get(0), Arrays.asList("HTML", "REACT"),
-                "2년차", LocalDate.now(),
-                Source.JUMPIT, "https://kakao.com/frontend",
-                DevelopField.DATA_SCIENCE
-        );
+        for (Company company : companies) {
+            createRecruitment(
+                    company, Arrays.asList("JAVA", "SPRING"),
+                    "4년차", LocalDate.now(),
+                    Source.JUMPIT, "https://kakao.com/backend",
+                    DevelopField.AI
+            );
+            createRecruitment(
+                    company, Arrays.asList("HTML", "REACT"),
+                    "2년차", LocalDate.now(),
+                    Source.JUMPIT, "https://kakao.com/frontend",
+                    DevelopField.DATA_SCIENCE
+            );
+            createRecruitment(
+                    company, Arrays.asList("PHP", "GIT"),
+                    "경력무관", LocalDate.now(),
+                    Source.JUMPIT, "https://naver.com",
+                    DevelopField.BACKEND
+            );
+            createRecruitment(
+                    company, Arrays.asList("AWS", "Docker"),
+                    "10년", LocalDate.now(),
+                    Source.JUMPIT, "https://samsung.com",
+                    DevelopField.MOBILE
+            );
+        }
 
-        createRecruitment(
-                companies.get(1), Arrays.asList("PHP", "GIT"),
-                "경력무관", LocalDate.now(),
-                Source.SARAMIN, "https://naver.com",
-                DevelopField.BACKEND
-        );
 
-        createRecruitment(
-                companies.get(3), Arrays.asList("AWS", "Docker"),
-                "10년", LocalDate.now(),
-                Source.SARAMIN, "https://samsung.com",
-                DevelopField.MOBILE
-        );
     }
 
 
