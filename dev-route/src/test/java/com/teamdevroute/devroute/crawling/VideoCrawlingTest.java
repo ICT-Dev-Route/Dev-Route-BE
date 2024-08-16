@@ -20,8 +20,7 @@ import java.util.List;
 
 import static com.teamdevroute.devroute.user.enums.DevelopField.DATA_SCIENCE;
 import static com.teamdevroute.devroute.video.constans.ApiConstans.INFREAN_CRAWRLING_URL_SEARCH;
-import static com.teamdevroute.devroute.video.enums.TechnologyStackName.ARTIFICIAL_INTELLIGENCE;
-import static com.teamdevroute.devroute.video.enums.TechnologyStackName.python;
+import static com.teamdevroute.devroute.video.enums.TechnologyStackName.*;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,10 +56,12 @@ public class VideoCrawlingTest {
                 }));
 
     }
-    @DisplayName(("AI와 data science의 크롤링 후, 각 기술 스택에 대해서 title,url,thumnailurl,price를 잘 반환하는지 확인한다."))
+    @DisplayName(("htmlcss,AI와 data science의 크롤링 후, 각 기술 스택에 대해서 title,url,thumnailurl,price를 잘 반환하는지 확인한다."))
     @Test
     public void isRightResponseWhenCrawlingAtAiAndDatascience(){
-        String[] values = {String.valueOf(TechnologyStackName.DATA_SCIENCE.toLowerCaseHyphen()), String.valueOf(ARTIFICIAL_INTELLIGENCE.toLowerCaseHyphen())};
+        String[] values = {
+                String.valueOf(TechnologyStackName.DATA_SCIENCE.toLowerCaseHyphen()), String.valueOf(ARTIFICIAL_INTELLIGENCE.toLowerCaseHyphen()),
+                String.valueOf(htmlcss)};
         Assertions.assertTrue(Arrays.stream(values)
                 .allMatch(value -> {
                     ArrayList<InfreanVideoDTO> infreanVideoDTOS = infreanVideoCrawling.crawlingInfreanVideo(value);

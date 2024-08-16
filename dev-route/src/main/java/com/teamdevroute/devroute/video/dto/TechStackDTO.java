@@ -21,7 +21,7 @@ public class TechStackDTO {
                 "Angular");
         backend = Arrays.asList("python", "java", "spring", "nodejs");
         mobile = Arrays.asList("android", "ios");
-        ai_data = Arrays.asList("ai", "data");
+        ai_data = Arrays.asList("ARTIFICIAL_INTELLIGENCE", "DATA_SCIENCE");
     }
 
 

@@ -54,10 +54,8 @@ public class InfreanVideoCrawling {
             }
         } catch (Exception e) {
             log.error("An unexpected error occurred: " + e.getMessage(), e);
-        } finally {
-            // 브라우저 닫기
-            driver.quit();
         }
+        driver.quit();
         return result;
     }
 
@@ -111,15 +109,26 @@ public class InfreanVideoCrawling {
         options.addArguments("--disable-dev-shm-usage");
         WebDriver driver = new ChromeDriver(options);
         System.out.println("teck stack"+teck_stack);
-        if (teck_stack.equals(String.valueOf(android)) || teck_stack.equals(String.valueOf(ios))) {
-            driver.get(INFREAN_CRAWRLING_URL_SEARCH_MOBILE + teck_stack + "&types=ONLINE");
-            return driver;
-        } else if (teck_stack.equals("data-science") ||
-                teck_stack.equals("artificial-intelligence")) {
-            driver.get(INFREAN_CRAWRLING_URL_SEARCH_MOBILE_AI + teck_stack + "?types=ONLINE");
-            return driver;
 
+        switch (teck_stack) {
+            case "android":
+            case "ios":
+                driver.get(INFREAN_CRAWRLING_URL_SEARCH_MOBILE + teck_stack + "&types=ONLINE");
+                return driver;
+            case "data-science":
+            case "artificial-intelligence":
+                driver.get(INFREAN_CRAWRLING_URL_SEARCH_MOBILE_AI + teck_stack + "?types=ONLINE");
+                return driver;
+            case "htmlcss":
+                System.out.println(INFREAN_CRAWRLING_URL_SEARCH + "html-css" + "?types=ONLINE");
+                driver.get(INFREAN_CRAWRLING_URL_SEARCH + "html-css" + "&types=ONLINE");
+                return driver;
+            case "angular":
+//                System.out.println(INFREAN_CRAWRLING_URL_SEARCH + "html-css" + "?types=ONLINE");
+                driver.get("https://www.inflearn.com/courses?s=angular");
+                return driver;
         }
+
         driver.get(INFREAN_CRAWRLING_URL_SEARCH+teck_stack+"&types=ONLINE");
         return driver;
     }
