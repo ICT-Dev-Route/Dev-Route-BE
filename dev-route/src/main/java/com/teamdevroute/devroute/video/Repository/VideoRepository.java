@@ -17,4 +17,6 @@ public interface VideoRepository extends JpaRepository<Videos,Long> {
         Page<Videos> page = findAll(topThree);
         return Optional.ofNullable(page.getContent().isEmpty() ? null : page.getContent());
     }
+
+    long count();
 }

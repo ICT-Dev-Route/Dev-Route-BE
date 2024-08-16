@@ -56,7 +56,7 @@ public class VideoServiceTest {
         when(youtubeVideoFetcher.fetchYoutubeVideos(anyString())).thenReturn(response);
         // Then
         videoService.fetchAndSaveYoutubeVideos();
-        //Tehcnology stack name이 총 9개임으로 9번 호출 되는 것이 맞음.
+        //Tehcnology stack name이 총 13개임으로 13번 호출 되는 것이 맞음.
         verify(videoRepository, times(13)).save(any());
     }
 
