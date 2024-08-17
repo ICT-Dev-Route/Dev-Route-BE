@@ -29,7 +29,7 @@ jobs:
 
       - name: Spring Project 빌드하기
         run: |
-          cd ./server/
+          cd ./dev-route/
           chmod +x ./gradlew
           ./gradlew clean build -x test
 
