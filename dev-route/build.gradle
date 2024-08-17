@@ -64,8 +64,12 @@ tasks.named('test') {
 
 processResources.dependsOn('copySecret')
 
-tasks.register('copySecret', Copy) {
-	from '../backend-submodule/application-secret.properties'
-	into 'src/main/resources'
+task copySecret(type: Copy) {
+	from ('../backend-submodule') {
+		include ("*.properties")
+	}
+	into ('./src/main/resources')
 }
+
+
 
