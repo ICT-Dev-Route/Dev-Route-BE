@@ -47,5 +47,6 @@ jobs:
           username: ${{ secrets.EC2_SSH_USER }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            docker kill $(docker ps -qf expose=8080) 2> /dev/null || echo 'No container running on port 8080'
+            docker stop devroute-server || true
+            docker rm devroute-server || true
             docker run -d -p 8080:8080 ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}}
