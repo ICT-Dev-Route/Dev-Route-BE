@@ -56,7 +56,6 @@ public class WebDriverUtil {
         //Chrome이 자동화된 환경에서 실행되고 있다는 경고 메시지를 비활성화. enable-automation 스위치를 제외하여 브라우저에서 자동화가 감지되는 것을 막음
         chromeOptions.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
     }
-
     public void closeChromeDriver() {
         driver.quit();
     }

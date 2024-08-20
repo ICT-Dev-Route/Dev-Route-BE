@@ -36,7 +36,6 @@ public class RecruitmentCrawling {
 
         List<CrawledRecruitmentDto> crawledRecruitmentDtoList = new ArrayList<>(10);
         try {
-
             for (int i = 0; i < enterpriseNames.size(); i++) {
                 webDriverUtil.getChromeDriver(JUMPIT_URL+ enterpriseNames.get(i));
                 WebDriver driver = webDriverUtil.getDriver();
@@ -74,7 +73,6 @@ public class RecruitmentCrawling {
                     if(idx == CRAWLING_RECRUIT_NUM_MAX){
                         break;
                     }
-
                     String title = element.getText();
                     log.info("RecruitmentCrawling Title: " + title);
                     crawledRecruitmentDtoList.get(idx++).setTitle(title);
@@ -113,11 +111,9 @@ public class RecruitmentCrawling {
                     crawledRecruitmentDtoList.get(idx++).setCareer(career);
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         webDriverUtil.closeChromeDriver();
 
         return crawledRecruitmentDtoList;

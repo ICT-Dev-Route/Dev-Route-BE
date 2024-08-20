@@ -30,13 +30,10 @@ import static org.mockito.Mockito.*;
 public class VideoServiceTest {
     @InjectMocks
     private VideoService videoService;
-
     @Mock
     private VideoRepository videoRepository;
-
     @Mock
     private RestTemplate restTemplate;
-
     @Mock
     private YoutubeVideoFetcher youtubeVideoFetcher;
     @Mock
@@ -44,7 +41,6 @@ public class VideoServiceTest {
 
     @BeforeEach
     public void setUp() {
-
     }
 
     @DisplayName("가짜 유튜브 비디오 객체를 생성하여,Fetch하고 Save하는 과정이 13번 진행되나 테스트한다.")
@@ -68,7 +64,6 @@ public class VideoServiceTest {
         when(youtubeVideoFetcher.fetchYoutubeVideos(anyString())).thenReturn(response);
         // Then
         videoService.fetchAndSaveYoutubeVideos();
-        //Tehcnology stack name이 총 9개임으로 9번 호출 되는 것이 맞음.
         verify(videoRepository, times(0)).save(any());
     }
     @DisplayName("가짜 유데미 비디오 객체를 생성하여,Fetch하고 Save하는 과정이 9번 진행되나 테스트한다.")
@@ -101,7 +96,6 @@ public class VideoServiceTest {
 
     //가짜 YoububeApiResponse를 가져온다.
     private YouTubeApiResponse getMockYouTubeApiResponse() {
-//        ReflectionTestUtils.setField(videoService, "youtubeApiKey", "fakeApiKey");
         Item item = new Item();
         setYoutubeItem(item);
         YouTubeApiResponse response = new YouTubeApiResponse();
@@ -117,8 +111,6 @@ public class VideoServiceTest {
         return response;
     }
     private UdemyApiResponse getMockUdemyApiResponse() {
-//        ReflectionTestUtils.setField(videoService, "udemyApiClientId", "fakeApiClientId");
-//        ReflectionTestUtils.setField(videoService, "udemyApiKey", "fakeApiKey");
         Course course = new Course();
         setUdemyCourse(course);
         UdemyApiResponse response = new UdemyApiResponse();
@@ -126,8 +118,6 @@ public class VideoServiceTest {
         return response;
     }
     private UdemyApiResponse getMockUdemyApiResponseWithUrlIsNull() {
-//        ReflectionTestUtils.setField(videoService, "udemyApiClientId", "fakeApiClientId");
-//        ReflectionTestUtils.setField(videoService, "udemyApiKey", "fakeApiKey");
         Course course = new Course();
         setUdemyCourseWithUrlIsNull(course);
         UdemyApiResponse response = new UdemyApiResponse();

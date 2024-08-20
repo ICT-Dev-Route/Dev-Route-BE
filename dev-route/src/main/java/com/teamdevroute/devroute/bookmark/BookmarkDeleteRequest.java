@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class BookmarkDeleteRequest {
-
     private Long id;
     private String type;
 }

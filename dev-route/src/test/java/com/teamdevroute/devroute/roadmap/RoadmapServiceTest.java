@@ -17,10 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class RoadmapServiceTest {
-
     @Autowired
     private RoadmapService roadmapService;
-
     @BeforeEach
     public void setUp() {
         roadmapService.updateAllRoadmaps();
