@@ -122,4 +122,9 @@ public class UserController {
         LoginUserInfo user = userDetails.getUser();
         return ResponseEntity.ok(userService.readMyPage(user.getId()));
     }
+
+    @GetMapping("/healthcheck")
+    public String healthcheck(){
+        return "OK";
+    }
 }
