@@ -25,7 +25,6 @@ public class UserServiceTest {
 
     @Autowired
     private UserService userService;
-
     @DisplayName("유저 회원가입이 잘 되는지 확인한다.")
     @Test
     void create_user() {

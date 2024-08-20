@@ -108,7 +108,6 @@ public class InfreanVideoCrawling {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         WebDriver driver = new ChromeDriver(options);
-        System.out.println("teck stack"+teck_stack);
 
         switch (teck_stack) {
             case "android":

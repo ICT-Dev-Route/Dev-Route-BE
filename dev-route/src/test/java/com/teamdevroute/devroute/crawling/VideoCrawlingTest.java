@@ -32,10 +32,8 @@ public class VideoCrawlingTest {
     @DisplayName(("Web Driver가 잘 연결 되는지를 확인한다."))
     @Test
     public void isGetWebDriver() {
-
         WebDriver driver = infreanVideoCrawling.getWebDriver(String.valueOf(python));
         driver.get(INFREAN_CRAWRLING_URL_SEARCH + python + "&types=ONLINE");
-
         Assert.assertTrue(driver.getTitle() != null);
     }
 
