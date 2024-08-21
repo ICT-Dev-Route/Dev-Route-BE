@@ -6,6 +6,7 @@ import com.teamdevroute.devroute.roadmap.dto.DetailedRoadmapResponseDTO;
 import com.teamdevroute.devroute.roadmap.dto.RoadmapDTO;
 import com.teamdevroute.devroute.roadmap.repository.RoadmapStepInfoRepository;
 import com.teamdevroute.devroute.roadmap.repository.RoadmapStepRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class RoadmapService {
                 .brief_info(roadmapStepInfo.getBrief_info())
                 .build();
     }
+    @PostConstruct
     public void updateAllRoadmaps() {
         if(roadmapStepRepository.count()==0) {
             updateRoadMap(stepsBackendNames, stepBackendBriefNames, stepsBackendDetailedDescription, String.valueOf(BACKEND),  stepsBackendRelatedStacks);

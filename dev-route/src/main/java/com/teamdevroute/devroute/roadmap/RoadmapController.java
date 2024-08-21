@@ -18,6 +18,7 @@ public class RoadmapController {
     @ResponseBody
     @GetMapping("/roadmap/{develpmentField}")
     public ResponseEntity<RoadmapResponseDTO> getRoadMap(@PathVariable("develpmentField") String develpmentField){
+        System.out.println(develpmentField);
         return ResponseEntity.ok(RoadmapResponseDTO.builder().RoadmapDTOs(roadmapService.findByDevelpmentField(develpmentField))
                 .name(develpmentField)
                 .build());
