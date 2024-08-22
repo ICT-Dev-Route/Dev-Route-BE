@@ -32,6 +32,7 @@ jobs:
 
       - name: Docker 이미지 만들고 Dockerhub에 푸시
         run: |
+          set -x  # 디버깅 모드 활성화
           docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
           cd ./dev-route/
           docker build -t ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}} .
@@ -47,6 +48,9 @@ jobs:
             # 8080 포트를 사용하는 컨테이너 중지 및 삭제
             docker ps --filter "publish=8080" -q | xargs -r docker stop
             docker ps -a --filter "publish=8080" -q | xargs -r docker rm
+            
+            # 8080 포트를 사용 중인 프로세스 확인 후 종료
+            sudo lsof -t -i tcp:8080 | xargs -r kill -9
             
             # 새 이미지를 pull하고 실행
             docker pull ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}}
