@@ -1,5 +1,6 @@
 name: Docker Image 만들기
 
+# Event : 실행되는 시점
 on:
   push:
     branches:
@@ -8,6 +9,8 @@ on:
     branches:
       - main
 
+# 하나의 워크플로우에 1개 이상의 잡
+# 잡은 병렬 수행
 jobs:
   My-Deploy-Job:
     runs-on: ubuntu-latest
@@ -31,7 +34,7 @@ jobs:
           ./gradlew clean build -x test
 
       - name: Docker 이미지 만들고 Dockerhub에 푸시
-        run: 
+        run: |
           docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
           cd ./dev-route/
           docker build -t ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}} .
@@ -44,6 +47,6 @@ jobs:
           username: ${{ secrets.EC2_SSH_USER }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            # 8080 포트를 사용하는 컨테이너 중지 및 삭제
+            docker stop devroute-server || true
             docker rm devroute-server || true
             docker run -d -p 8080:8080 ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}}
