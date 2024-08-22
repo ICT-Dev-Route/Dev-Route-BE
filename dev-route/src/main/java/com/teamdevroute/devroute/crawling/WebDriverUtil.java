@@ -1,6 +1,7 @@
 package com.teamdevroute.devroute.crawling;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.PageLoadStrategy;
@@ -22,15 +23,18 @@ public class WebDriverUtil {
 
     private WebDriver driver;
 
-    public void getChromeDriver(String url) {
+    @PostConstruct
+    public void setUpDriver(){
         WebDriverManager.chromedriver().setup();
-        ChromeOptions chromeOptions = new ChromeOptions();
-        setChromeOption(chromeOptions);
+    }
+    public void getChromeDriver(String url) {
 
-        driver = new ChromeDriver(chromeOptions);
-
-        // 10초까지 기다려준다. 10초 안에 웹 화면이 표시되면 바로 다음 작업이 진행됨
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        if (driver == null) {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            setChromeOption(chromeOptions);
+            driver = new ChromeDriver(chromeOptions);
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        }
         Set<Cookie> cookies = driver.manage().getCookies();
         for (Cookie cookie : cookies) {
             driver.manage().addCookie(cookie);

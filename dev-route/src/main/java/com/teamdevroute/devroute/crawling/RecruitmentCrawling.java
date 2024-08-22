@@ -89,6 +89,7 @@ public class RecruitmentCrawling {
                     List<WebElement> ilList = ul.findElements(By.tagName("li"));
                     List<String> techList = new ArrayList<>();
 
+
                     ilList.forEach(e -> techList.add(e.getText()));
 
                     log.info("RecruitmentCrawling TechList: "+techList.toString());
@@ -102,7 +103,6 @@ public class RecruitmentCrawling {
                     }
                     String css = "body > main > div > section.sc-c12e57e5-3.gjgpzi > section > div:nth-child(" + j + ") > a > div.sc-15ba67b8-0.kkQQfR > ul.sc-15ba67b8-1.cdeuol";
                     WebElement ul = driver.findElement(By.cssSelector(css));
-
                     List<WebElement> ilList = ul.findElements(By.tagName("li"));
                     log.info("RecruitmentCrawling Listsize: "+ ilList.size());
                     String area = ilList.get(0).getText();
@@ -110,11 +110,13 @@ public class RecruitmentCrawling {
                     crawledRecruitmentDtoList.get(idx).setArea(area);
                     crawledRecruitmentDtoList.get(idx++).setCareer(career);
                 }
+//                webDriverUtil.closeChromeDriver();
+                driver.quit();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        webDriverUtil.closeChromeDriver();
+
 
         return crawledRecruitmentDtoList;
     }
