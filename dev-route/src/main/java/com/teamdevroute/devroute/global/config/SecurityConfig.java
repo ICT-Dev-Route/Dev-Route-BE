@@ -54,8 +54,16 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
-
-                .headers((headers) -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+                .requiresChannel(channel -> channel
+                        .anyRequest().requiresSecure()
+                )
+                .headers((headers) ->
+                        headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
+                                .httpStrictTransportSecurity(hsts -> hsts
+                                        .includeSubDomains(true)
+                                        .maxAgeInSeconds(31536000)
+                        )
+                )
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(
                         SessionCreationPolicy.STATELESS
                 ))
