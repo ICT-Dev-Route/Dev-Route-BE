@@ -55,15 +55,8 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
-                .requiresChannel(channel -> channel
-                        .anyRequest().requiresSecure()
-                )
                 .headers((headers) ->
                         headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
-                                .httpStrictTransportSecurity(hsts -> hsts
-                                        .includeSubDomains(true)
-                                        .maxAgeInSeconds(31536000)
-                        )
                 )
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(
                         SessionCreationPolicy.STATELESS
@@ -76,11 +69,6 @@ public class SecurityConfig {
                         .accessDeniedHandler(accessDeniedHandler));
 
         return http.build();
-    }
-
-    @Bean
-    public ForwardedHeaderFilter forwardedHeaderFilter() {
-        return new ForwardedHeaderFilter();
     }
 
     @Bean
