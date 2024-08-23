@@ -47,6 +47,5 @@ jobs:
           username: ${{ secrets.EC2_SSH_USER }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            docker stop devroute-server || true
-            docker rm devroute-server || true
+            docker rm -f $(docker ps -qa)
             docker run -d -p 8080:8080 ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}}
