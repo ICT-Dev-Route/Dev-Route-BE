@@ -62,7 +62,7 @@ public class DataLoader implements CommandLineRunner {
 
         companyDataLoader.loadCompanyData();
         recruitmentDataLoader.loadRecruitmentData();
-        videoDataLoader.loadVideoData();
+//        videoDataLoader.loadVideoData();
 
     }
 
