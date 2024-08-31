@@ -52,7 +52,7 @@ public class VideoService {
 
     //매주 토요일에 실행
 
-    @Scheduled(cron = "0 10 15 * * 1", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 42 8 * * 0", zone = "Asia/Seoul")
     public void fetchAndSaveVideo() throws IOException {
         if(isVideoRepositoryNotEmpty())
             videoRepository.deleteAll();
