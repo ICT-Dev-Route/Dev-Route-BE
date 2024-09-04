@@ -40,26 +40,6 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user1 = userRepository.save(
-                User.builder()
-                        .email("admin@example.com")
-                        .name("윤성원")
-                        .userRole("USER")
-                        .password(encoder.encode("1234"))
-                        .developField(DevelopField.BACKEND)
-                        .loginType("NORMAL")
-                        .build());
-
-        User user2 = userRepository.save(
-                User.builder()
-                        .email("user1@example.com")
-                        .name("성원윤")
-                        .userRole("ADMIN")
-                        .password(encoder.encode("1234"))
-                        .developField(DevelopField.AI)
-                        .loginType("NORMAL")
-                        .build());
-
         companyDataLoader.loadCompanyData();
         recruitmentDataLoader.loadRecruitmentData();
 //        videoDataLoader.loadVideoData();
