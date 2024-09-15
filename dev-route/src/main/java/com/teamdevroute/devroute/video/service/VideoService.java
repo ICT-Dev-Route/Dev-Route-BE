@@ -51,7 +51,8 @@ public class VideoService {
     }
 
     //매주 토요일에 실행
-    @Scheduled(cron = "2 25 0 * * 6", zone = "Asia/Seoul")
+
+    @Scheduled(cron = "0 42 8 * * 0", zone = "Asia/Seoul")
     public void fetchAndSaveVideo() throws IOException {
         if(isVideoRepositoryNotEmpty())
             videoRepository.deleteAll();
@@ -104,6 +105,8 @@ public class VideoService {
             String videoUrl = YOUTUBE_API_URL_FRONT_VIDEOID + videoId;
             String title = item.getSnippet().getTitle();
             String thumbnailUrl = item.getSnippet().getThumbnails().getDefault().getUrl();
+            log.info("YoutubeFetching result: " + "thumnail: " + thumbnailUrl + " url: " + videoUrl +
+                    " title: " + title );
             if (videoId != null && title != null && thumbnailUrl != null) {
                 videoRepository.save(new YoutubeVideoDTO(videoUrl, title, thumbnailUrl).toEntity(
                         String.valueOf(Youtube), String.valueOf(techStack), 0L, ++rank));

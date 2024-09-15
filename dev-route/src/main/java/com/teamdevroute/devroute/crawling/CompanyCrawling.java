@@ -29,6 +29,7 @@ public class CompanyCrawling {
 
     private CompanyCrawlingService companyCrawlingService;
 
+
     public CompanyCrawling(WebDriverUtil webDriverUtil, CompanyCrawlingService companyCrawlingService) {
         this.webDriverUtil = webDriverUtil;
         this.companyCrawlingService = companyCrawlingService;
@@ -59,18 +60,12 @@ public class CompanyCrawling {
         webDriverUtil.getChromeDriver(URL);
         WebDriver driver = webDriverUtil.getDriver();
         try {
-            Thread.sleep(2000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        // 정보를 담을 JSON
-        JSONObject info = new JSONObject();
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        // 현재 페이지의 소스코드 가져오기
-        Document doc = Jsoup.parse(driver.getPageSource());
 
         // 상위 10개 기업 이름 및 연봉 가져오기
         List<String> enterpriseNames = new ArrayList<>();
@@ -86,7 +81,7 @@ public class CompanyCrawling {
 
 
         try{  // Cloudflare 보안 페이지가 사라질 때까지 기다림
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
             wait.until(ExpectedConditions.presenceOfElementLocated(By.className("us_titb_l3")));
 
 //            System.out.println(driver.findElements(By.cssSelector("#listCompanies > div > div.section_group > section:nth-child(1) > div > div > dl.content_col2_3.cominfo > dt > a")));
@@ -101,12 +96,17 @@ public class CompanyCrawling {
 
                 String subData = data.substring(0, data.length() - 9);
                 enterpriseNames.add(subData);
+                log.info("enterprise name:"+subData);
 
             }
             for(WebElement element : driver.findElements(By.className("notranslate"))){
                 String data = element.getText();
-                enterpriseSalaries.add(data);
-                log.info("CompanyCrawling enterpriseSalaries: " + data);
+                if(data.replace(",","").matches("\\d+")) {
+                    enterpriseSalaries.add(data);
+                    log.info("CompanyCrawling enterpriseSalaries: " + data);
+                }
+
+
             }
             for(WebElement element : driver.findElements(By.className("gfvalue"))) {
                 String data = element.getText();
@@ -119,10 +119,6 @@ public class CompanyCrawling {
                 log.info("CompanyCrawling enterpriseLogo: " + data);
             }
 
-            // 연봉 리스트의 0, 1은 더미 데이터라 삭제
-            enterpriseSalaries.remove(1);
-            enterpriseSalaries.remove(0);
-
             crawledCompanyDto = CrawledCompanyDto.builder()
                     .enterpriseNames(enterpriseNames)
                     .enterpriseGrades(enterpriseGrades)
@@ -132,11 +128,13 @@ public class CompanyCrawling {
 
             companyCrawlingService.createCompany(crawledCompanyDto);
 
+
         } catch(Exception e){
             e.printStackTrace();
+            driver.quit();
         }
 
-        webDriverUtil.closeChromeDriver();
+
 
         return crawledCompanyDto;
     }

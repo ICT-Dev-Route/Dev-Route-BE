@@ -32,7 +32,6 @@ public class VideoController {
     @GetMapping("/fetch-and-save")
     public String  fetchAndSaveYoutubeVideo() throws IOException {
         videoService.fetchAndSaveVideo();
-
         return "Successfull FetchAndSave Videos!!";
     }
     @ResponseBody
@@ -64,7 +63,6 @@ public class VideoController {
                 .orElseThrow(()-> new RuntimeException("Technology stack not found: " + tech_name));
         technologyStack.setAddedCount();
         technologyStackRepository.save(technologyStack);
-
     }
 
 

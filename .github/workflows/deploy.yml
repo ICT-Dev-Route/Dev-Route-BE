@@ -29,13 +29,14 @@ jobs:
 
       - name: Spring Project 빌드하기
         run: |
-          cd ./server/
+          cd ./dev-route/
           chmod +x ./gradlew
           ./gradlew clean build -x test
 
       - name: Docker 이미지 만들고 Dockerhub에 푸시
         run: |
           docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+          cd ./dev-route/
           docker build -t ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}} .
           docker push ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}}
 
@@ -46,5 +47,5 @@ jobs:
           username: ${{ secrets.EC2_SSH_USER }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            docker kill $(docker ps -qf expose=8080) 2> /dev/null || echo 'No container running on port 8080'
+            docker rm -f $(docker ps -qa)
             docker run -d -p 8080:8080 ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}}

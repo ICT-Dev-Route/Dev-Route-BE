@@ -36,7 +36,6 @@ public class RecruitmentCrawling {
 
         List<CrawledRecruitmentDto> crawledRecruitmentDtoList = new ArrayList<>(10);
         try {
-
             for (int i = 0; i < enterpriseNames.size(); i++) {
                 webDriverUtil.getChromeDriver(JUMPIT_URL+ enterpriseNames.get(i));
                 WebDriver driver = webDriverUtil.getDriver();
@@ -74,7 +73,6 @@ public class RecruitmentCrawling {
                     if(idx == CRAWLING_RECRUIT_NUM_MAX){
                         break;
                     }
-
                     String title = element.getText();
                     log.info("RecruitmentCrawling Title: " + title);
                     crawledRecruitmentDtoList.get(idx++).setTitle(title);
@@ -91,6 +89,7 @@ public class RecruitmentCrawling {
                     List<WebElement> ilList = ul.findElements(By.tagName("li"));
                     List<String> techList = new ArrayList<>();
 
+
                     ilList.forEach(e -> techList.add(e.getText()));
 
                     log.info("RecruitmentCrawling TechList: "+techList.toString());
@@ -104,7 +103,6 @@ public class RecruitmentCrawling {
                     }
                     String css = "body > main > div > section.sc-c12e57e5-3.gjgpzi > section > div:nth-child(" + j + ") > a > div.sc-15ba67b8-0.kkQQfR > ul.sc-15ba67b8-1.cdeuol";
                     WebElement ul = driver.findElement(By.cssSelector(css));
-
                     List<WebElement> ilList = ul.findElements(By.tagName("li"));
                     log.info("RecruitmentCrawling Listsize: "+ ilList.size());
                     String area = ilList.get(0).getText();
@@ -112,13 +110,13 @@ public class RecruitmentCrawling {
                     crawledRecruitmentDtoList.get(idx).setArea(area);
                     crawledRecruitmentDtoList.get(idx++).setCareer(career);
                 }
+//                webDriverUtil.closeChromeDriver();
+                driver.quit();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        webDriverUtil.closeChromeDriver();
 
         return crawledRecruitmentDtoList;
     }
