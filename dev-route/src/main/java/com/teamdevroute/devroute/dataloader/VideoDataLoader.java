@@ -9,11 +9,16 @@ import com.teamdevroute.devroute.video.domain.Videos;
 import com.teamdevroute.devroute.video.enums.PlatformName;
 import com.teamdevroute.devroute.video.enums.TechnologyStackName;
 import com.teamdevroute.devroute.video.service.VideoService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.teamdevroute.devroute.video.enums.PlatformName.Inflearn;
 
+@Getter
 @Component
 public class VideoDataLoader {
     @Autowired
@@ -22,11 +27,13 @@ public class VideoDataLoader {
     private TechnologyStackRepository technologyStackRepository;
     @Autowired
     private RoadmapService roadmapService;
+
+    private final List<Videos> videosList = new ArrayList<>();
+
     public void loadVideoData(){
         for (TechnologyStackName value : TechnologyStackName.values()) {
             createTech(String.valueOf(value));
         }
-
 
         Long count=0L;
         for (PlatformName platformname : PlatformName.values()) {
@@ -124,6 +131,7 @@ public class VideoDataLoader {
                 .platform_name(platform_name)
                 .build();
         videoRepository.save(videos);
+        videosList.add(videos);
     }
 
     private void createTech(
