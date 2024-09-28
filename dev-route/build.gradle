@@ -31,9 +31,9 @@ dependencies {
 	implementation 'jakarta.validation:jakarta.validation-api:3.1.0'
 	implementation 'org.hibernate.orm:hibernate-core:6.5.2.Final'
 
-	implementation 'org.springframework.security:spring-security-web:6.3.1'
-	implementation 'org.springframework.security:spring-security-config:6.3.1'
-	implementation 'org.springframework.security:spring-security-core:6.3.1'
+		implementation 'org.springframework.security:spring-security-web:6.3.1'
+		implementation 'org.springframework.security:spring-security-config:6.3.1'
+		implementation 'org.springframework.security:spring-security-core:6.3.1'
 
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
