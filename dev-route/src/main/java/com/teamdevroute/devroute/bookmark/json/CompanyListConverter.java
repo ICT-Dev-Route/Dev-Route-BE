@@ -1,6 +1,7 @@
 package com.teamdevroute.devroute.bookmark.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teamdevroute.devroute.bookmark.domain.BookmarkCompany;
@@ -18,7 +19,7 @@ public class CompanyListConverter implements AttributeConverter<List<BookmarkCom
 
     @Override
     public String convertToDatabaseColumn(List<BookmarkCompany> attribute) {
-        if(attribute == null) {
+        if(attribute == null || attribute.isEmpty()) {
             return null;
         }
 
@@ -36,7 +37,8 @@ public class CompanyListConverter implements AttributeConverter<List<BookmarkCom
         }
 
         try {
-            return objectMapper.readValue(dbData, objectMapper.getTypeFactory().constructCollectionType(List.class, BookmarkCompany.class));
+            return new ObjectMapper().readValue(dbData, new TypeReference<List<BookmarkCompany>>() {});
+            //return objectMapper.readValue(dbData, objectMapper.getTypeFactory().constructCollectionType(List.class, BookmarkCompany.class));
         } catch (IOException e) {
             throw new RuntimeException("Failed to convert JSON string to list.", e);
         }

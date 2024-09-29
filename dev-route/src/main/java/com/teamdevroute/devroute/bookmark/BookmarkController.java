@@ -1,5 +1,6 @@
 package com.teamdevroute.devroute.bookmark;
 
+import com.teamdevroute.devroute.global.aop.TimeTrace;
 import com.teamdevroute.devroute.global.auth.LoginUserInfo;
 import com.teamdevroute.devroute.user.domain.CustomUserDetails;
 import com.teamdevroute.devroute.user.domain.User;
@@ -19,6 +20,7 @@ public class BookmarkController {
 
     private final BookmarkService bookmarkService;
 
+    @TimeTrace
     @PostMapping("/bookmark/add")
     public ResponseEntity addBookmark(
             @AuthenticationPrincipal CustomUserDetails userDetails,
@@ -29,6 +31,7 @@ public class BookmarkController {
         return ResponseEntity.ok("북마크가 추가되었습니다.");
     }
 
+    @TimeTrace
     @GetMapping("/bookmark/get")
     public ResponseEntity getBookmark(
             @AuthenticationPrincipal CustomUserDetails userDetails

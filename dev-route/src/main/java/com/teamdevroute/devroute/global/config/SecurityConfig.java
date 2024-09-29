@@ -38,7 +38,8 @@ public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
         "/login","/fetch-and-save","/lecture/**", "/signup/**",
-        "/token","/roadmap/**","/main/**", "/recruit/**", "/fetch-jobs", "/api/**", "/healthcheck"
+        "/token","/roadmap/**","/main/**", "/recruit/**", "/fetch-jobs", "/api/**",
+            "/bookmark/**"
     };
 
     @PostConstruct
@@ -67,6 +68,7 @@ public class SecurityConfig {
                 .exceptionHandling((exceptionHandling) -> exceptionHandling
                         .authenticationEntryPoint(authenticationEntryPoint)
                         .accessDeniedHandler(accessDeniedHandler));
+
         return http.build();
     }
 
@@ -78,6 +80,7 @@ public class SecurityConfig {
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Authorization-refresh"));
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

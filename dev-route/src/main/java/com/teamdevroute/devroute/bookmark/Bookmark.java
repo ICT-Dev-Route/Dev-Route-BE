@@ -15,6 +15,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 
@@ -29,15 +31,18 @@ public class Bookmark extends BaseTimeEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "json")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Convert(converter = CompanyListConverter.class)
     private List<BookmarkCompany> companies;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     @Convert(converter = VideoListConverter.class)
     private List<BookmarkVideo> videos;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     @Convert(converter = RoadmapListConverter.class)
     private List<BookmarkRoadmap> roadmaps;
 

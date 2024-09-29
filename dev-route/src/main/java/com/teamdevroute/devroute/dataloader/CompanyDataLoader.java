@@ -2,6 +2,8 @@ package com.teamdevroute.devroute.dataloader;
 
 import com.teamdevroute.devroute.company.domain.Company;
 import com.teamdevroute.devroute.company.repository.CompanyRepository;
+import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,8 +17,9 @@ public class CompanyDataLoader {
     @Autowired
     private CompanyRepository companyRepository;
 
-    private List<Company> companyList = new ArrayList<>();
+    private final List<Company> companyList = new ArrayList<>();
 
+    @Transactional
     public void loadCompanyData() {
         companyList.add(
             createCompany(
@@ -264,10 +267,7 @@ public class CompanyDataLoader {
         );
 
 
-
     }
-
-
 
     private Company createCompany(
             String name, String averageSalary,
