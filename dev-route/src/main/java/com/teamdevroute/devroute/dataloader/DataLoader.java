@@ -50,6 +50,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
         Bookmark bookmark1 = bookmarkRepository.save(
                 Bookmark.builder()
                         .companies(new ArrayList<>())

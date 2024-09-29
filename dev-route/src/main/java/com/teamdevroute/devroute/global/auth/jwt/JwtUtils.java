@@ -20,7 +20,6 @@ public class JwtUtils implements AuthorizationProvider {
 
     private static final String USER_NAME = "name";
     private static final String USER_ROLE = "role";
-
     private final Key key;
     private final long accessTokenExpTime;
 
