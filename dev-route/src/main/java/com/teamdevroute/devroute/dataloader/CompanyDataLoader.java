@@ -266,15 +266,7 @@ public class CompanyDataLoader {
             )
         );
 
-        for(int i=0;i<10000;i++) {
-            companyList.add(
-                    createCompany(
-                            "회사" + i, "5,273", "티맥스소프트는 2003년 IBM, 오라클 등 글로벌 기업들을 제치고 국내 웹 어플리케이션 서버(WAS) 시장점유율 1위에 올라선 이후, 현재까지 독보적인 1위를 차지하고 있는 ‘제우스(JEUS)’를 비롯해, 데이터베이스 관리 솔루션(TIBERO Data), 애플리케이션 프레임워크(ProFrame), 메인프레임 리호스팅 솔루션(OpenFrame) 등 다수의 경쟁력 있는 솔루션들을 성공적으로 시장에 선보이며 한국을 대표하는 유일한 시스템 소프트웨어 전문기업으로 성장했습니다.",
-                            5L, "https://jpassets.jobplanet.co.kr/production/uploads/company/logo/50992/thumb_____46.jpg",
-                            2.8
-                    )
-            );
-        }
+
     }
 
     private Company createCompany(

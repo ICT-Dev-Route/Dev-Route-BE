@@ -23,6 +23,7 @@ public class BookmarkDataLoader {
     @TimeTrace
     public void loadBookmark(Bookmark bookmark) {
         List<Company> companyList = companyDataLoader.getCompanyList();
+        companyList.remove(29);
         companyList.forEach(company -> {
             bookmark.addCompany(company);
             bookmarkRepository.save(bookmark);

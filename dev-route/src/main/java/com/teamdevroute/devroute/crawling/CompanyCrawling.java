@@ -29,7 +29,6 @@ public class CompanyCrawling {
 
     private CompanyCrawlingService companyCrawlingService;
 
-
     public CompanyCrawling(WebDriverUtil webDriverUtil, CompanyCrawlingService companyCrawlingService) {
         this.webDriverUtil = webDriverUtil;
         this.companyCrawlingService = companyCrawlingService;
@@ -131,10 +130,7 @@ public class CompanyCrawling {
 
         } catch(Exception e){
             e.printStackTrace();
-            driver.quit();
         }
-
-
 
         return crawledCompanyDto;
     }

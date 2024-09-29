@@ -35,10 +35,12 @@ public class RecruitmentCrawling {
     public List<CrawledRecruitmentDto> crawlingJUMPIT(List<String> enterpriseNames) {
 
         List<CrawledRecruitmentDto> crawledRecruitmentDtoList = new ArrayList<>(10);
+
         try {
             for (int i = 0; i < enterpriseNames.size(); i++) {
                 webDriverUtil.getChromeDriver(JUMPIT_URL+ enterpriseNames.get(i));
                 WebDriver driver = webDriverUtil.getDriver();
+
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
@@ -110,13 +112,10 @@ public class RecruitmentCrawling {
                     crawledRecruitmentDtoList.get(idx).setArea(area);
                     crawledRecruitmentDtoList.get(idx++).setCareer(career);
                 }
-//                webDriverUtil.closeChromeDriver();
-                driver.quit();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         return crawledRecruitmentDtoList;
     }
