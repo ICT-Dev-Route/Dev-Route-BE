@@ -55,7 +55,6 @@ public class UserService {
         if(!encoder.matches(password, user.getPassword())){
             throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
         }
-
         LoginUserInfo loginUserInfo = LoginUserInfo.builder()
                 .id(user.getId())
                 .role(user.getUserRole())

@@ -2,6 +2,7 @@ package com.teamdevroute.devroute.crawling;
 
 import com.teamdevroute.devroute.crawling.dto.CrawledCompanyDto;
 import com.teamdevroute.devroute.crawling.dto.CrawledRecruitmentDto;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,7 +24,8 @@ public class CompanyRecruitmentCrawling {
         this.recruitmentCrawlingService = recruitmentCrawlingService;
     }
 
-    @Scheduled(cron = "30 0 0 * * 6", zone = "Asia/Seoul")
+    @PostConstruct
+    @Scheduled(cron = "0 0/30 * * * *", zone = "Asia/Seoul")
     public void companyAndRecruitmentCrawling() {
         CrawledCompanyDto crawledCompanyDto = companyCrawling.getCompanyThreePage();
         log.info(crawledCompanyDto.toString());
