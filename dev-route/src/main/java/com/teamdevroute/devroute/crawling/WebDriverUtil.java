@@ -40,8 +40,11 @@ public class WebDriverUtil {
             driver.manage().addCookie(cookie);
         }
         driver.get(url);
-//        time.sleep(5)
     }
+
+    /*
+        options.addArguments("--disable-popup-blocking");       //팝업안띄움
+     */
 
     private void setChromeOption(ChromeOptions chromeOptions) {
         chromeOptions.addArguments("--headless");
