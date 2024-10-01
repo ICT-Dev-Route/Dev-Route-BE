@@ -91,9 +91,6 @@ public class VideoServiceTest {
         //Tehcnology stack name이 총 9개임으로 9번 호출 되는 것이 맞음.
         verify(videoRepository, times(0)).save(any());
     }
-
-
-
     //가짜 YoububeApiResponse를 가져온다.
     private YouTubeApiResponse getMockYouTubeApiResponse() {
         Item item = new Item();

@@ -51,7 +51,6 @@ public class VideoService {
     }
 
     //매주 토요일에 실행
-
     @Scheduled(cron = "0 42 8 * * 0", zone = "Asia/Seoul")
     public void fetchAndSaveVideo() throws IOException {
         if(isVideoRepositoryNotEmpty())
@@ -146,6 +145,7 @@ public class VideoService {
 
     public List<LectureResponseDTO> findLectureListByPlatformNameAndTechStack(
             String platformName, String techStack) {
+
         List<Videos> videos = videoRepository.findByPlatformNameAndTeckStack(platformName, techStack).orElseThrow(
                 ()->new RuntimeException("해당 플랫폼 및 기술 스택을 가진 영상이 존재하지 않습니다.")
         );
