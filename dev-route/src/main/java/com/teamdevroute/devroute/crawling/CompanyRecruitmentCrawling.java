@@ -24,7 +24,7 @@ public class CompanyRecruitmentCrawling {
         this.recruitmentCrawlingService = recruitmentCrawlingService;
     }
 
-    @Scheduled(cron = "0 0/30 * * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 0 1 * *", zone = "Asia/Seoul")
     public void companyAndRecruitmentCrawling() {
         CrawledCompanyDto crawledCompanyDto = companyCrawling.getCompanyThreePage();
         log.info(crawledCompanyDto.toString());
