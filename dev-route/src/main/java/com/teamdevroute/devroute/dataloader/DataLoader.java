@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
-@Profile("default")
+@Profile("dev")
 @Component
 @Slf4j
 public class DataLoader implements CommandLineRunner {
