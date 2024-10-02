@@ -83,7 +83,6 @@ public class CompanyCrawling {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
             wait.until(ExpectedConditions.presenceOfElementLocated(By.className("us_titb_l3")));
 
-//            System.out.println(driver.findElements(By.cssSelector("#listCompanies > div > div.section_group > section:nth-child(1) > div > div > dl.content_col2_3.cominfo > dt > a")));
             // 상위 10개 기업 이름 받아서 List에 저장
             for(WebElement element : driver.findElements(By.className("us_titb_l3"))){
 

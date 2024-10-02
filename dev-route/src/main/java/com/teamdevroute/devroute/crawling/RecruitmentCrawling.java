@@ -23,7 +23,7 @@ import java.util.List;
 public class RecruitmentCrawling {
 
     private final static int CRAWLING_RECRUIT_NUM_MAX = 10;
-    private final static String JUMPIT_URL = "https://www.jumpit.co.kr/search?sort=relation&";
+    private final static String JUMPIT_URL = "https://jumpit.saramin.co.kr/";
 
     private WebDriverUtil webDriverUtil;
     private RecruitmentCrawlingService recruitmentCrawlingService;
@@ -38,7 +38,7 @@ public class RecruitmentCrawling {
 
         try {
             for (int i = 0; i < enterpriseNames.size(); i++) {
-                webDriverUtil.getChromeDriver(JUMPIT_URL+ enterpriseNames.get(i));
+                webDriverUtil.getChromeDriver(JUMPIT_URL);
                 WebDriver driver = webDriverUtil.getDriver();
 
                 try {
@@ -50,6 +50,12 @@ public class RecruitmentCrawling {
 
                 driver.manage().window().maximize();
 
+                // 검색
+                WebElement input = driver.findElement(By.className("search_box")).findElement(By.tagName("input"));
+                input.sendKeys(enterpriseNames.get(i));
+
+                WebElement searchBtn = driver.findElement(By.className("search_button"));
+                searchBtn.click();
 
                 Thread.sleep(100);
                 int idx = 0;
