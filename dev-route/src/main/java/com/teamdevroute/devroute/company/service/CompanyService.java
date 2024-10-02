@@ -44,4 +44,8 @@ public class CompanyService {
 
         return CompanyDetailResponse.from(company, response);
     }
+
+    public boolean validateDuplicateCompany(String name) {
+        return companyRepository.findByName(name).isPresent();
+    }
 }
