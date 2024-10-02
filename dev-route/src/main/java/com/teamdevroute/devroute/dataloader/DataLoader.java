@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
-@Profile("default")
+@Profile("dev")
 @Component
 @Slf4j
 public class DataLoader implements CommandLineRunner {
@@ -53,7 +53,7 @@ public class DataLoader implements CommandLineRunner {
         loadUserData("admin@admin.com", bookmark);
         companyDataLoader.loadCompanyData();
         recruitmentDataLoader.loadRecruitmentData();
-        videoDataLoader.loadVideoData();
+        //videoDataLoader.loadVideoData();
         bookmarkDataLoader.loadBookmark(bookmark);
     }
 

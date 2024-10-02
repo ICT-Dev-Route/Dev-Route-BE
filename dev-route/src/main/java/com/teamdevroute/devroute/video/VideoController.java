@@ -7,6 +7,7 @@ import com.teamdevroute.devroute.video.Repository.TechnologyStackRepository;
 import com.teamdevroute.devroute.video.domain.TechnologyStack;
 import com.teamdevroute.devroute.video.dto.LectureResponseDTO;
 import com.teamdevroute.devroute.video.dto.TechStackDTO;
+import com.teamdevroute.devroute.video.enums.TechnologyStackName;
 import com.teamdevroute.devroute.video.service.TechnologyStackService;
 import com.teamdevroute.devroute.video.service.VideoService;
 import org.springframework.http.ResponseEntity;
@@ -58,14 +59,13 @@ public class VideoController {
         return  ResponseEntity.ok(techStackDTO);
     }
 
+
     private void addCountTechnologyStackByStackName(String tech_name) {
         TechnologyStack technologyStack = technologyStackRepository.findByName(tech_name)
                 .orElseThrow(()-> new RuntimeException("Technology stack not found: " + tech_name));
         technologyStack.setAddedCount();
         technologyStackRepository.save(technologyStack);
     }
-
-
 
 
 }
