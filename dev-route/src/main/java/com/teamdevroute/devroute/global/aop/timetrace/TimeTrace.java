@@ -1,4 +1,4 @@
-package com.teamdevroute.devroute.global.aop;
+package com.teamdevroute.devroute.global.aop.timetrace;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

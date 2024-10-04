@@ -1,16 +1,13 @@
 package com.teamdevroute.devroute.bookmark;
 
-import com.teamdevroute.devroute.global.aop.TimeTrace;
+import com.teamdevroute.devroute.global.aop.timetrace.TimeTrace;
 import com.teamdevroute.devroute.global.auth.LoginUserInfo;
 import com.teamdevroute.devroute.user.domain.CustomUserDetails;
-import com.teamdevroute.devroute.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j

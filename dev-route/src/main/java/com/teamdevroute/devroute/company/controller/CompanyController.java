@@ -4,7 +4,7 @@ import com.teamdevroute.devroute.company.dto.CompanyDetailResponse;
 import com.teamdevroute.devroute.company.dto.CompanyResponse;
 import com.teamdevroute.devroute.company.service.CompanyService;
 import com.teamdevroute.devroute.crawling.CompanyRecruitmentCrawling;
-import com.teamdevroute.devroute.global.aop.TimeTrace;
+import com.teamdevroute.devroute.global.aop.timetrace.TimeTrace;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
