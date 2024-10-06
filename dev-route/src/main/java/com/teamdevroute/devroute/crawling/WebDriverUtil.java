@@ -27,6 +27,7 @@ public class WebDriverUtil {
     public void setUpDriver(){
         WebDriverManager.chromedriver().setup();
     }
+
     public void getChromeDriver(String url) {
 
         if (driver == null) {

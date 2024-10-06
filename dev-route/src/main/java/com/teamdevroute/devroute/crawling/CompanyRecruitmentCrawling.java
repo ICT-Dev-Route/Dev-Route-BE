@@ -2,6 +2,7 @@ package com.teamdevroute.devroute.crawling;
 
 import com.teamdevroute.devroute.crawling.dto.CrawledCompanyDto;
 import com.teamdevroute.devroute.crawling.dto.CrawledRecruitmentDto;
+import com.teamdevroute.devroute.global.aop.crawl.Crawling;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ public class CompanyRecruitmentCrawling {
         this.recruitmentCrawlingService = recruitmentCrawlingService;
     }
 
+    @Crawling
     @Scheduled(cron = "0 0 0 1 * *", zone = "Asia/Seoul")
     public void companyAndRecruitmentCrawling() {
         CrawledCompanyDto crawledCompanyDto = companyCrawling.getCompanyThreePage();

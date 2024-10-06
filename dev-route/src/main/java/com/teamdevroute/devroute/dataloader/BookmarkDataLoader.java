@@ -2,10 +2,8 @@ package com.teamdevroute.devroute.dataloader;
 
 import com.teamdevroute.devroute.bookmark.Bookmark;
 import com.teamdevroute.devroute.bookmark.BookmarkRepository;
-import com.teamdevroute.devroute.bookmark.BookmarkService;
 import com.teamdevroute.devroute.company.domain.Company;
-import com.teamdevroute.devroute.global.aop.TimeTrace;
-import com.teamdevroute.devroute.recruitment.domain.Recruitment;
+import com.teamdevroute.devroute.global.aop.timetrace.TimeTrace;
 import com.teamdevroute.devroute.video.domain.Videos;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -29,10 +27,10 @@ public class BookmarkDataLoader {
             bookmarkRepository.save(bookmark);
         });
 
-        List<Videos> videoList = videoDataLoader.getVideosList();
-        videoList.forEach(videos -> {
-            bookmark.addVideo(videos);
-            bookmarkRepository.save(bookmark);
-        });
+//        List<Videos> videoList = videoDataLoader.getVideosList();
+//        videoList.forEach(videos -> {
+//            bookmark.addVideo(videos);
+//            bookmarkRepository.save(bookmark);
+//        });
     }
 }

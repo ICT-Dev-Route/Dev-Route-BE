@@ -1,20 +1,17 @@
-package com.teamdevroute.devroute.global.aop;
+package com.teamdevroute.devroute.global.aop.timetrace;
 
 import lombok.extern.log4j.Log4j2;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StopWatch;
 
 @Log4j2
 @Component
 @Aspect
 public class TimeTraceAspect {
 
-    @Around("@annotation(com.teamdevroute.devroute.global.aop.TimeTrace)")
+    @Around("@annotation(com.teamdevroute.devroute.global.aop.timetrace.TimeTrace)")
     public Object traceTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
 
