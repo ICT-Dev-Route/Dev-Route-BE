@@ -1,12 +1,10 @@
 package com.teamdevroute.devroute.crawling;
 
 import static com.teamdevroute.devroute.video.constans.ApiConstans.*;
-import static com.teamdevroute.devroute.video.enums.TechnologyStackName.*;
 
 import com.teamdevroute.devroute.video.dto.infrean.InfreanVideoDTO;
-import com.teamdevroute.devroute.video.enums.TechnologyStackName;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,36 +24,36 @@ public class InfreanVideoCrawling {
 
     public ArrayList<InfreanVideoDTO> crawlingInfreanVideo(String teck_stack){
         WebDriver driver = getWebDriver(teck_stack);
-        ArrayList result = new ArrayList<InfreanVideoDTO>();
+        ArrayList infreanVideoInformaions = new ArrayList<InfreanVideoDTO>();
         try {
             //WebElement 추출
             List<WebElement> lectures = getLectures(driver);
             // 각 강의 요소를 순회하며 데이터 추출
-            for (WebElement lecture : lectures) {
-                if (result.size() >= 12) {
-                    break;
-                }
-                try {
-                    String thumbnailUrl = getUrl(lecture, "div.mantine-AspectRatio-root img", "src", "No image");
-                    // 강의 URL 추출
-                    String lectureUrl = getUrl(lecture, "a", "href", "No URL");
-                    // 강의 제목 추출
-                    String title = getTitle(lecture.getText());
-                    // 가격 추출
-                    String price=getPrice(lecture.getText());
-                    // 결과 출력
-                    log.info("InfreanCrawling result: " + "thumnail: " + thumbnailUrl + " url: " + lectureUrl +
-                            " title: " + title + " price: " + price);
-                    InfreanVideoDTO infreanVideoDTO = new InfreanVideoDTO(lectureUrl,title,thumbnailUrl,Long.valueOf(price.replaceAll("[^\\d]", "")));
-                    result.add(infreanVideoDTO);
-                } catch (org.openqa.selenium.NoSuchElementException e) {
-                    log.info("Element not found in this lecture element: " + e.getMessage());
-                }
-            }
+            infreanVideoInformaions=getDataInLectureElements(lectures);
         } catch (Exception e) {
             log.error("An unexpected error occurred: " + e.getMessage(), e);
         }
         driver.quit();
+        return infreanVideoInformaions;
+    }
+
+    private ArrayList getDataInLectureElements(List<WebElement> lectures) {
+        ArrayList result = new ArrayList<InfreanVideoDTO>();
+        for (WebElement lecture : lectures) {
+            if (result.size() >= 12) {
+                break;
+            }
+            try {
+                String thumbnailUrl = getUrl(lecture, "div.mantine-AspectRatio-root img", "src", "No image");
+                String lectureUrl = getUrl(lecture, "a", "href", "No URL");
+                String title = getTitle(lecture.getText());
+                String price=getPrice(lecture.getText());
+                InfreanVideoDTO infreanVideoDTO = new InfreanVideoDTO(lectureUrl,title,thumbnailUrl,Long.valueOf(price.replaceAll("[^\\d]", "")));
+                result.add(infreanVideoDTO);
+            } catch (org.openqa.selenium.NoSuchElementException e) {
+                log.info("Element not found in this lecture element: " + e.getMessage());
+            }
+        }
         return result;
     }
 
@@ -87,9 +85,6 @@ public class InfreanVideoCrawling {
         }
         return "0";
     }
-
-
-
     private List<WebElement> getLectures(WebDriver driver) {
         // 페이지가 로드될 때까지 잠시 대기 (필요에 따라 조정)
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));

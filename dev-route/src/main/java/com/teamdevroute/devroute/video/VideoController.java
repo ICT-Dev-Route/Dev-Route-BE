@@ -58,6 +58,19 @@ public class VideoController {
         TechStackDTO techStackDTO = new TechStackDTO();
         return  ResponseEntity.ok(techStackDTO);
     }
+    @ResponseBody
+    @GetMapping("/lecture/techinitial")
+    public String initialTech(){
+        if(technologyStackRepository.count()!=0)
+            technologyStackRepository.deleteAll();
+        for (TechnologyStackName value : TechnologyStackName.values()) {
+            technologyStackRepository.save(TechnologyStack.builder().
+                    name(String.valueOf(value))
+                    .count(0L).
+                    build());
+        }
+        return "initial";
+    }
 
 
     private void addCountTechnologyStackByStackName(String tech_name) {
