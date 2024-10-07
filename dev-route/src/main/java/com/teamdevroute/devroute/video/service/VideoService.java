@@ -58,8 +58,6 @@ public class VideoService {
         fetchAndSaveYoutubeVideos();
         fetchAndSaveUdemyVideos();
         fetchAndSaveInfreanVideos();
-        if(isTechnologyStackRepositoryEmpty())
-            initializeTechnologyStack();
     }
 
 

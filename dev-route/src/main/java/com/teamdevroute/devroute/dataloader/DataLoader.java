@@ -53,7 +53,7 @@ public class DataLoader implements CommandLineRunner {
         loadUserData("admin@admin.com", bookmark);
         companyDataLoader.loadCompanyData();
         recruitmentDataLoader.loadRecruitmentData();
-        //videoDataLoader.loadVideoData();
+        videoDataLoader.loadVideoData();
         bookmarkDataLoader.loadBookmark(bookmark);
     }
 
