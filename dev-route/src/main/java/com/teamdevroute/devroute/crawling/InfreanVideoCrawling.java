@@ -24,23 +24,23 @@ public class InfreanVideoCrawling {
 
     public ArrayList<InfreanVideoDTO> crawlingInfreanVideo(String teck_stack){
         WebDriver driver = getWebDriver(teck_stack);
-        ArrayList infreanVideoInformaions = new ArrayList<InfreanVideoDTO>();
+        ArrayList infreanVideos = new ArrayList<InfreanVideoDTO>();
         try {
             //WebElement 추출
             List<WebElement> lectures = getLectures(driver);
             // 각 강의 요소를 순회하며 데이터 추출
-            infreanVideoInformaions=getDataInLectureElements(lectures);
+            infreanVideos=getDataInLectureElements(lectures);
         } catch (Exception e) {
             log.error("An unexpected error occurred: " + e.getMessage(), e);
         }
         driver.quit();
-        return infreanVideoInformaions;
+        return infreanVideos;
     }
 
     private ArrayList getDataInLectureElements(List<WebElement> lectures) {
         ArrayList result = new ArrayList<InfreanVideoDTO>();
         for (WebElement lecture : lectures) {
-            if (result.size() >= 12) {
+            if (isMaxSize(result)) {
                 break;
             }
             try {
@@ -55,6 +55,10 @@ public class InfreanVideoCrawling {
             }
         }
         return result;
+    }
+
+    private static boolean isMaxSize(ArrayList result) {
+        return result.size() >= 12;
     }
 
     private String getUrl(WebElement lecture, String cssSelector, String src, String x) {
@@ -91,19 +95,16 @@ public class InfreanVideoCrawling {
             wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("ul.css-y21pja li.mantine-1avyp1d")));
             // 강의 목록 요소를 선택
             List<WebElement> lectures = driver.findElements(By.cssSelector("ul.css-y21pja li.mantine-1avyp1d"));
-
             return lectures;
     }
 
     public WebDriver getWebDriver(String teck_stack) {
-       WebDriverManager.chromedriver().setup();
-//        System.setProperty("chrome.driver", "/chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         WebDriver driver = new ChromeDriver(options);
-
         switch (teck_stack) {
             case "android":
             case "ios":
@@ -114,15 +115,12 @@ public class InfreanVideoCrawling {
                 driver.get(INFREAN_CRAWRLING_URL_SEARCH_MOBILE_AI + teck_stack + "?types=ONLINE");
                 return driver;
             case "htmlcss":
-                System.out.println(INFREAN_CRAWRLING_URL_SEARCH + "html-css" + "?types=ONLINE");
                 driver.get(INFREAN_CRAWRLING_URL_SEARCH + "html-css" + "&types=ONLINE");
                 return driver;
             case "angular":
-//                System.out.println(INFREAN_CRAWRLING_URL_SEARCH + "html-css" + "?types=ONLINE");
                 driver.get("https://www.inflearn.com/courses?s=angular");
                 return driver;
         }
-
         driver.get(INFREAN_CRAWRLING_URL_SEARCH+teck_stack+"&types=ONLINE");
         return driver;
     }
