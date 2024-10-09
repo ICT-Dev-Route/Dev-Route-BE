@@ -48,4 +48,4 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
             docker rm -f $(docker ps -qa)
-            docker run -d -p 8080:8080 "SPRING_PROFILES_ACTIVE=prod" ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}}
+            docker run -d -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=prod" ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}}
