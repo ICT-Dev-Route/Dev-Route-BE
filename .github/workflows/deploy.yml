@@ -18,6 +18,13 @@ jobs:
         with:
           submodules: recursive  # 서브모듈 포함 체크아웃
           token: ${{ secrets.PAT_TOKEN }}  # Private Access Token 사용
+            
+      #  Dockerfile이 변경된 경우에만 캐시 저장 여부 확인
+      - name: Check for Dockerfile changes
+        id: dockerfileChanged
+        run: |
+          git fetch origin main
+          git diff --quiet origin/main -- ./dev-route/Dockerfile || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Docker Buildx 설치 및 설정  # Buildx 설치 및 Docker 컨테이너 드라이버 사용 설정
         uses: docker/setup-buildx-action@v2
@@ -38,8 +45,9 @@ jobs:
           chmod +x ./gradlew  # gradlew 파일에 실행 권한 부여
           ./gradlew clean build -x test  # 테스트 제외하고 빌드 실행
       
-      # 항상 캐시 복원 시도 (이전 캐시가 있으면 복원)
+      # 항상 캐시 복원 시도 (이전 캐시가 있고, dockerfile이 변경이 안되어있으면 복원)
       - name: Docker 레이어 캐시 복원
+        if: steps.dockerfileChanged.outputs.changed != 'true'
         uses: actions/cache/restore@v4
         with:
           path: /tmp/.buildx-cache  # Docker 빌드 캐시를 복원할 경로
@@ -65,15 +73,8 @@ jobs:
             docker rm -f $(docker ps -qa)  # 실행 중인 모든 컨테이너 제거
             docker pull ${{ secrets.DOCKER_REPO }}/devroute-server:${{ github.sha }}  # 새로운 Docker 이미지 pull
             docker run -d -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=prod" ${{ secrets.DOCKER_REPO }}/devroute-server:${{ github.sha }}  # 새 컨테이너 실행
-    
 
-      
-      #  Dockerfile이 변경된 경우에만 캐시 저장 여부 확인
-      - name: Check for Dockerfile changes
-        id: dockerfileChanged
-        run: |
-          git fetch origin main
-          git diff --quiet origin/main -- ./dev-route/Dockerfile || echo "changed=true" >> $GITHUB_OUTPUT
+
       
       #  Dockerfile이 변경된 경우에만 캐시 저장
       - name: Docker 레이어 캐시 저장
