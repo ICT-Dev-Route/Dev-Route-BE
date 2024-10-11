@@ -1,5 +1,6 @@
 package com.teamdevroute.devroute.recruitment.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teamdevroute.devroute.company.domain.Company;
@@ -48,13 +49,15 @@ public class RecruitmentUpdateService {
         String initialUrl = API_URL + accessKey + "&keywords=" + keyword + "&start=0&count=100";
         String initialResponse = restTemplate.getForObject(initialUrl, String.class);
 
+
         try {
+            if(isMaxApiRequest(objectMapper))
+                return;
             int total = objectMapper.readTree(initialResponse).path("jobs").path("total").asInt();
             for (int i = 0; i <= total / 100; i++) {
                 String url = API_URL + accessKey + "&keywords=" + keyword + "개발자" + "&start=" + i + "&count=100";
                 String response = restTemplate.getForObject(url, String.class);
                 JsonNode saraminResponses = objectMapper.readTree(response).path("jobs").path("job");
-
                 parseAndStoreRecruitment(saraminResponses, keyword);
             }
         } catch (Exception e) {
@@ -62,16 +65,20 @@ public class RecruitmentUpdateService {
         }
     }
 
+    private static boolean isMaxApiRequest(ObjectMapper objectMapper) throws JsonProcessingException {
+        return objectMapper.readTree("message").asText().equals("일일 최대 요청 가능 횟수가 초과되었습니다.");
+    }
+
     private void parseAndStoreRecruitment(JsonNode saraminResponses, String keyword) {
         List<Recruitment> recruitments = new ArrayList<>();
 
         for (JsonNode saraminResponse : saraminResponses) {
             Recruitment recruitment = parseResponse(saraminResponse, keyword);
+
             if (!recruitmentRepository.existsByUrl(recruitment.getUrl())) {
                 recruitments.add(recruitment);
             }
         }
-
         recruitmentRepository.saveAll(recruitments);
     }
 
