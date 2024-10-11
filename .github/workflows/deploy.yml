@@ -50,7 +50,8 @@ jobs:
       #  빌드 단계 (복원된 캐시를 사용하여 빌드)
       - name: Docker 빌드
         run: |
-          docker build --cache-from /tmp/.buildx-cache -t my-image .
+          docker buildx build --cache-from /tmp/.buildx-cache -t my-image -f ./dev-route/Dockerfile .
+
       
       #  Dockerfile이 변경된 경우에만 캐시 저장 여부 확인
       - name: Check for Dockerfile changes
