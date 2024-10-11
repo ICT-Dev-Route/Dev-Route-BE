@@ -57,7 +57,7 @@ jobs:
         id: dockerfileChanged
         run: |
           git fetch origin main
-          git diff --quiet origin/main -- Dockerfile || echo "::set-output name=changed::true"
+          git diff --quiet origin/main --f ./dev-route/Dockerfile || echo "::set-output name=changed::true"
       
       #  Dockerfile이 변경된 경우에만 캐시 저장
       - name: Docker 레이어 캐시 저장
