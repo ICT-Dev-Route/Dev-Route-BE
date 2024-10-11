@@ -56,3 +56,4 @@ jobs:
           script: |  # EC2 서버에서 실행할 스크립트
             docker rm -f $(docker ps -qa)  # 실행 중인 모든 컨테이너 제거
             docker run -d -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=prod" ${{secrets.DOCKER_REPO}}/devroute-server:${{github.sha}}  # 새 컨테이너 실행
+
