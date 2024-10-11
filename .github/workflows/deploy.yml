@@ -38,20 +38,35 @@ jobs:
           chmod +x ./gradlew  # gradlew 파일에 실행 권한 부여
           ./gradlew clean build -x test  # 테스트 제외하고 빌드 실행
       
+      # 항상 캐시 복원 시도 (이전 캐시가 있으면 복원)
+      - name: Docker 레이어 캐시 복원
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache  # Docker 빌드 캐시를 복원할 경로
+          key: ${{ runner.os }}-buildx-${{ hashFiles('Dockerfile') }}  # 캐시 키 설정
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      
+      #  빌드 단계 (복원된 캐시를 사용하여 빌드)
+      - name: Docker 빌드
+        run: |
+          docker build --cache-from /tmp/.buildx-cache -t my-image .
+      
+      #  Dockerfile이 변경된 경우에만 캐시 저장 여부 확인
       - name: Check for Dockerfile changes
         id: dockerfileChanged
         run: |
           git fetch origin main
           git diff --quiet origin/main -- Dockerfile || echo "::set-output name=changed::true"
-
-      - name: Docker 레이어 캐시  # Docker 레이어 캐싱으로 CPU 사용률 최적화
-        if: steps.dockerfileChanged.outputs.changed == 'true'  # Dockerfile이 변경된 경우에만 캐시 저장
+      
+      #  Dockerfile이 변경된 경우에만 캐시 저장
+      - name: Docker 레이어 캐시 저장
+        if: steps.dockerfileChanged.outputs.changed == 'true'  # Dockerfile 변경 시에만 캐시 저장
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache  # Docker 빌드 캐시를 저장할 경로
-          key: ${{ runner.os }}-buildx-${{ github.sha }}  # 캐시 키 설정
-          restore-keys: |
-            ${{ runner.os }}-buildx-
+          key: ${{ runner.os }}-buildx-${{ hashFiles('Dockerfile') }}  # 캐시 키 설정
+
 
       - name: Docker 이미지 생성 및 DockerHub에 푸시  # Docker 이미지를 빌드하고 DockerHub에 푸시합니다
         run: |
