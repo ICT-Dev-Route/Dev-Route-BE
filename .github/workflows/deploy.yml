@@ -19,10 +19,17 @@ jobs:
           submodules: recursive  # 서브모듈 포함 체크아웃
           token: ${{ secrets.PAT_TOKEN }}  # Private Access Token 사용
 
+      - name: Docker Buildx 설치 및 설정  # Buildx 설치 및 Docker 컨테이너 드라이버 사용 설정
+        uses: docker/setup-buildx-action@v2
+        with:
+          install: true
+          driver: docker-container  # docker-container 드라이버 설정
+          buildkitd-flags: --debug  # 추가 플래그 (옵션)
+
       - name: JDK 17 설치  # JDK 17을 설치하여 Java 환경을 설정합니다
         uses: actions/setup-java@v3
         with:
-          java-version: '17'  # Java 17 사용
+          java-version: '17'
           distribution: 'temurin'  # Temurin 배포판 사용
 
       - name: Spring 프로젝트 빌드  # Spring 프로젝트를 빌드합니다
