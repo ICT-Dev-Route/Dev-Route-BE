@@ -37,8 +37,15 @@ jobs:
           cd ./dev-route/
           chmod +x ./gradlew  # gradlew 파일에 실행 권한 부여
           ./gradlew clean build -x test  # 테스트 제외하고 빌드 실행
+      
+      - name: Check for Dockerfile changes
+        id: dockerfileChanged
+        run: |
+          git fetch origin main
+          git diff --quiet origin/main -- Dockerfile || echo "::set-output name=changed::true"
 
       - name: Docker 레이어 캐시  # Docker 레이어 캐싱으로 CPU 사용률 최적화
+        if: steps.dockerfileChanged.outputs.changed == 'true'  # Dockerfile이 변경된 경우에만 캐시 저장
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache  # Docker 빌드 캐시를 저장할 경로
