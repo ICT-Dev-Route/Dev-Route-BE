@@ -46,29 +46,6 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ hashFiles('Dockerfile') }}  # 캐시 키 설정
           restore-keys: |
             ${{ runner.os }}-buildx-
-      
-      #  빌드 단계 (복원된 캐시를 사용하여 빌드)
-      - name: Docker 빌드
-        run: |
-          docker buildx build --cache-from /tmp/.buildx-cache -t my-image -f ./dev-route/Dockerfile .
-
-      
-      #  Dockerfile이 변경된 경우에만 캐시 저장 여부 확인
-      - name: Check for Dockerfile changes
-        id: dockerfileChanged
-        run: |
-          git fetch origin main
-          git diff --quiet origin/main --f ./dev-route/Dockerfile || echo "::set-output name=changed::true"
-      
-      #  Dockerfile이 변경된 경우에만 캐시 저장
-      - name: Docker 레이어 캐시 저장
-        if: steps.dockerfileChanged.outputs.changed == 'true'  # Dockerfile 변경 시에만 캐시 저장
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache  # Docker 빌드 캐시를 저장할 경로
-          key: ${{ runner.os }}-buildx-${{ hashFiles('Dockerfile') }}  # 캐시 키 설정
-
-
       - name: Docker 이미지 생성 및 DockerHub에 푸시  # Docker 이미지를 빌드하고 DockerHub에 푸시합니다
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}  # DockerHub 로그인
@@ -88,3 +65,22 @@ jobs:
             docker rm -f $(docker ps -qa)  # 실행 중인 모든 컨테이너 제거
             docker pull ${{ secrets.DOCKER_REPO }}/devroute-server:${{ github.sha }}  # 새로운 Docker 이미지 pull
             docker run -d -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=prod" ${{ secrets.DOCKER_REPO }}/devroute-server:${{ github.sha }}  # 새 컨테이너 실행
+    
+
+      
+      #  Dockerfile이 변경된 경우에만 캐시 저장 여부 확인
+      - name: Check for Dockerfile changes
+        id: dockerfileChanged
+        run: |
+          git fetch origin main
+          git diff --quiet origin/main --f ./dev-route/Dockerfile || echo "::set-output name=changed::true"
+      
+      #  Dockerfile이 변경된 경우에만 캐시 저장
+      - name: Docker 레이어 캐시 저장
+        if: steps.dockerfileChanged.outputs.changed == 'true'  # Dockerfile 변경 시에만 캐시 저장
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache  # Docker 빌드 캐시를 저장할 경로
+          key: ${{ runner.os }}-buildx-${{ hashFiles('Dockerfile') }}  # 캐시 키 설정
+
+
