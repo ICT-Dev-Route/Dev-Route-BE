@@ -12,42 +12,56 @@ jobs:
   My-Deploy-Job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout  # 리포지토리 소스 코드 체크아웃
         uses: actions/checkout@v3
         with:
           submodules: recursive
           token: ${{ secrets.PAT_TOKEN }}
 
-      - name: JDK 17 설치
+      - name: Check if Buildx is installed  # Buildx 설치 여부 확인
+        id: buildx_installed
+        run: |
+          if docker buildx version; then
+            echo "Buildx is already installed."
+            echo "buildx_exists=true" >> $GITHUB_ENV
+          else
+            echo "buildx_exists=false" >> $GITHUB_ENV
+          fi
+
+      - name: Install Docker Buildx if not installed  # Buildx 설치 (필요한 경우에만)
+        if: env.buildx_exists == 'false'
+        uses: docker/setup-buildx-action@v2  # Buildx 설치
+
+      - name: JDK 17 설치  # JDK 17 설치
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Spring Project 빌드하기
+      - name: Spring Project 빌드하기  # Spring 프로젝트 빌드
         run: |
           cd ./dev-route/
           chmod +x ./gradlew
           ./gradlew clean build -x test
 
-      - name: Cache Docker layers
+      - name: Cache Docker layers  # Docker 레이어 캐시 저장 및 복원
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}  # 캐시 키는 SHA를 기준으로 생성
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - name: Docker 이미지 만들고 DockerHub에 푸시
+      - name: Docker 이미지 만들고 DockerHub에 푸시  # Docker 이미지 빌드 후 DockerHub에 푸시
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           cd ./dev-route/
           docker buildx build --cache-from=type=local,src=/tmp/.buildx-cache \
             --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max \
+            --push \
             -t ${{ secrets.DOCKER_REPO }}/devroute-server:${{ github.sha }} .
-          docker push ${{ secrets.DOCKER_REPO }}/devroute-server:${{ github.sha }}
 
-      - name: EC2에서 이미지 pull 후 컨테이너 실행
+      - name: EC2에서 이미지 pull 후 컨테이너 실행  # EC2 서버에서 Docker 이미지 pull 및 실행
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
