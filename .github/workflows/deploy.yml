@@ -78,7 +78,7 @@ jobs:
       #  Dockerfile이 변경된 경우에만 캐시 저장
       - name: Docker 레이어 캐시 저장
         if: steps.dockerfileChanged.outputs.changed == 'true'  # Dockerfile 변경 시에만 캐시 저장
-        uses: actions/actions/cache/save@v4
+        uses: actions/cache/save@v4
         with:
           path: /tmp/.buildx-cache  # Docker 빌드 캐시를 저장할 경로
           key: ${{ runner.os }}-buildx-${{ hashFiles('Dockerfile') }}  # 캐시 키 설정
