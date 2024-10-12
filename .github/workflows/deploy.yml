@@ -89,7 +89,7 @@ jobs:
 
       - name: Gradle 의존성 캐시 저장
         if: steps.gradleChanged.outputs.changed == 'true'
-        uses: actions/cache@v3
+        uses: actions/cache/save@v4
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
