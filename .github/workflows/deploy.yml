@@ -81,7 +81,7 @@ jobs:
           username: ${{ secrets.EC2_SSH_USER }}  # SSH 접속 사용자 이름
           key: ${{ secrets.PRIVATE_KEY }}  # SSH 프라이빗 키
           script: |  # EC2에서 실행할 스크립트
-            docker rm -f $(docker ps -qa)  # 실행 중인 모든 컨테이너 제거
+            docker stop $(docker ps -q) && docker rm $(docker ps -qa)
             docker pull ${{ secrets.DOCKER_REPO }}/devroute-server:${{ github.sha }}  # 새로운 Docker 이미지 pull
             docker run -d -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=prod" ${{ secrets.DOCKER_REPO }}/devroute-server:${{ github.sha }}  # 새 컨테이너 실행
       - name: Gradle 의존성 캐시 저장
