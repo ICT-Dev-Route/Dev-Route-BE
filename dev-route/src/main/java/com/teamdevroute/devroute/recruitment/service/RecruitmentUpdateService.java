@@ -51,7 +51,7 @@ public class RecruitmentUpdateService {
 
 
         try {
-            if(isMaxApiRequest(objectMapper))
+            if(isMaxApiRequest(objectMapper,initialResponse))
                 return;
             int total = objectMapper.readTree(initialResponse).path("jobs").path("total").asInt();
             for (int i = 0; i <= total / 100; i++) {
@@ -65,8 +65,8 @@ public class RecruitmentUpdateService {
         }
     }
 
-    private static boolean isMaxApiRequest(ObjectMapper objectMapper) throws JsonProcessingException {
-        return objectMapper.readTree("message").asText().equals("일일 최대 요청 가능 횟수가 초과되었습니다.");
+    private static boolean isMaxApiRequest(ObjectMapper objectMapper,String initialResponse) throws JsonProcessingException {
+        return objectMapper.readTree(initialResponse).path("message").asText().equals("일일 최대 요청 가능 횟수가 초과되었습니다.");
     }
 
     private void parseAndStoreRecruitment(JsonNode saraminResponses, String keyword) {
