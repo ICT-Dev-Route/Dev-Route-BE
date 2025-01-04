@@ -13,10 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@RequiredArgsConstructor
-public class CustomUserDetails implements UserDetails {
-
-    private final LoginUserInfo user;
+public record CustomUserDetails(LoginUserInfo user) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
