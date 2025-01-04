@@ -1,12 +1,13 @@
-package com.teamdevroute.devroute.user;
+package com.teamdevroute.devroute.user.service;
 
-import com.teamdevroute.devroute.bookmark.Bookmark;
 import com.teamdevroute.devroute.bookmark.BookmarkService;
 import com.teamdevroute.devroute.global.auth.Oauth2Util;
 import com.teamdevroute.devroute.global.auth.LoginUserInfo;
 import com.teamdevroute.devroute.global.auth.jwt.JwtUtils;
 import com.teamdevroute.devroute.global.exception.DuplicateUserException;
 import com.teamdevroute.devroute.global.exception.UserNotFoundException;
+import com.teamdevroute.devroute.user.dto.UserLoginRequest;
+import com.teamdevroute.devroute.user.repository.UserRepository;
 import com.teamdevroute.devroute.user.domain.User;
 import com.teamdevroute.devroute.user.dto.UserAuthResponse;
 import com.teamdevroute.devroute.user.dto.UserCreateRequest;
@@ -21,10 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Member;
 import java.util.Optional;
-
-import static com.teamdevroute.devroute.user.enums.LoginType.*;
 
 @Service
 @RequiredArgsConstructor

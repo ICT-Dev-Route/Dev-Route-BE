@@ -1,7 +1,7 @@
 package com.teamdevroute.devroute.user.service;
 
 import com.teamdevroute.devroute.global.auth.LoginUserInfo;
-import com.teamdevroute.devroute.user.UserRepository;
+import com.teamdevroute.devroute.user.repository.UserRepository;
 import com.teamdevroute.devroute.user.domain.CustomUserDetails;
 import com.teamdevroute.devroute.user.domain.User;
 import lombok.RequiredArgsConstructor;

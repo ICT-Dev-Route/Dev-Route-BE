@@ -1,4 +1,4 @@
-package com.teamdevroute.devroute.user;
+package com.teamdevroute.devroute.user.controller;
 
 import com.teamdevroute.devroute.global.exception.DuplicateUserException;
 import com.teamdevroute.devroute.global.exception.InvalidAccessException;

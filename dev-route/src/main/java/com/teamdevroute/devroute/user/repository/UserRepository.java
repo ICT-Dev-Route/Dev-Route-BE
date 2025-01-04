@@ -1,4 +1,4 @@
-package com.teamdevroute.devroute.user;
+package com.teamdevroute.devroute.user.repository;
 
 import com.teamdevroute.devroute.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
