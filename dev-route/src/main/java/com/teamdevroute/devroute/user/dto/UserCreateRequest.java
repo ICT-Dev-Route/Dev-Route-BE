@@ -3,7 +3,6 @@ package com.teamdevroute.devroute.user.dto;
 import com.teamdevroute.devroute.user.domain.User;
 import com.teamdevroute.devroute.user.enums.DevelopField;
 import lombok.Builder;
-import lombok.Setter;
 
 @Builder
 public record UserCreateRequest (
