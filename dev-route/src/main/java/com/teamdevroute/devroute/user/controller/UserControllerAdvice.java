@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class UserControllerAdvice {
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity handleNotFoundUserException(UserNotFoundException e) {
+    public ResponseEntity<String> handleNotFoundUserException(UserNotFoundException e) {
         return ResponseEntity.badRequest().body("유저를 찾을 수 없습니다.");
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity handleBadCredentialsException(BadCredentialsException e) {
+    public ResponseEntity<String> handleBadCredentialsException(BadCredentialsException e) {
         return ResponseEntity.badRequest().body("비밀번호가 일치하지 않습니다.");
     }
 
     @ExceptionHandler(DuplicateUserException.class)
-    public ResponseEntity handleDuplicateUserException(DuplicateUserException e) {
+    public ResponseEntity<String> handleDuplicateUserException(DuplicateUserException e) {
         return ResponseEntity.badRequest().body("중복되는 유저 정보입니다.");
     }
 
     @ExceptionHandler(InvalidAccessException.class)
-    public ResponseEntity handleInvalidAccessException(InvalidAccessException e) {
+    public ResponseEntity<String> handleInvalidAccessException(InvalidAccessException e) {
         return ResponseEntity.badRequest().body("접근 권한이 없습니다.");
     }
 
