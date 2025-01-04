@@ -5,7 +5,6 @@ import com.teamdevroute.devroute.user.UserRepository;
 import com.teamdevroute.devroute.user.domain.CustomUserDetails;
 import com.teamdevroute.devroute.user.domain.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -20,17 +19,27 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public CustomUserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        User user = userRepository.findById(Long.parseLong(id))
+        User user = userRepository.findById(parseUserId(id))
                 .orElseThrow(() -> new UsernameNotFoundException("해당하는 유저가 없습니다."));
 
-        LoginUserInfo userInfo = LoginUserInfo.builder()
+        return new CustomUserDetails(buildLoginUserInfo(user));
+    }
+
+    private Long parseUserId(String id) {
+        try{
+            return Long.parseLong(id);
+        } catch(NumberFormatException e) {
+            throw new UsernameNotFoundException("적합하지 않은 유저 ID 형식입니다.");
+        }
+    }
+
+    private LoginUserInfo buildLoginUserInfo(User user) {
+        return LoginUserInfo.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .name(user.getName())
                 .role(user.getUserRole())
                 .build();
-
-        return new CustomUserDetails(userInfo);
     }
 }
