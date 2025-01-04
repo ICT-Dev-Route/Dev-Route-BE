@@ -22,13 +22,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
 public class UserService {
+
     private final BookmarkService bookmarkService;
     private final UserRepository userRepository;
     private final JwtUtils jwtUtils;
@@ -45,97 +44,79 @@ public class UserService {
     }
 
     public String login(UserLoginRequest request) {
-        String email = request.email();
-        String password = request.password();
+        User user = userRepository.findByEmail(request.email()).orElseThrow(UserNotFoundException::new);
 
-        User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
-
-        if(!encoder.matches(password, user.getPassword())){
+        if(!encoder.matches(request.password(), user.getPassword())){
             throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
         }
-        LoginUserInfo loginUserInfo = LoginUserInfo.builder()
+
+        LoginUserInfo loginUserInfo = createLoginUserInfo(user);
+        return jwtUtils.create(loginUserInfo);
+    }
+
+    public String getRedirectUrl(LoginType loginType) {
+        return switch (loginType) {
+            case KAKAO -> oauth2Util.getKakaoRedirectUrl();
+            case GOOGLE -> oauth2Util.getGoogleRedirectUrl();
+            case NAVER -> oauth2Util.getNaverRedirectUrl();
+            default -> throw new IllegalArgumentException("지원하지 않는 로그인 타입입니다. 로그인타입: " + loginType);
+        };
+    }
+
+    public String getAccessToken(String authorizationCode, LoginType loginType, String state){
+        return switch (loginType) {
+            case KAKAO ->  oauth2Util.getKakaoAccessToken(authorizationCode);
+            case GOOGLE -> oauth2Util.getGoogleAccessToken(authorizationCode);
+            case NAVER -> oauth2Util.getNaverAccessToken(authorizationCode, state);
+            default -> throw new IllegalArgumentException("원하지 않는 로그인 타입입니다. 로그인타입: " + loginType);
+        };
+    }
+
+    public String authLogin(String accessToken, LoginType loginType) {
+        UserAuthResponse userAuthResponse = getUserAuthResponse(accessToken, loginType);
+        User user = userRepository.findByEmail(userAuthResponse.email())
+                .orElseGet(() -> createUserFromOAuth(userAuthResponse, loginType));
+
+        LoginUserInfo loginUserInfo = createLoginUserInfo(user);
+        return jwtUtils.create(loginUserInfo);
+    }
+
+    public UserMyPageResponse readMyPage(Long id) {
+        User user = findByUserId(id);
+        return UserMyPageResponse.of(user);
+    }
+
+    private User createUserFromOAuth(UserAuthResponse userAuthResponse, LoginType loginType){
+        User newUser = User.builder()
+                .email(userAuthResponse.email())
+                .name(userAuthResponse.name())
+                .userRole("USER")
+                .developField(DevelopField.NONE)
+                .loginType(loginType.toString())
+                .build();
+
+        User savedUser = userRepository.save(newUser);
+        bookmarkService.createBookmark(savedUser);
+        return savedUser;
+    }
+
+    private UserAuthResponse getUserAuthResponse(String accessToken, LoginType loginType) {
+        return switch (loginType) {
+            case KAKAO -> oauth2Util.getKakaoUserInformation(accessToken);
+            case GOOGLE -> oauth2Util.getGoogleUserInformation(accessToken);
+            case NAVER -> oauth2Util.getNaverUserInformation(accessToken);
+            default -> throw new IllegalArgumentException("원하지 않는 로그인 타입입니다. 로그인타입: " + loginType);
+        };
+    }
+
+    private LoginUserInfo createLoginUserInfo(User user) {
+        return LoginUserInfo.builder()
                 .id(user.getId())
                 .role(user.getUserRole())
                 .name(user.getName())
                 .email(user.getEmail())
                 .password(encoder.encode(user.getPassword()))
                 .build();
-
-        return jwtUtils.create(loginUserInfo);
-    }
-
-
-    public String getRedirectUrl(LoginType loginType) {
-        switch (loginType) {
-            case KAKAO -> {
-                return oauth2Util.getKakaoRedirectUrl();
-            }
-            case GOOGLE -> {
-                return oauth2Util.getGoogleRedirectUrl();
-            }
-            case NAVER -> {
-                return oauth2Util.getNaverRedirectUrl();
-            }
-        }
-        return null;
-    }
-
-    public String getAccessToken(String authorizationCode, LoginType loginType, String state){
-        String accessToken = null;
-        switch (loginType) {
-            case KAKAO -> {
-                accessToken = oauth2Util.getKakaoAccessToken(authorizationCode);
-            }
-            case GOOGLE -> {
-                accessToken = oauth2Util.getGoogleAccessToken(authorizationCode);
-            }
-            case NAVER -> {
-                accessToken = oauth2Util.getNaverAccessToken(authorizationCode, state);
-            }
-        }
-        return accessToken;
-    }
-
-    public String authLogin(String accessToken, LoginType loginType) {
-        UserAuthResponse userAuthResponse = null;
-        switch (loginType) {
-            case KAKAO -> {
-                userAuthResponse = oauth2Util.getKakaoUserInformation(accessToken);
-            }
-            case GOOGLE -> {
-                userAuthResponse = oauth2Util.getGoogleUserInformation(accessToken);
-            }
-            case NAVER -> {
-                userAuthResponse = oauth2Util.getNaverUserInformation(accessToken);
-            }
-        }
-
-        Optional<User> findUser = userRepository.findByEmail(userAuthResponse.email());
-        User user;
-        if(findUser.isEmpty()){
-            User createdUser = User.builder()
-                    .email(userAuthResponse.email())
-                    .name(userAuthResponse.name())
-                    .userRole("USER")
-                    .developField(DevelopField.NONE)
-                    .loginType(loginType.toString())
-                    .build();
-
-            user = userRepository.save(createdUser);
-            bookmarkService.createBookmark(user);
-        }
-        else{
-            user = findUser.get();
-        }
-
-        LoginUserInfo loginUserInfo = LoginUserInfo.builder()
-                .id(user.getId())
-                .email(user.getEmail())
-                .role(user.getUserRole())
-                .name(user.getName())
-                .build();
-
-        return jwtUtils.create(loginUserInfo);
     }
 
     private boolean checkEmailDuplicate(String email) {
@@ -144,11 +125,6 @@ public class UserService {
 
     public User findByUserId(Long id) {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-    }
-
-    public UserMyPageResponse readMyPage(Long id) {
-        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        return UserMyPageResponse.of(user);
     }
 }
 
