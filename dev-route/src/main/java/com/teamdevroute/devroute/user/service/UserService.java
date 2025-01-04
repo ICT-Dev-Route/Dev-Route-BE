@@ -45,8 +45,8 @@ public class UserService {
     }
 
     public String login(UserLoginRequest request) {
-        String email = request.getEmail();
-        String password = request.getPassword();
+        String email = request.email();
+        String password = request.password();
 
         User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
 
