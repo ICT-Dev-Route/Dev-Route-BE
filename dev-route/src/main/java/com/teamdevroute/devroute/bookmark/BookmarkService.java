@@ -5,8 +5,7 @@ import com.teamdevroute.devroute.company.service.CompanyService;
 import com.teamdevroute.devroute.global.exception.UserNotFoundException;
 
 import com.teamdevroute.devroute.roadmap.RoadmapService;
-import com.teamdevroute.devroute.user.UserRepository;
-import com.teamdevroute.devroute.user.UserService;
+import com.teamdevroute.devroute.user.repository.UserRepository;
 import com.teamdevroute.devroute.user.domain.User;
 
 import com.teamdevroute.devroute.video.service.VideoService;

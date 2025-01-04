@@ -23,7 +23,7 @@ public class BookmarkController {
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestBody BookmarkUpdateRequest request
     ) {
-        LoginUserInfo user = userDetails.getUser();
+        LoginUserInfo user = userDetails.user();
         bookmarkService.updateBookmark(request, user.getId());
         return ResponseEntity.ok("북마크가 추가되었습니다.");
     }
@@ -33,7 +33,7 @@ public class BookmarkController {
     public ResponseEntity getBookmark(
             @AuthenticationPrincipal CustomUserDetails userDetails
             ) {
-        LoginUserInfo user = userDetails.getUser();
+        LoginUserInfo user = userDetails.user();
         Bookmark bookmark = bookmarkService.findBookmarkByType(user.getId());
         if(bookmark == null) {
             return ResponseEntity.noContent().build();
@@ -46,7 +46,7 @@ public class BookmarkController {
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestBody BookmarkDeleteRequest request
     ) {
-        LoginUserInfo user = userDetails.getUser();
+        LoginUserInfo user = userDetails.user();
         bookmarkService.deleteBookmark(user.getId(), request);
         return ResponseEntity.ok("북마크가 삭제되었습니다.");
     }

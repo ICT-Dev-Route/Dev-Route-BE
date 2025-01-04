@@ -2,7 +2,7 @@ package com.teamdevroute.devroute.dataloader;
 
 import com.teamdevroute.devroute.bookmark.Bookmark;
 import com.teamdevroute.devroute.bookmark.BookmarkRepository;
-import com.teamdevroute.devroute.user.UserRepository;
+import com.teamdevroute.devroute.user.repository.UserRepository;
 import com.teamdevroute.devroute.user.domain.User;
 import com.teamdevroute.devroute.user.enums.DevelopField;
 import lombok.extern.slf4j.Slf4j;

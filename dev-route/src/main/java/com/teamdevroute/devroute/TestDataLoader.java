@@ -1,12 +1,11 @@
 package com.teamdevroute.devroute;
 
-import com.teamdevroute.devroute.company.controller.CompanyController;
 import com.teamdevroute.devroute.company.domain.Company;
 import com.teamdevroute.devroute.company.repository.CompanyRepository;
 import com.teamdevroute.devroute.recruitment.domain.Recruitment;
 import com.teamdevroute.devroute.recruitment.enums.Source;
 import com.teamdevroute.devroute.recruitment.repository.RecruitmentRepository;
-import com.teamdevroute.devroute.user.UserRepository;
+import com.teamdevroute.devroute.user.repository.UserRepository;
 import com.teamdevroute.devroute.user.domain.User;
 import com.teamdevroute.devroute.user.enums.DevelopField;
 import com.teamdevroute.devroute.user.enums.UserRole;
@@ -18,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 

@@ -9,10 +9,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import java.awt.print.Book;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,14 +22,18 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull @Email @Column(unique=true)
+    @NotNull
+    @Email
     @Size(min = 1, max = 50, message = "이메일은 1 ~ 50자 이여야 합니다.")
+    @Column(unique = true, nullable = false)
     private String email;
 
+    @NotNull
     private String password;
 
     @NotNull
     @Size(min = 1, max = 10, message = "이름은 1 ~ 10자 이여야 합니다.")
+    @Column(nullable = false)
     private String name;
 
     @LastModifiedDate
@@ -40,20 +42,19 @@ public class User extends BaseTimeEntity {
     @Column(name = "login_type")
     private String loginType;
 
-    @Column(name = "user_role")
+    @NotNull
     @ColumnDefault("'USER'")
+    @Column(name = "user_role", nullable = false)
     private String userRole;
 
-    @Column(name = "development_field")
     @Enumerated(EnumType.STRING)
     @ColumnDefault("'NONE'")
+    @Column(name = "development_field", nullable = false)
     private DevelopField developField;
 
-    @Column
     @Size(min = 1, max = 100, message = "소개말은 1 ~ 100자 이여야 합니다.")
     private String introduce_info;
 
-    @Column
     @Size(min = 1, max = 10, message = "목표는 1 ~ 10자 이여야 합니다.")
     private String goal_info;
 
