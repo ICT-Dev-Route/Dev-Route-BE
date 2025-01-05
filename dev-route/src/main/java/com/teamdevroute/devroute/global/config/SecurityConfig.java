@@ -75,6 +75,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");
         configuration.addAllowedOrigin("https://devroute.site"); // 필요한 도메인으로 설정하세요
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");

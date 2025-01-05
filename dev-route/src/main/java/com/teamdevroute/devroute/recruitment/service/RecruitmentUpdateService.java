@@ -50,7 +50,7 @@ public class RecruitmentUpdateService {
         String initialUrl = API_URL + accessKey + "&keywords=" + keyword + "&start=0&count=100";
         String initialResponse = restTemplate.getForObject(initialUrl, String.class);
 
-
+        System.out.println(initialResponse);
         try {
             if(isMaxApiRequest(objectMapper,initialResponse))
                 return;

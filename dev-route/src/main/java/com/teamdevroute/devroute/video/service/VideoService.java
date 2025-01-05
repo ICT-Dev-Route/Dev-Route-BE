@@ -1,5 +1,10 @@
 package com.teamdevroute.devroute.video.service;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.BooleanOperation;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.teamdevroute.devroute.global.aop.timetrace.TimeTrace;
+import com.teamdevroute.devroute.video.Repository.VideoQueryRepository;
 import com.teamdevroute.devroute.video.exception.VideoNotFounException;
 import com.teamdevroute.devroute.video.Repository.TechnologyStackRepository;
 import com.teamdevroute.devroute.video.Repository.VideoRepository;
@@ -15,7 +20,11 @@ import com.teamdevroute.devroute.video.enums.TechnologyStackName;
 import com.teamdevroute.devroute.video.fetcher.InfreanVideoFetcher;
 import com.teamdevroute.devroute.video.fetcher.UdemyVideoFetcher;
 import com.teamdevroute.devroute.video.fetcher.YoutubeVideoFetcher;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,12 +36,17 @@ import java.util.stream.Collectors;
 
 import static com.teamdevroute.devroute.video.constans.ApiConstans.UDEMY_API_URL_FRONT_VIDEOID;
 import static com.teamdevroute.devroute.video.constans.ApiConstans.YOUTUBE_API_URL_FRONT_VIDEOID;
+import static com.teamdevroute.devroute.video.domain.QVideos.videos;
 import static com.teamdevroute.devroute.video.enums.PlatformName.*;
 
 @Service
 @Slf4j
 @Transactional
+@RequiredArgsConstructor
 public class VideoService {
+
+
+    private final VideoQueryRepository queryRepository;
 
     private final VideoRepository videoRepository;
     private final YoutubeVideoFetcher youtubeVideoFetcher;
@@ -41,14 +55,7 @@ public class VideoService {
     private final TechnologyStackRepository technologyStackRepository;
 
 
-    public VideoService(VideoRepository videoRepository, YoutubeVideoFetcher youtubeVideoFetcher,
-                        UdemyVideoFetcher udemyVideoFetcher, InfreanVideoFetcher infreanVideoFetcher, TechnologyStackRepository technologyStackRepository) {
-        this.videoRepository = videoRepository;
-        this.youtubeVideoFetcher = youtubeVideoFetcher;
-        this.udemyVideoFetcher = udemyVideoFetcher;
-        this.infreanVideoFetcher = infreanVideoFetcher;
-        this.technologyStackRepository = technologyStackRepository;
-    }
+
 
     //매주 토요일에 실행
     @Scheduled(cron = "0 42 8 * * 0", zone = "Asia/Seoul")
@@ -144,7 +151,7 @@ public class VideoService {
     public List<LectureResponseDTO> findLectureListByPlatformNameAndTechStack(
             String platformName, String techStack) {
 
-        List<Videos> videos = videoRepository.findByPlatformNameAndTeckStack(platformName, techStack).orElseThrow(
+      /*  List<Videos> videos = videoRepository.findByPlatformNameAndTeckStack(platformName, techStack).orElseThrow(
                 ()->new RuntimeException("해당 플랫폼 및 기술 스택을 가진 영상이 존재하지 않습니다.")
         );
         if(videos.isEmpty()){
@@ -152,23 +159,32 @@ public class VideoService {
         }
         videos.forEach(video->
                 videoRepository.save(video.setAddedCount()))
-        ;
-
-        return videos.stream()
+        ;*/
+        List<Videos> videoList = queryRepository.findLectures(platformName, techStack);
+        addCountVideo(videoList);
+        return videoList.stream()
                 .map(video -> new LectureResponseDTO(video.getId(), video.getUrl(), video.getTitle(), video.getThumnail_url(), video.getPrice(), video.getPlatformName()))
                 .collect(Collectors.toList());
     }
+
+    private void addCountVideo(List<Videos> videoList) {
+        videoList.forEach(video->
+                videoRepository.save(video.setAddedCount()));
+    }
+
 
     public Videos findById(Long id) {
         return videoRepository.findById(id)
                 .orElseThrow(VideoNotFounException::new);
     }
+    @TimeTrace
     public List<LectureResponseDTO> findTop3Videos(){
-        List<Videos> videos=videoRepository.findTop3ByOrderByCountDesc().orElseThrow(
-                () -> new RuntimeException("현재 video가 3개 미만입니다")
-        );
+        List<Videos> videos=videoRepository.findTop3ByOrderByCountDesc();
         if(videos.isEmpty()){
             throw new RuntimeException("현재 video가 3개 미만입니다");
+        }
+        for (Videos video : videos) {
+            System.out.println(video.getCount());
         }
         return videos.stream().map(video -> LectureResponseDTO.builder()
                 .url(video.getUrl())
