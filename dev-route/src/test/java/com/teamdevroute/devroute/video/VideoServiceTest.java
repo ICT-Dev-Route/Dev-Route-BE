@@ -13,6 +13,7 @@ import com.teamdevroute.devroute.video.dto.youtube.YouTubeApiResponse.Item.Thumb
 import com.teamdevroute.devroute.video.fetcher.UdemyVideoFetcher;
 import com.teamdevroute.devroute.video.fetcher.YoutubeVideoFetcher;
 import com.teamdevroute.devroute.video.service.VideoService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -27,9 +30,12 @@ import java.util.Collections;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
+@SpringBootTest
 public class VideoServiceTest {
     @InjectMocks
     private VideoService videoService;
+    @Autowired
+    private VideoService videoServiceWired;
     @Mock
     private VideoRepository videoRepository;
     @Mock
@@ -90,6 +96,13 @@ public class VideoServiceTest {
         videoService.fetchAndSaveUdemyVideos();
         //Tehcnology stack name이 총 9개임으로 9번 호출 되는 것이 맞음.
         verify(videoRepository, times(0)).save(any());
+    }
+
+
+    @DisplayName("조회수 상의 3개의 데이터를 조회한다.")
+    @Test
+    public void testTop3Video(){
+        Assertions.assertNotNull(videoService.findTop3Videos());
     }
     //가짜 YoububeApiResponse를 가져온다.
     private YouTubeApiResponse getMockYouTubeApiResponse() {

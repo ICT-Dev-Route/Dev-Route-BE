@@ -2,14 +2,8 @@ package com.teamdevroute.devroute.video.domain;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.AttributeConverter;
-import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
-import jakarta.persistence.Converter;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.io.IOException;
 import java.util.Map;
 import lombok.Builder;
@@ -18,6 +12,7 @@ import lombok.Getter;
 @Entity
 @Getter
 //@Setter
+@Table(indexes = @Index(name="idx_count",columnList = "count"))
 public class Videos {
 
     @Id
