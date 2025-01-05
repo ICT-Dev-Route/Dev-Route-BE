@@ -9,18 +9,12 @@ import lombok.Builder;
 
 import java.util.List;
 
+@Builder
 public record UserMyPageResponse(
         List<BookmarkCompany> companies,
         List<BookmarkVideo> videos,
         List<BookmarkRoadmap> roadmaps
 ) {
-
-    @Builder
-    public UserMyPageResponse(List<BookmarkCompany> companies, List<BookmarkVideo> videos, List<BookmarkRoadmap> roadmaps) {
-        this.companies = companies;
-        this.videos = videos;
-        this.roadmaps = roadmaps;
-    }
 
     public static UserMyPageResponse of(User user){
         Bookmark bookmark = user.getBookmark();
