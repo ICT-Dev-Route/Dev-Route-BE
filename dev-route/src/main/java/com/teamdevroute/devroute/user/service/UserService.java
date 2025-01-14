@@ -4,7 +4,7 @@ import com.teamdevroute.devroute.bookmark.BookmarkService;
 import com.teamdevroute.devroute.global.auth.Oauth2Util;
 import com.teamdevroute.devroute.global.auth.LoginUserInfo;
 import com.teamdevroute.devroute.global.auth.jwt.JwtUtils;
-import com.teamdevroute.devroute.global.exception.DuplicateUserException;
+import com.teamdevroute.devroute.global.exception.UserDuplicateException;
 import com.teamdevroute.devroute.global.exception.UserNotFoundException;
 import com.teamdevroute.devroute.user.dto.UserLoginRequest;
 import com.teamdevroute.devroute.user.repository.UserRepository;
@@ -36,7 +36,7 @@ public class UserService {
 
     public UserCreateResponse createUser(UserCreateRequest request) {
         if(checkEmailDuplicate(request.email())){
-            throw new DuplicateUserException();
+            throw new UserDuplicateException(request.email());
         }
         User user = userRepository.save(request.toEntity(LoginType.NORMAL.name(), encoder.encode(request.password())));
         bookmarkService.createBookmark(user);
