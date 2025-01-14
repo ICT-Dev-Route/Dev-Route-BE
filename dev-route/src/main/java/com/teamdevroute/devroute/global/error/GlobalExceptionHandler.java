@@ -16,6 +16,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicateException.class)
     protected ResponseEntity<ErrorResponse> handleDuplicateException(DuplicateException e) {
+        log.error(e.getMessage(), e);
         final ErrorCodes errorCodes = e.getErrorCodes();
         final String value = e.getValue();
         final int status = HttpStatus.CONFLICT.value();
