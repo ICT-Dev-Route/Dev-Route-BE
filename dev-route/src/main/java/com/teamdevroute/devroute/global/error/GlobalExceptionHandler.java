@@ -2,6 +2,7 @@ package com.teamdevroute.devroute.global.error;
 
 import com.github.dockerjava.api.exception.UnauthorizedException;
 import com.teamdevroute.devroute.global.error.exception.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -34,7 +36,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> handleException(Exception e) {
-        final int status = HttpStatus.INTERNAL_SERVER_ERROR.value();;
+        log.error(e.getMessage(), e);
+        final int status = HttpStatus.INTERNAL_SERVER_ERROR.value();
 
         final ErrorResponse response = ErrorResponse.of(status, ErrorCodes.INTERNAL_SERVER_ERROR);
 
