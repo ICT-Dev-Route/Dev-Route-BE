@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
 public record CustomUserDetails(LoginUserInfo user) implements UserDetails {
 
     @Override

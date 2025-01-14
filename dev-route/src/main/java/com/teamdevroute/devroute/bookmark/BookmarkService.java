@@ -2,7 +2,7 @@ package com.teamdevroute.devroute.bookmark;
 
 import com.teamdevroute.devroute.company.service.CompanyService;
 
-import com.teamdevroute.devroute.global.exception.UserNotFoundException;
+import com.teamdevroute.devroute.global.error.exception.UserNotFoundException;
 
 import com.teamdevroute.devroute.roadmap.RoadmapService;
 import com.teamdevroute.devroute.user.repository.UserRepository;

@@ -2,6 +2,7 @@ package com.teamdevroute.devroute.user.dto;
 
 import com.teamdevroute.devroute.user.domain.User;
 import com.teamdevroute.devroute.user.enums.DevelopField;
+import com.teamdevroute.devroute.user.enums.UserRole;
 import lombok.Builder;
 
 @Builder
@@ -20,6 +21,7 @@ public record UserCreateRequest (
                 .password(encoded)
                 .developField(DevelopField.NONE)
                 .loginType(loginType)
+                .userRole(UserRole.USER.name())
                 .build();
     }
 }

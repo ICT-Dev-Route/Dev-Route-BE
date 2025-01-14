@@ -5,7 +5,7 @@ import com.teamdevroute.devroute.company.dto.CompanyDetailRecruitResponse;
 import com.teamdevroute.devroute.company.dto.CompanyDetailResponse;
 import com.teamdevroute.devroute.company.repository.CompanyRepository;
 import com.teamdevroute.devroute.company.dto.CompanyResponse;
-import com.teamdevroute.devroute.global.exception.CompanyNotFoundException;
+import com.teamdevroute.devroute.global.error.exception.CompanyNotFoundException;
 import com.teamdevroute.devroute.recruitment.domain.Recruitment;
 import com.teamdevroute.devroute.recruitment.repository.RecruitmentRepository;
 import lombok.AllArgsConstructor;
