@@ -1,6 +1,6 @@
 package com.teamdevroute.devroute.company;
 
-import com.teamdevroute.devroute.global.exception.CompanyNotFoundException;
+import com.teamdevroute.devroute.global.error.exception.CompanyNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

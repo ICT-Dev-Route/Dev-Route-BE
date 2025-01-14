@@ -1,8 +1,6 @@
 package com.teamdevroute.devroute.recruitment.service;
 
-import com.teamdevroute.devroute.company.domain.Company;
 import com.teamdevroute.devroute.company.repository.CompanyRepository;
-import com.teamdevroute.devroute.global.exception.CompanyNotFoundException;
 import com.teamdevroute.devroute.recruitment.domain.Recruitment;
 import com.teamdevroute.devroute.recruitment.dto.RecruitmentFindResponse;
 import com.teamdevroute.devroute.recruitment.dto.TechStackFrequencyDto;

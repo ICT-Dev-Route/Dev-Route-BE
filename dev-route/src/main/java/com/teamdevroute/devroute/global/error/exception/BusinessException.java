@@ -1,4 +1,4 @@
-package com.teamdevroute.devroute.global.exception;
+package com.teamdevroute.devroute.global.error.exception;
 
 import com.teamdevroute.devroute.global.error.ErrorCodes;
 import lombok.Getter;

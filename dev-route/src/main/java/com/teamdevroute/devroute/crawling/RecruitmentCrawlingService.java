@@ -3,7 +3,6 @@ package com.teamdevroute.devroute.crawling;
 import com.teamdevroute.devroute.company.domain.Company;
 import com.teamdevroute.devroute.company.repository.CompanyRepository;
 import com.teamdevroute.devroute.crawling.dto.CrawledRecruitmentDto;
-import com.teamdevroute.devroute.global.exception.CompanyNotFoundException;
 import com.teamdevroute.devroute.recruitment.enums.Source;
 import com.teamdevroute.devroute.recruitment.repository.RecruitmentRepository;
 import lombok.RequiredArgsConstructor;
