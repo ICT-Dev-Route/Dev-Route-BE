@@ -55,7 +55,7 @@ public class UserController {
         return ResponseEntity.ok(url);
     }
 
-    @GetMapping("/auth/{provider}}/callback")
+    @GetMapping("/auth/{provider}/callback")
     public void handleCallback(
             @PathVariable String provider,
             @RequestParam("code") String code,
