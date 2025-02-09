@@ -123,135 +123,181 @@ Removed sections:
 🎓**학습 자료 추천**<br>
  필요한 기술을 학습할 수 있는 유튜브 영상과 온라인 강의 추천.
 
-<!-- Color Reference -->
-### :art: Color Reference
+## Team
 
-| Color             | Hex                                                                |
-| ----------------- | ------------------------------------------------------------------ |
-| Primary Color | ![#222831](https://via.placeholder.com/10/222831?text=+) #222831 |
-| Secondary Color | ![#393E46](https://via.placeholder.com/10/393E46?text=+) #393E46 |
-| Accent Color | ![#00ADB5](https://via.placeholder.com/10/00ADB5?text=+) #00ADB5 |
-| Text Color | ![#EEEEEE](https://via.placeholder.com/10/EEEEEE?text=+) #EEEEEE |
+| **Front** | **Back** | **Back** | **Back** |
+| :------: |  :------: | :------: | :------: |
+| [<img src="https://avatars.githubusercontent.com/u/65596779?v=4" height=150 width=150> <br/> @heewon1104](https://github.com/heewon1104) | [<img src="https://avatars.githubusercontent.com/u/113831848?v=4" height=150 width=150> <br/> @Munhangyeol](https://github.com/Munhangyeol) | [<img src="https://avatars.githubusercontent.com/u/63222221?v=4" height=150 width=150> <br/> @mete0rfish](https://github.com/mete0rfish) | [<img src="https://avatars.githubusercontent.com/u/121409074?v=4" height=150 width=150> <br/> @maark1106](https://github.com/maark1106) |
+
+## 🖥️ Development Environment
+- **Operating Systems**: Windows 11, macOS
+- **IDEs**: IntelliJ, Visual Studio, AWS
+- **Frameworks & Libraries**: Spring Framework, React
+- **Languages**: Java, SQL, JavaScript
+- **Version Control**: GitHub
+- **Collaboration Tools**: Notion, Discord, Google Meet
+- **Server & Database**: AWS EC2, RDS, Docker
+- **CI/CD Pipeline**: GitHub Actions
+- **Monitoring Tools**: Prometheus, Grafana
+
+## 🚀 Technologies and Branch Strategy
+### Technologies
+
+<img width="478" alt="image" src="https://github.com/user-attachments/assets/404b2569-2d02-4ed4-b9ae-7a0b502590a5"><img width="473" alt="image" src="https://github.com/user-attachments/assets/94fabc9c-c261-4716-b894-1022cffa0a00">
 
 
-<!-- Env Variables -->
-### :key: Environment Variables
+**[ System Configuration ]**
+- **프론트엔드**: **React** 프레임워크로 JavaScript 기반의 반응형 웹 인터페이스를 구축하여, UI/UX를 구현하였습니다.
+- **백엔드**: Java를 기반으로 한 **Spring Framework**와 **Spring Boot**로 견고하고 확장 가능한 서버 아키텍처를 설계했습니다.
+- **데이터베이스**: DB 엔진은 **MySQL 8.4.0** 버전을 이용합니다.
 
-To run this project, you will need to add the following environment variables to your .env file
+> 🔐 **JWT Token 인증 및 인가**  
+> 🗄️ **Hibernate (JPA ORM)**로 MySQL과 연동하여 데이터 저장 및 조회  
+> 🌐 **OpenAPI**(사람인, 유튜브, 유데미)로 정보 획득, **Selenium**(잡플래닛, 잡코리아, 인프런)으로 크롤링  
 
-`API_KEY`
+**[ CI/CD ]**
+1. GitHub에 Push 후 Merge가 되면 **GitHub Actions**의 CI/CD 파이프라인 실행
+2. Docker 이미지를 빌드하고 **Docker Hub**에 Push
+3. EC2 서버에 SSH 접속 후, Docker Hub로부터 이미지를 Pull하여 컨테이너 실행
 
-`ANOTHER_API_KEY`
+**[ AWS ]**
+1. 서버는 **EC2**에서, 클라이언트는 **S3 + CloudFront**로 제공
+2. **SSL (ACM)**과 **Route 53**으로 도메인 연결 및 HTTPS 설정
+3. **로드밸런서**를 통해 HTTP 요청 시 HTTPS로 리다이렉트
+4. 클라이언트도 **CloudFront** 설정을 통해 HTTPS 강제 적용
 
-<!-- Getting Started -->
-## 	:toolbox: Getting Started
+### 🌿 Branch Strategy
+**GitHub Flow** 브랜치 전략을 사용하여 깔끔한 개발 프로세스를 유지합니다.  
+- 각 기능/수정 사항은 **별도의 브랜치**에서 개발  
+- **Pull Request (PR)**로 메인 브랜치에 병합  
+- **PR 템플릿**으로 변경 사항 명확화 및 효율적 **코드 리뷰** 진행
 
-<!-- Prerequisites -->
-### :bangbang: Prerequisites
+## 🔑 Main Logic
 
-This project uses Yarn as package manager
+#### 로그인 및 회원가입
+<img src="https://github.com/user-attachments/assets/a4310ef9-d160-4924-9c7e-c430aac1a8f0" width="500"/>
+<img src="https://github.com/user-attachments/assets/a4310ef9-d160-4924-9c7e-c430aac1a8f0" width="500"/>
 
-```bash
- npm install --global yarn
+#### 메인 페이지
+<img src="https://github.com/user-attachments/assets/02531176-4aa0-4a9b-b490-0869cede8b4f" width="500"/>
+
+#### 직군별 개발자 설명
+<img src="https://github.com/user-attachments/assets/7713ba9a-b7a5-47b5-9792-392dcfc8f344" width="500"/>
+
+#### 개발자 로드맵
+<img src="https://github.com/user-attachments/assets/dff83337-9e60-47c0-a132-e9c3ff4c5543" width="500"/>
+
+#### 기업 정보 검색
+<img src="https://github.com/user-attachments/assets/904391a1-373f-41c9-913a-715091381993" width="500"/>
+<img src="https://github.com/user-attachments/assets/5b98ce14-1bda-42f6-8890-fa68a3c3bf57" width="500"/>
+
+#### 채용 공고
+<img src="https://github.com/user-attachments/assets/29fb4dfa-2d0d-42d4-9da8-856bde80f4ec" width="500"/>
+
+#### 개발 관련 추천 영상
+<img src="https://github.com/user-attachments/assets/ea17fc0e-fcb7-46ac-811c-d99c5ff5d5d8" width="500"/>
+
+#### 문의사항
+<img src="https://github.com/user-attachments/assets/879d556e-8066-45e0-a2cc-db1fd9848722" width="500"/>
+
+## 📂 Directory Structure
+### Backend
+```
+.
+└── devroute
+    ├── api
+    │   ├── suggestion
+    │   └── visitorcount
+    ├── bookmark
+    │   ├── domain
+    │   ├── exception
+    │   └── json
+    ├── company
+    │   ├── controller
+    │   ├── domain
+    │   ├── dto
+    │   ├── repository
+    │   └── service
+    ├── crawling
+    │   └── dto
+    ├── dataloader
+    ├── global
+    │   ├── aop
+    │   │   ├── crawl
+    │   │   └── timetrace
+    │   ├── auth
+    │   │   ├── filter
+    │   │   └── jwt
+    │   ├── config
+    │   └── exception
+    ├── recruitment
+    │   ├── controller
+    │   ├── domain
+    │   ├── dto
+    │   ├── enums
+    │   ├── repository
+    │   ├── service
+    │   └── utils
+    ├── roadmap
+    │   ├── description
+    │   ├── domain
+    │   ├── dto
+    │   ├── enums
+    │   └── repository
+    ├── user
+    │   ├── domain
+    │   ├── dto
+    │   ├── enums
+    │   └── service
+    └── video
+        ├── Repository
+        ├── constans
+        ├── domain
+        ├── dto
+        │   ├── infrean
+        │   ├── udemy
+        │   └── youtube
+        ├── enums
+        ├── exception
+        ├── fetcher
+        └── service
 ```
 
-<!-- Installation -->
-### :gear: Installation
+## 🛠️ Trouble Shooting
+### Backend
+1. 영상 추천 페이지에서 **영상이 보이지 않거나**, **개발환경의 더미 데이터가 함께 보이는 문제**를 해결.( [#117: 영상 추천을 보여주는 페이지의 오류 잡기](https://github.com/ICT-Dev-Route/Dev-Route-BE/issues/117))
+   - **개발 및 운영 환경 분리**
+       - 기존에는 application.properties에서 수동으로 프로파일을 설정하여 RDS에 데이터가 중복 저장되는 문제가 있었습니다.
+       - 이를 해결하기 위해 application-dev.properties와 application-prod.properties 파일로 환경을 분리하여, 각 환경에 맞는 설정이 자동으로 적용되도록 개선했습니다.
+2. CI/CD 시 **CPU 사용률 및 메모리 사용 문제**를 해결.([#125:CPU사용률 제어](https://github.com/ICT-Dev-Route/Dev-Route-BE/issues/115))
+     - **CI/CD 개선을 통한 CPU 부하 완화**
+       - Docker 빌드 시 캐싱을 적용해 빌드 시간을 단축하고, DockerHub에서 이미지를 Pull한 후 CPU 사용률 제어를 통해 CI/CD 과정에서의 부하를 줄였습니다.
+     
+    | 항목                | 기존 방식                                | 변경 후 설정                                      |
+    |---------------------|------------------------------------------|---------------------------------------------------|
+    | **CI/CD 시간 단축** | 캐싱 미적용, 긴 빌드 시간                | 캐싱 도입으로 CI/CD 시간 55.37% 개선               |
+    | **CPU 사용률**      | 최대 97% 도달                            | 개선 후 약 53.6% 감소                              |
+3. Selenium의 높은 대기 CPU 점유율을 **24%** 감소. ([크롤링 최적화](https://acoustic-rest-b1b.notion.site/11564b4a4ab48050ad58e0bb688d2e3e?pvs=4))
+   - Prometheus를 통한 모니터링 지표를 통해 크롤링 진행 후 장기적으로 CPU 점유율이 상승하는 것을 발견
+   - 초기 설정을 통해 Selenium Driver가 활성화된 상태에서 CPU를 지속적으로 점유
+   - Spring AOP을 통해 크롤링이 진행된 로직 수행 후 자동으로 quit()을 수행하도록 설정
 
-Install my-project with npm
+    | 항목                | 기존 방식                                | 변경 후 설정                                      |
+    |---------------------|------------------------------------------|---------------------------------------------------|
+    | **Live Thread Count** (현재 실행 중인 모든 스레드의 수) | 31 Threads             | 27 Threads (-4)              |
+    | **Daemon Thread Count** (백그라운드 실행 중인 스레드의 수)      | 26 Threads                     | 22 Threads (-4)       |
+   
 
-```bash
-  yarn install my-project
-  cd my-project
-```
+4. 데이터베이스 Index를 활용해서 비디오 데이터 조회시 발생하는 성능을 96.49% 개선 ([인덱스를 활용한 조회성능 최적화](https://github.com/ICT-Dev-Route/Dev-Route-BE/pull/138))
+   - 홈페이지 화면에서 비디오 조회시의 order by를 수행 후 조회하는 연산시, 기존에는 
+Table full scan
+을 활용해서 조회하므로 느렸음
+   - 이를 인덱싱을 활용해서 10000개의 데이터 기준 0.009398sec에서 0.00033sec로 **96.49%** 성능 개선
+ 
 
-
-<!-- Run Locally -->
-### :running: Run Locally
-
-Clone the project
-
-```bash
-  git clone https://github.com/Louis3797/awesome-readme-template.git
-```
-
-Go to the project directory
-
-```bash
-  cd my-project
-```
-
-Install dependencies
-
-```bash
-  yarn install
-```
-
-Start the server
-
-```bash
-  yarn start
-```
+## 9. Presentation
+[Google Slids](https://docs.google.com/presentation/d/1bHuITo0p8zitikeNWGA1nkG0hogWINJidQZ33G7mzbo/edit#slide=id.gd431007ba2_0_208)
+이거 숫자 대신 이모티콘 넣어서 마크다운으로
 
 
-<!-- Usage -->
-## :eyes: Usage
 
-Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources.
-
-
-```javascript
-import Component from 'my-project'
-
-function App() {
-  return <Component />
-}
-```
-
-<!-- Roadmap -->
-## :compass: Roadmap
-
-* [x] Todo 1
-* [ ] Todo 2
-
-<!-- Contributing -->
-## :wave: Contributing
-
-<a href="https://github.com/Louis3797/awesome-readme-template/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Louis3797/awesome-readme-template" />
-</a>
-
-
-Contributions are always welcome!
-
-See `contributing.md` for ways to get started.
-
-
-<!-- Code of Conduct -->
-### :scroll: Code of Conduct
-
-Please read the [Code of Conduct](https://github.com/Louis3797/awesome-readme-template/blob/master/CODE_OF_CONDUCT.md)
-
-
-<!-- License -->
-## :warning: License
-
-Distributed under the no License. See LICENSE.txt for more information.
-
-
-<!-- Contact -->
-## :handshake: Contact
-
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
-
-Project Link: [https://github.com/Louis3797/awesome-readme-template](https://github.com/Louis3797/awesome-readme-template)
-
-<!-- Acknowledgments -->
-## :gem: Acknowledgements
-
-Use this section to mention useful resources and libraries that you have used in your projects.
-
- - [Shields.io](https://shields.io/)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md#travel--places)
- - [Readme Template](https://github.com/othneildrew/Best-README-Template)
