@@ -295,9 +295,8 @@ Table full scan
    - 이를 인덱싱을 활용해서 10000개의 데이터 기준 0.009398sec에서 0.00033sec로 **96.49%** 성능 개선
  
 
-## 9. Presentation
+## Presentation
 [Google Slids](https://docs.google.com/presentation/d/1bHuITo0p8zitikeNWGA1nkG0hogWINJidQZ33G7mzbo/edit#slide=id.gd431007ba2_0_208)
-이거 숫자 대신 이모티콘 넣어서 마크다운으로
 
 
 
